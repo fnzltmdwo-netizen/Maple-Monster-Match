@@ -139,7 +139,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      max-width: 360px;
+      max-width: 320px;
       margin: 18px auto;
     }
 
@@ -231,6 +231,7 @@
     .mini-title {
       font-weight: 900;
       margin-bottom: 4px;
+      line-height: 1.35;
     }
 
     .mini-meta {
@@ -238,12 +239,14 @@
       color: #6578ff;
       font-weight: 900;
       margin-bottom: 4px;
+      line-height: 1.35;
     }
 
     .mini-reason {
       font-size: 14px;
       color: #666;
       line-height: 1.45;
+      word-break: keep-all;
     }
 
     #shareArea {
@@ -258,14 +261,14 @@
 
     #snsCard {
       width: 430px;
-      min-height: 720px;
+      min-height: 660px;
       padding: 44px 34px;
       background: #f1f5ff;
     }
 
     .sns-inner {
       width: 100%;
-      min-height: 640px;
+      min-height: 580px;
       background: #ffffff;
       border-radius: 24px;
       padding: 28px 28px 32px;
@@ -289,7 +292,7 @@
 
     .sns-main-box {
       width: 100%;
-      min-height: 360px;
+      min-height: 330px;
       background: #eef3ff;
       border-radius: 22px;
       padding: 32px 20px;
@@ -377,25 +380,33 @@
     @media (max-width: 520px) {
       h1 { font-size: 27px; }
 
-      .stat-grid,
+      .stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       .rpg-info {
         grid-template-columns: repeat(2, 1fr);
+        max-width: 320px;
+      }
+
+      .mini-card {
+        grid-template-columns: 64px 1fr;
       }
 
       #snsCard {
         width: 360px;
-        min-height: 650px;
+        min-height: 620px;
         padding: 36px 24px;
       }
 
-      .sns-inner { min-height: 580px; }
+      .sns-inner { min-height: 540px; }
       .sns-header { font-size: 24px; }
       #snsName { font-size: 30px; }
       #snsPercent { font-size: 24px; }
       #snsDesc { font-size: 16px; }
     }
   </style>
-<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=218775"></script>
+<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=221621"></script>
 </head>
 
 <body>
@@ -437,7 +448,7 @@
                 <div class="sns-rpg">
                   <div id="snsRank">등급 -</div>
                   <div id="snsRarity">희귀도 -</div>
-                 </div>
+                </div>
 
                 <div id="snsDesc">-</div>
               </div>
@@ -449,9 +460,8 @@
         </div>
 
         <div class="share-buttons">
-          <button class="ghost-btn" onclick="shareLink()">공유하기</button>
+          <button class="ghost-btn" onclick="shareLink()">카톡 공유용 링크</button>
           <button class="ghost-btn" onclick="resetTest()">새 테스트하기</button>
-         
         </div>
       </div>
     </div>
@@ -541,14 +551,6 @@
 
     function getMonsterRarity(monster) {
       return monster.rarity || "Epic";
-    }
-
-    function getMonsterType(monster) {
-      return monster.monster_type || monster.type || "밸런스형";
-    }
-
-    function getMonsterPower(monster) {
-      return monster.power_score || monster.battle_power || 7777;
     }
 
     function getRankClass(monster) {
@@ -680,204 +682,16 @@
       document.getElementById("shareArea").style.display = "block";
     }
 
-    function openCardPreview() {
-      if (!bestMonster) {
-        alert("먼저 몬스터를 찾아줘!");
-        return;
-      }
-
-      const name = escapeHtml(getMonsterName(bestMonster));
-      const img = escapeHtml(getMonsterImage(bestMonster));
-      const reason = escapeHtml(getMonsterReason(bestMonster));
-      const score = escapeHtml(getMonsterScore(bestMonster));
-      const rank = escapeHtml(getMonsterRank(bestMonster));
-      const type = escapeHtml(getMonsterType(bestMonster));
-      const rarity = escapeHtml(getMonsterRarity(bestMonster));
-      const power = escapeHtml(getMonsterPower(bestMonster));
-
-      const imgHtml = img
-        ? `<img src="${img}" alt="monster" onerror="this.remove(); this.parentElement.innerHTML='🍄';" />`
-        : `🍄`;
-
-      const newWindow = window.open("", "_blank");
-
-      if (!newWindow) {
-        alert("팝업이 차단됐어! 브라우저에서 팝업 허용해줘.");
-        return;
-      }
-
-      const popupHtml = `
-        <!DOCTYPE html>
-        <html lang="ko">
-        <head>
-          <meta charset="UTF-8" />
-          <title>메이플 몬스터 카드</title>
-          <style>
-            * { box-sizing: border-box; }
-
-            body {
-              margin: 0;
-              min-height: 100vh;
-              background: #171923;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              padding: 18px;
-              font-family: Arial, sans-serif;
-            }
-
-            .card {
-              width: min(430px, 92vw);
-              background: #f1f5ff;
-              padding: 28px 22px;
-              border-radius: 18px;
-            }
-
-            .inner {
-              width: 100%;
-              background: #ffffff;
-              border-radius: 24px;
-              padding: 24px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              text-align: center;
-            }
-
-            .header {
-              font-size: 24px;
-              font-weight: 900;
-              margin-bottom: 22px;
-              color: #202124;
-            }
-
-            .sub {
-              font-size: 16px;
-              color: #666;
-              margin-bottom: 18px;
-            }
-
-            .main-box {
-              width: 100%;
-              background: #eef3ff;
-              border-radius: 22px;
-              padding: 26px 18px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              word-break: keep-all;
-            }
-
-            .img-box {
-              width: 100px;
-              height: 100px;
-              margin-bottom: 14px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 58px;
-            }
-
-            .img-box img {
-              max-width: 100px;
-              max-height: 100px;
-              object-fit: contain;
-            }
-
-            .name {
-              font-size: 28px;
-              line-height: 1.2;
-              font-weight: 900;
-              margin-bottom: 8px;
-              color: #222;
-            }
-
-            .percent {
-              color: #6578ff;
-              font-size: 24px;
-              font-weight: 900;
-              margin-bottom: 14px;
-            }
-
-            .rpg {
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              gap: 8px;
-              width: 100%;
-              margin-bottom: 16px;
-            }
-
-            .rpg div {
-              background: white;
-              border-radius: 12px;
-              padding: 8px 6px;
-              font-size: 13px;
-              font-weight: 900;
-              color: #444;
-            }
-
-            .desc {
-              font-size: 16px;
-              line-height: 1.6;
-              color: #444;
-              max-width: 300px;
-            }
-
-            .footer {
-              margin-top: 24px;
-              color: #999;
-              font-size: 14px;
-            }
-
-            .link {
-              margin-top: 10px;
-              color: #6578ff;
-              font-size: 17px;
-              font-weight: 900;
-            }
-          </style>
-        </head>
-
-        <body>
-          <div class="card">
-            <div class="inner">
-              <div class="header">🍄 메이플 몬스터 닮은꼴</div>
-              <div class="sub">당신과 가장 닮은 몬스터는...</div>
-
-              <div class="main-box">
-                <div class="img-box">${imgHtml}</div>
-                <div class="name">${name}</div>
-                <div class="percent">${score}% 닮음</div>
-
-                <div class="rpg">
-                  <div>등급 ${rank}</div>
-                  <div>타입 ${type}</div>
-                  <div>희귀도 ${rarity}</div>
-                  <div>전투력 ${power}</div>
-                </div>
-
-                <div class="desc">${reason}</div>
-              </div>
-
-              <div class="footer">maple-monster-match</div>
-              <div class="link">나도 테스트하러 가기 🍄</div>
-            </div>
-          </div>
-        </body>
-        </html>
-      `;
-
-      newWindow.document.open();
-      newWindow.document.write(popupHtml);
-      newWindow.document.close();
-    }
-
     function getShareUrl() {
-      if (!currentResultId) {
+      const params = new URLSearchParams(window.location.search);
+      const urlResultId = params.get("result");
+      const resultId = currentResultId || urlResultId;
+
+      if (!resultId) {
         return FRONT_URL;
       }
-      return `${FRONT_URL}?result=${encodeURIComponent(currentResultId)}`;
+
+      return `${FRONT_URL}?result=${encodeURIComponent(resultId)}`;
     }
 
     async function shareLink() {
@@ -914,6 +728,7 @@
 
       if (!resultId) return;
 
+      currentResultId = resultId;
       document.getElementById("uploadArea").style.display = "none";
       document.getElementById("subtitle").innerText = "공유된 메이플 몬스터 닮은꼴 결과예요.";
       document.getElementById("loading").style.display = "block";
@@ -934,7 +749,7 @@
           throw new Error("몬스터 결과 없음");
         }
 
-        currentResultId = data.result_id || resultId;
+        currentResultId = resultId || data.result_id || "";
         bestMonster = monsters[0];
 
         renderResult(monsters);
