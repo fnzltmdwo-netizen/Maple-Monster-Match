@@ -1,0 +1,11 @@
+﻿name,mob_id,source_url,face_shape,vibe,cute_level,dark_level,power_level,description,image_url
+달팽이,100100,https://mapledb.kr/search.php?q=100100&t=mob,round,cute,9,1,2,둥글고 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/100100/render/stand
+파란 달팽이,100101,https://mapledb.kr/search.php?q=100101&t=mob,round,cute,8,1,3,둥글고 귀엽고 귀여운 인상,https://maplestory.io/api/KMS/389/mob/100101/render/stand
+스포아,120100,https://mapledb.kr/search.php?q=120100&t=mob,round,cute,9,1,3,"둥글고 귀여운 외형이 특징이며, 친근한 인상",https://maplestory.io/api/KMS/389/mob/120100/render/stand
+스텀프,130100,https://mapledb.kr/search.php?q=130100&t=mob,round,cute,7,1,5,둥글고 귀엽고 강한 인상,https://maplestory.io/api/KMS/389/mob/130100/render/stand
+빨간 달팽이,130101,https://mapledb.kr/search.php?q=130101&t=mob,round,cute,8,1,3,둥글고 귀엽고 부드러운 인상,https://maplestory.io/api/KMS/389/mob/130101/render/stand
+슬라임,210100,https://mapledb.kr/search.php?q=210100&t=mob,round,cute,8,1,3,둥글고 귀엽고 사랑스러운 인상,https://maplestory.io/api/KMS/389/mob/210100/render/stand
+초록버섯,1110100,https://mapledb.kr/search.php?q=1110100&t=mob,round,cute,9,1,3,둥글고 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/1110100/render/stand
+다크 스텀프,1110101,https://mapledb.kr/search.php?q=1110101&t=mob,round,mysterious,3,6,7,"둥글고 신비로운 인상, 어두운 분위기를 가지고 있음",https://maplestory.io/api/KMS/389/mob/1110101/render/stand
+옥토퍼스,1120100,https://mapledb.kr/search.php?q=1120100&t=mob,round,cute,7,1,3,둥글고 귀엽고 조금은 느긋한 인상,https://maplestory.io/api/KMS/389/mob/1120100/render/stand
+엑스텀프,1130100,https://mapledb.kr/search.php?q=1130100&t=mob,round,mysterious,5,3,6,"둥글고 신비로운 인상, 묘한 매력이 느껴짐",https://maplestory.io/api/KMS/389/mob/1130100/render/stand
