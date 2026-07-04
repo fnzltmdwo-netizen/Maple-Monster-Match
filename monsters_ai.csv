@@ -477,95 +477,95 @@ G.팬텀워치,8143000,https://mapledb.kr/search.php?q=8143000&t=mob,round,myste
 간부 A,9400110,https://mapledb.kr/search.php?q=9400110&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400110/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400110/render/stand
 간부 B,9400111,https://mapledb.kr/search.php?q=9400111&t=mob,round,cute,5,3,5,간부 B의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400111/render/stand
 두목,9400120,https://mapledb.kr/search.php?q=9400120&t=mob,round,cute,5,3,5,두목의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400120/render/stand
-여두목,9400121,https://mapledb.kr/search.php?q=9400121&t=mob,round,cute,5,3,5,여두목의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400121/render/stand
-레드 슬라임,9400204,https://mapledb.kr/search.php?q=9400204&t=mob,round,cute,5,3,5,레드 슬라임의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400204/render/stand
-블루머쉬맘,9400205,https://mapledb.kr/search.php?q=9400205&t=mob,round,cute,5,3,5,블루머쉬맘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400205/render/stand
-하급닌자,9400400,https://mapledb.kr/search.php?q=9400400&t=mob,round,cute,5,3,5,하급닌자의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400400/render/stand
-중급닌자,9400401,https://mapledb.kr/search.php?q=9400401&t=mob,round,cute,5,3,5,중급닌자의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400401/render/stand
-상급닌자,9400402,https://mapledb.kr/search.php?q=9400402&t=mob,round,cute,5,3,5,상급닌자의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400402/render/stand
-닌자두목,9400403,https://mapledb.kr/search.php?q=9400403&t=mob,round,cute,5,3,5,닌자두목의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400403/render/stand
-아시가루,9400404,https://mapledb.kr/search.php?q=9400404&t=mob,round,cute,5,3,5,아시가루의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400404/render/stand
-갑주무사,9400405,https://mapledb.kr/search.php?q=9400405&t=mob,round,cute,5,3,5,갑주무사의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400405/render/stand
-쿠노이치,9400406,https://mapledb.kr/search.php?q=9400406&t=mob,round,cute,5,3,5,쿠노이치의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400406/render/stand
-두꺼비 영주,9400408,https://mapledb.kr/search.php?q=9400408&t=mob,round,cute,5,3,5,두꺼비 영주의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400408/render/stand
-웨딩캔들,9400513,https://mapledb.kr/search.php?q=9400513&t=mob,round,cute,5,3,5,웨딩캔들의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400513/render/stand
-튜토리얼Mob1,9409000,https://mapledb.kr/search.php?q=9409000&t=mob,round,cute,5,3,5,튜토리얼Mob1의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9409000/render/stand
-튜토리얼Mob2,9409001,https://mapledb.kr/search.php?q=9409001&t=mob,round,cute,5,3,5,튜토리얼Mob2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9409001/render/stand
-들개,9410000,https://mapledb.kr/search.php?q=9410000&t=mob,round,cute,5,3,5,들개의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410000/render/stand
-멋쟁이 들개,9410001,https://mapledb.kr/search.php?q=9410001&t=mob,round,cute,5,3,5,멋쟁이 들개의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410001/render/stand
-험악한 들개,9410002,https://mapledb.kr/search.php?q=9410002&t=mob,round,cute,5,3,5,험악한 들개의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410002/render/stand
-광대 원숭이,9410003,https://mapledb.kr/search.php?q=9410003&t=mob,round,cute,5,3,5,광대 원숭이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410003/render/stand
-폭주족 원숭이,9410004,https://mapledb.kr/search.php?q=9410004&t=mob,round,cute,5,3,5,폭주족 원숭이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410004/render/stand
-레드 버블티,9410005,https://mapledb.kr/search.php?q=9410005&t=mob,round,cute,5,3,5,레드 버블티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410005/render/stand
-옐로우 버블티,9410006,https://mapledb.kr/search.php?q=9410006&t=mob,round,cute,5,3,5,옐로우 버블티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410006/render/stand
-그린 버블티,9410007,https://mapledb.kr/search.php?q=9410007&t=mob,round,cute,5,3,5,그린 버블티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410007/render/stand
-예티 인형자판기,9410008,https://mapledb.kr/search.php?q=9410008&t=mob,round,cute,5,3,5,예티 인형자판기의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410008/render/stand
-예티 인형,9410009,https://mapledb.kr/search.php?q=9410009&t=mob,round,cute,5,3,5,예티 인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410009/render/stand
-주니어페페 인형자판기,9410010,https://mapledb.kr/search.php?q=9410010&t=mob,round,cute,5,3,5,주니어페페 인형자판기의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410010/render/stand
-주니어페페 인형,9410011,https://mapledb.kr/search.php?q=9410011&t=mob,round,cute,5,3,5,주니어페페 인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410011/render/stand
-인형자판기,9410012,https://mapledb.kr/search.php?q=9410012&t=mob,round,cute,5,3,5,인형자판기의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410012/render/stand
-인형뽑기 기계,9410013,https://mapledb.kr/search.php?q=9410013&t=mob,round,cute,5,3,5,인형뽑기 기계의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410013/render/stand
-포장마차,9410014,https://mapledb.kr/search.php?q=9410014&t=mob,round,cute,5,3,5,포장마차의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410014/render/stand
-두꺼비,9420000,https://mapledb.kr/search.php?q=9420000&t=mob,round,cute,5,3,5,두꺼비의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420000/render/stand
-개구리,9420001,https://mapledb.kr/search.php?q=9420001&t=mob,round,cute,5,3,5,개구리의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420001/render/stand
-구렁이,9420002,https://mapledb.kr/search.php?q=9420002&t=mob,round,cute,5,3,5,구렁이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420002/render/stand
-빨간 도마뱀,9420003,https://mapledb.kr/search.php?q=9420003&t=mob,round,cute,5,3,5,빨간 도마뱀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420003/render/stand
-노란 도마뱀,9420004,https://mapledb.kr/search.php?q=9420004&t=mob,round,cute,5,3,5,노란 도마뱀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420004/render/stand
-흰 닭,9420005,https://mapledb.kr/search.php?q=9420005&t=mob,round,cute,5,3,5,흰 닭의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420005/render/stand
-파이어 독,9500138,https://mapledb.kr/search.php?q=9500138&t=mob,round,cute,5,3,5,파이어 독의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500138/render/stand
-코-크 돼지,9500143,https://mapledb.kr/search.php?q=9500143&t=mob,round,cute,5,3,5,코-크 돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500143/render/stand
-코-크 달팽이,9500144,https://mapledb.kr/search.php?q=9500144&t=mob,round,cute,5,3,5,코-크 달팽이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500144/render/stand
-코-크 씰,9500145,https://mapledb.kr/search.php?q=9500145&t=mob,round,cute,5,3,5,코-크 씰의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500145/render/stand
-플레이 씰,9500146,https://mapledb.kr/search.php?q=9500146&t=mob,round,cute,5,3,5,플레이 씰의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500146/render/stand
-예티와 코-크텀프,9500147,https://mapledb.kr/search.php?q=9500147&t=mob,round,cute,5,3,5,예티와 코-크텀프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500147/render/stand
-이글루 터틀,9500148,https://mapledb.kr/search.php?q=9500148&t=mob,round,cute,5,3,5,이글루 터틀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500148/render/stand
-코-크 골렘,9500149,https://mapledb.kr/search.php?q=9500149&t=mob,round,cute,5,3,5,코-크 골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500149/render/stand
-아이스 골렘,9500150,https://mapledb.kr/search.php?q=9500150&t=mob,round,cute,5,3,5,아이스 골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500150/render/stand
-코-크 슬라임,9500151,https://mapledb.kr/search.php?q=9500151&t=mob,round,cute,5,3,5,코-크 슬라임의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500151/render/stand
-코-크 버섯,9500152,https://mapledb.kr/search.php?q=9500152&t=mob,round,cute,5,3,5,코-크 버섯의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500152/render/stand
-코-크텀프,9500153,https://mapledb.kr/search.php?q=9500153&t=mob,round,cute,5,3,5,코-크텀프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500153/render/stand
-코-크텀프 라이트,9500154,https://mapledb.kr/search.php?q=9500154&t=mob,round,cute,5,3,5,코-크텀프 라이트의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500154/render/stand
-황금돼지,9500167,https://mapledb.kr/search.php?q=9500167&t=mob,round,cute,5,3,5,황금돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500167/render/stand
-파파 픽시,9500170,https://mapledb.kr/search.php?q=9500170&t=mob,round,cute,5,3,5,파파 픽시의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500170/render/stand
-블루 머쉬맘,9500176,https://mapledb.kr/search.php?q=9500176&t=mob,round,cute,5,3,5,블루 머쉬맘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500176/render/stand
-포장마차(변신전),9500178,https://mapledb.kr/search.php?q=9500178&t=mob,round,cute,5,3,5,포장마차(변신전)의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500178/render/stand
-포장마차(변신후),9500179,https://mapledb.kr/search.php?q=9500179&t=mob,round,cute,5,3,5,포장마차(변신후)의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500179/render/stand
-수박파수꾼 호걸,9500182,https://mapledb.kr/search.php?q=9500182&t=mob,round,cute,5,3,5,수박파수꾼 호걸의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500182/render/stand
-라이드워드,9500184,https://mapledb.kr/search.php?q=9500184&t=mob,round,cute,5,3,5,라이드워드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500184/render/stand
-라이드워드Y,9500185,https://mapledb.kr/search.php?q=9500185&t=mob,round,cute,5,3,5,라이드워드Y의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500185/render/stand
-라이드워드B,9500186,https://mapledb.kr/search.php?q=9500186&t=mob,round,cute,5,3,5,라이드워드B의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500186/render/stand
-망가진 인형,9500187,https://mapledb.kr/search.php?q=9500187&t=mob,round,cute,5,3,5,망가진 인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500187/render/stand
-부서진 인형,9500188,https://mapledb.kr/search.php?q=9500188&t=mob,round,cute,5,3,5,부서진 인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500188/render/stand
-선물상자,9500189,https://mapledb.kr/search.php?q=9500189&t=mob,round,cute,5,3,5,선물상자의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500189/render/stand
-삐에로 인형,9500190,https://mapledb.kr/search.php?q=9500190&t=mob,round,cute,5,3,5,삐에로 인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500190/render/stand
-고스트,9500191,https://mapledb.kr/search.php?q=9500191&t=mob,round,cute,5,3,5,고스트의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500191/render/stand
-호박기사,9500192,https://mapledb.kr/search.php?q=9500192&t=mob,round,cute,5,3,5,호박기사의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500192/render/stand
-파이어 스티드,9500193,https://mapledb.kr/search.php?q=9500193&t=mob,round,cute,5,3,5,파이어 스티드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500193/render/stand
-거울 유령,9500194,https://mapledb.kr/search.php?q=9500194&t=mob,round,cute,5,3,5,거울 유령의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500194/render/stand
-잭오랜턴,9500195,https://mapledb.kr/search.php?q=9500195&t=mob,round,cute,5,3,5,잭오랜턴의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500195/render/stand
-유령,9500196,https://mapledb.kr/search.php?q=9500196&t=mob,round,cute,5,3,5,유령의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500196/render/stand
-Zoo 발록,9500200,https://mapledb.kr/search.php?q=9500200&t=mob,round,cute,5,3,5,Zoo 발록의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500200/render/stand
-Zoo 예티,9500201,https://mapledb.kr/search.php?q=9500201&t=mob,round,cute,5,3,5,Zoo 예티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500201/render/stand
-Zoo 화이트팽,9500202,https://mapledb.kr/search.php?q=9500202&t=mob,round,cute,5,3,5,Zoo 화이트팽의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500202/render/stand
-Zoo 돼지,9500203,https://mapledb.kr/search.php?q=9500203&t=mob,round,cute,5,3,5,Zoo 돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500203/render/stand
-Zoo 리본돼지,9500204,https://mapledb.kr/search.php?q=9500204&t=mob,round,cute,5,3,5,Zoo 리본돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500204/render/stand
-호박밭의 잭오랜턴,9500302,https://mapledb.kr/search.php?q=9500302&t=mob,round,cute,5,3,5,호박밭의 잭오랜턴의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500302/render/stand
-거울 유령2,9500303,https://mapledb.kr/search.php?q=9500303&t=mob,round,cute,5,3,5,거울 유령2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500303/render/stand
-거울 유령3,9500304,https://mapledb.kr/search.php?q=9500304&t=mob,round,cute,5,3,5,거울 유령3의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500304/render/stand
-꼬마 눈사람,9500317,https://mapledb.kr/search.php?q=9500317&t=mob,round,cute,5,3,5,꼬마 눈사람의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500317/render/stand
-화난 눈사람,9500318,https://mapledb.kr/search.php?q=9500318&t=mob,round,cute,5,3,5,화난 눈사람의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500318/render/stand
-거대 눈사람,9500319,https://mapledb.kr/search.php?q=9500319&t=mob,round,cute,5,3,5,거대 눈사람의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500319/render/stand
-길잃은 루돌프,9500320,https://mapledb.kr/search.php?q=9500320&t=mob,round,cute,5,3,5,길잃은 루돌프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500320/render/stand
-눈사람,9500321,https://mapledb.kr/search.php?q=9500321&t=mob,round,cute,5,3,5,눈사람의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500321/render/stand
-치즈 창고 고양이,9500323,https://mapledb.kr/search.php?q=9500323&t=mob,round,cute,5,3,5,치즈 창고 고양이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500323/render/stand
-크림슨발록,9500328,https://mapledb.kr/search.php?q=9500328&t=mob,round,cute,5,3,5,크림슨발록의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500328/render/stand
-프랑켄 로이드,9500335,https://mapledb.kr/search.php?q=9500335&t=mob,round,cute,5,3,5,프랑켄 로이드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500335/render/stand
-박,9500400,https://mapledb.kr/search.php?q=9500400&t=mob,round,cute,5,3,5,박의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500400/render/stand
-닭,9600001,https://mapledb.kr/search.php?q=9600001&t=mob,round,cute,5,3,5,닭의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600001/render/stand
-오리,9600002,https://mapledb.kr/search.php?q=9600002&t=mob,round,cute,5,3,5,오리의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600002/render/stand
-양,9600003,https://mapledb.kr/search.php?q=9600003&t=mob,round,cute,5,3,5,양의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600003/render/stand
-염소,9600004,https://mapledb.kr/search.php?q=9600004&t=mob,round,cute,5,3,5,염소의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600004/render/stand
-흑염소,9600005,https://mapledb.kr/search.php?q=9600005&t=mob,round,cute,5,3,5,흑염소의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600005/render/stand
-소,9600006,https://mapledb.kr/search.php?q=9600006&t=mob,round,cute,5,3,5,소의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600006/render/stand
-쟁기소,9600007,https://mapledb.kr/search.php?q=9600007&t=mob,round,cute,5,3,5,쟁기소의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600007/render/stand
-검은 양,9600008,https://mapledb.kr/search.php?q=9600008&t=mob,round,cute,5,3,5,검은 양의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600008/render/stand
+여두목,9400121,https://mapledb.kr/search.php?q=9400121&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400121/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400121/render/stand
+레드 슬라임,9400204,https://mapledb.kr/search.php?q=9400204&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400204/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400204/render/stand
+블루머쉬맘,9400205,https://mapledb.kr/search.php?q=9400205&t=mob,round,cute,8,1,2,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/9400205/render/stand
+하급닌자,9400400,https://mapledb.kr/search.php?q=9400400&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400400/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400400/render/stand
+중급닌자,9400401,https://mapledb.kr/search.php?q=9400401&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400401/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400401/render/stand
+상급닌자,9400402,https://mapledb.kr/search.php?q=9400402&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400402/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400402/render/stand
+닌자두목,9400403,https://mapledb.kr/search.php?q=9400403&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400403/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400403/render/stand
+아시가루,9400404,https://mapledb.kr/search.php?q=9400404&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400404/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400404/render/stand
+갑주무사,9400405,https://mapledb.kr/search.php?q=9400405&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400405/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400405/render/stand
+쿠노이치,9400406,https://mapledb.kr/search.php?q=9400406&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400406/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400406/render/stand
+두꺼비 영주,9400408,https://mapledb.kr/search.php?q=9400408&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9400408/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9400408/render/stand
+웨딩캔들,9400513,https://mapledb.kr/search.php?q=9400513&t=mob,round,cute,8,1,2,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/9400513/render/stand
+튜토리얼Mob1,9409000,https://mapledb.kr/search.php?q=9409000&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9409000/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9409000/render/stand
+튜토리얼Mob2,9409001,https://mapledb.kr/search.php?q=9409001&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9409001/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9409001/render/stand
+들개,9410000,https://mapledb.kr/search.php?q=9410000&t=mob,square,dark,3,6,5,각지고 단단한 외형에 음산한 인상,https://maplestory.io/api/KMS/389/mob/9410000/render/stand
+멋쟁이 들개,9410001,https://mapledb.kr/search.php?q=9410001&t=mob,round,calm,5,1,3,둥글고 차분한 인상의 목각적인 들개,https://maplestory.io/api/KMS/389/mob/9410001/render/stand
+험악한 들개,9410002,https://mapledb.kr/search.php?q=9410002&t=mob,square,dark,1,7,5,각지고 단단하며 음산한 인상,https://maplestory.io/api/KMS/389/mob/9410002/render/stand
+광대 원숭이,9410003,https://mapledb.kr/search.php?q=9410003&t=mob,round,cute,6,1,3,동글동글한 외형과 순한 인상,https://maplestory.io/api/KMS/389/mob/9410003/render/stand
+폭주족 원숭이,9410004,https://mapledb.kr/search.php?q=9410004&t=mob,round,strong,5,2,7,"둥글고 강한 느낌, 전투적인 분위기",https://maplestory.io/api/KMS/389/mob/9410004/render/stand
+레드 버블티,9410005,https://mapledb.kr/search.php?q=9410005&t=mob,round,cute,7,1,3,동글동글하고 순한 인상,https://maplestory.io/api/KMS/389/mob/9410005/render/stand
+옐로우 버블티,9410006,https://mapledb.kr/search.php?q=9410006&t=mob,round,dark,1,7,4,둥글고 무표정하지만 음산한 인상,https://maplestory.io/api/KMS/389/mob/9410006/render/stand
+그린 버블티,9410007,https://mapledb.kr/search.php?q=9410007&t=mob,round,dark,3,6,4,둥글고 말랑한 외형에 불쾌한 인상,https://maplestory.io/api/KMS/389/mob/9410007/render/stand
+예티 인형자판기,9410008,https://mapledb.kr/search.php?q=9410008&t=mob,square,calm,2,1,5,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/9410008/render/stand
+예티 인형,9410009,https://mapledb.kr/search.php?q=9410009&t=mob,round,calm,3,1,5,둥글고 부드러운 외형에 차분한 인상,https://maplestory.io/api/KMS/389/mob/9410009/render/stand
+주니어페페 인형자판기,9410010,https://mapledb.kr/search.php?q=9410010&t=mob,square,calm,2,3,5,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/9410010/render/stand
+주니어페페 인형,9410011,https://mapledb.kr/search.php?q=9410011&t=mob,round,cute,8,1,2,동글동글하고 귀여운 외형을 가진 인형,https://maplestory.io/api/KMS/389/mob/9410011/render/stand
+인형자판기,9410012,https://mapledb.kr/search.php?q=9410012&t=mob,square,calm,3,2,5,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/9410012/render/stand
+인형뽑기 기계,9410013,https://mapledb.kr/search.php?q=9410013&t=mob,square,calm,5,1,3,각지고 단단한 외형에 차분한 분위기,https://maplestory.io/api/KMS/389/mob/9410013/render/stand
+포장마차,9410014,https://mapledb.kr/search.php?q=9410014&t=mob,oval,calm,3,1,4,부드러운 타원형 외형과 차분한 분위기,https://maplestory.io/api/KMS/389/mob/9410014/render/stand
+두꺼비,9420000,https://mapledb.kr/search.php?q=9420000&t=mob,round,calm,4,1,3,"둥글고 부드러운 외형, 차분한 인상",https://maplestory.io/api/KMS/389/mob/9420000/render/stand
+개구리,9420001,https://mapledb.kr/search.php?q=9420001&t=mob,round,cute,8,1,3,"둥글고 귀여운 인상, 부드러운 외형",https://maplestory.io/api/KMS/389/mob/9420001/render/stand
+구렁이,9420002,https://mapledb.kr/search.php?q=9420002&t=mob,oval,dark,1,8,7,타원형의 몸과 음산한 인상을 가진 구렁이,https://maplestory.io/api/KMS/389/mob/9420002/render/stand
+빨간 도마뱀,9420003,https://mapledb.kr/search.php?q=9420003&t=mob,square,dark,1,6,7,각지고 단단하며 불길한 표정을 지닌 외형,https://maplestory.io/api/KMS/389/mob/9420003/render/stand
+노란 도마뱀,9420004,https://mapledb.kr/search.php?q=9420004&t=mob,long,calm,3,2,5,길쭉한 외형과 무표정한 인상,https://maplestory.io/api/KMS/389/mob/9420004/render/stand
+흰 닭,9420005,https://mapledb.kr/search.php?q=9420005&t=mob,round,calm,4,0,3,둥글고 부드러운 외형으로 차분한 인상,https://maplestory.io/api/KMS/389/mob/9420005/render/stand
+파이어 독,9500138,https://mapledb.kr/search.php?q=9500138&t=mob,square,strong,1,3,7,각지고 단단하며 전투적인 인상,https://maplestory.io/api/KMS/389/mob/9500138/render/stand
+코-크 돼지,9500143,https://mapledb.kr/search.php?q=9500143&t=mob,round,calm,3,1,4,둥글고 부드러운 외형이지만 차분한 인상,https://maplestory.io/api/KMS/389/mob/9500143/render/stand
+코-크 달팽이,9500144,https://mapledb.kr/search.php?q=9500144&t=mob,round,cute,8,0,2,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/9500144/render/stand
+코-크 씰,9500145,https://mapledb.kr/search.php?q=9500145&t=mob,round,cute,7,1,3,둥근 외형과 순한 인상이 특징인 몬스터,https://maplestory.io/api/KMS/389/mob/9500145/render/stand
+플레이 씰,9500146,https://mapledb.kr/search.php?q=9500146&t=mob,round,mysterious,0,8,5,둥글고 기괴한 외형으로 신비로운 분위기를 가진 몬스터,https://maplestory.io/api/KMS/389/mob/9500146/render/stand
+예티와 코-크텀프,9500147,https://mapledb.kr/search.php?q=9500147&t=mob,round,cute,7,1,3,둥글고 부드러운 외형에 순한 인상,https://maplestory.io/api/KMS/389/mob/9500147/render/stand
+이글루 터틀,9500148,https://mapledb.kr/search.php?q=9500148&t=mob,oval,calm,4,1,2,부드러운 세로형 외형과 차분한 인상,https://maplestory.io/api/KMS/389/mob/9500148/render/stand
+코-크 골렘,9500149,https://mapledb.kr/search.php?q=9500149&t=mob,square,calm,2,4,6,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/9500149/render/stand
+아이스 골렘,9500150,https://mapledb.kr/search.php?q=9500150&t=mob,square,calm,2,4,6,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/9500150/render/stand
+코-크 슬라임,9500151,https://mapledb.kr/search.php?q=9500151&t=mob,round,cute,8,1,3,둥글고 말랑한 외형으로 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/9500151/render/stand
+코-크 버섯,9500152,https://mapledb.kr/search.php?q=9500152&t=mob,round,cute,6,1,3,둥글고 사랑스러운 외형에 순한 인상,https://maplestory.io/api/KMS/389/mob/9500152/render/stand
+코-크텀프,9500153,https://mapledb.kr/search.php?q=9500153&t=mob,round,mysterious,3,5,5,둥글고 기묘한 인상으로 마법적인 분위기를 가진 몬스터,https://maplestory.io/api/KMS/389/mob/9500153/render/stand
+코-크텀프 라이트,9500154,https://mapledb.kr/search.php?q=9500154&t=mob,round,dark,1,7,5,둥글지만 음산한 인상과 강한 기운이 느껴짐,https://maplestory.io/api/KMS/389/mob/9500154/render/stand
+황금돼지,9500167,https://mapledb.kr/search.php?q=9500167&t=mob,round,cute,8,1,3,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/9500167/render/stand
+파파 픽시,9500170,https://mapledb.kr/search.php?q=9500170&t=mob,round,cute,8,1,2,"둥글고 귀여운 외형, 다소 무표정한 인상",https://maplestory.io/api/KMS/389/mob/9500170/render/stand
+블루 머쉬맘,9500176,https://mapledb.kr/search.php?q=9500176&t=mob,round,cute,8,1,2,둥글고 부드러운 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/9500176/render/stand
+포장마차(변신전),9500178,https://mapledb.kr/search.php?q=9500178&t=mob,oval,calm,3,1,4,부드러운 타원형 외형으로 차분한 인상,https://maplestory.io/api/KMS/389/mob/9500178/render/stand
+포장마차(변신후),9500179,https://mapledb.kr/search.php?q=9500179&t=mob,square,calm,2,3,7,각지고 단단하며 차분한 인상,https://maplestory.io/api/KMS/389/mob/9500179/render/stand
+수박파수꾼 호걸,9500182,https://mapledb.kr/search.php?q=9500182&t=mob,square,strong,1,2,8,각지고 단단하며 전투적인 인상,https://maplestory.io/api/KMS/389/mob/9500182/render/stand
+라이드워드,9500184,https://mapledb.kr/search.php?q=9500184&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9500184/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9500184/render/stand
+라이드워드Y,9500185,https://mapledb.kr/search.php?q=9500185&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9500185/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9500185/render/stand
+라이드워드B,9500186,https://mapledb.kr/search.php?q=9500186&t=mob,round,cute,5,3,5,"분석 실패: Error code: 400 - {'error': {'message': 'Error while downloading https://maplestory.io/api/KMS/389/mob/9500186/render/stand.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_url'}}",https://maplestory.io/api/KMS/389/mob/9500186/render/stand
+망가진 인형,9500187,https://mapledb.kr/search.php?q=9500187&t=mob,round,dark,3,7,4,둥글고 기괴한 외형에 음산한 인상,https://maplestory.io/api/KMS/389/mob/9500187/render/stand
+부서진 인형,9500188,https://mapledb.kr/search.php?q=9500188&t=mob,round,dark,3,7,5,둥글고 기괴한 인상으로 음산한 느낌을 주는 외형,https://maplestory.io/api/KMS/389/mob/9500188/render/stand
+선물상자,9500189,https://mapledb.kr/search.php?q=9500189&t=mob,square,calm,3,2,5,각지고 단단한 외형으로 차분한 느낌,https://maplestory.io/api/KMS/389/mob/9500189/render/stand
+삐에로 인형,9500190,https://mapledb.kr/search.php?q=9500190&t=mob,round,dark,3,7,5,둥글고 기괴한 표정으로 음산한 느낌을 주는 인형,https://maplestory.io/api/KMS/389/mob/9500190/render/stand
+고스트,9500191,https://mapledb.kr/search.php?q=9500191&t=mob,round,dark,6,4,3,둥글고 약간 음산한 인상,https://maplestory.io/api/KMS/389/mob/9500191/render/stand
+호박기사,9500192,https://mapledb.kr/search.php?q=9500192&t=mob,square,strong,2,5,7,각지고 단단하며 전투적인 인상,https://maplestory.io/api/KMS/389/mob/9500192/render/stand
+파이어 스티드,9500193,https://mapledb.kr/search.php?q=9500193&t=mob,square,dark,1,8,7,각지고 단단하며 음산한 인상,https://maplestory.io/api/KMS/389/mob/9500193/render/stand
+거울 유령,9500194,https://mapledb.kr/search.php?q=9500194&t=mob,round,mysterious,1,6,4,둥글고 기이한 외형이며 불확실한 분위기,https://maplestory.io/api/KMS/389/mob/9500194/render/stand
+잭오랜턴,9500195,https://mapledb.kr/search.php?q=9500195&t=mob,round,dark,3,7,5,둥글고 무서운 표정으로 음산한 분위기,https://maplestory.io/api/KMS/389/mob/9500195/render/stand
+유령,9500196,https://mapledb.kr/search.php?q=9500196&t=mob,round,mysterious,3,5,4,"둥글고 기묘한 외형, 약간 음산한 분위기",https://maplestory.io/api/KMS/389/mob/9500196/render/stand
+Zoo 발록,9500200,https://mapledb.kr/search.php?q=9500200&t=mob,square,strong,1,7,8,각지고 단단하며 전투적인 인상,https://maplestory.io/api/KMS/389/mob/9500200/render/stand
+Zoo 예티,9500201,https://mapledb.kr/search.php?q=9500201&t=mob,square,calm,1,3,7,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/9500201/render/stand
+Zoo 화이트팽,9500202,https://mapledb.kr/search.php?q=9500202&t=mob,square,dark,1,7,5,각지고 단단하며 음산한 인상,https://maplestory.io/api/KMS/389/mob/9500202/render/stand
+Zoo 돼지,9500203,https://mapledb.kr/search.php?q=9500203&t=mob,round,cute,7,1,2,"둥글고 부드러운 외형, 귀엽고 순한 인상",https://maplestory.io/api/KMS/389/mob/9500203/render/stand
+Zoo 리본돼지,9500204,https://mapledb.kr/search.php?q=9500204&t=mob,round,cute,7,1,2,"둥글고 귀여운 외형, 순한 인상",https://maplestory.io/api/KMS/389/mob/9500204/render/stand
+호박밭의 잭오랜턴,9500302,https://mapledb.kr/search.php?q=9500302&t=mob,round,dark,3,7,5,둥글지만 무서운 표정을 지닌 음산한 인상,https://maplestory.io/api/KMS/389/mob/9500302/render/stand
+거울 유령2,9500303,https://mapledb.kr/search.php?q=9500303&t=mob,round,mysterious,1,5,4,둥글고 기묘하며 음산한 인상,https://maplestory.io/api/KMS/389/mob/9500303/render/stand
+거울 유령3,9500304,https://mapledb.kr/search.php?q=9500304&t=mob,round,mysterious,3,6,4,둥글고 기괴한 인상의 유령,https://maplestory.io/api/KMS/389/mob/9500304/render/stand
+꼬마 눈사람,9500317,https://mapledb.kr/search.php?q=9500317&t=mob,round,cute,8,1,2,둥글고 귀여운 인상,https://maplestory.io/api/KMS/389/mob/9500317/render/stand
+화난 눈사람,9500318,https://mapledb.kr/search.php?q=9500318&t=mob,round,dark,3,5,4,둥글고 눈빛이 무섭고 위협적인 인상,https://maplestory.io/api/KMS/389/mob/9500318/render/stand
+거대 눈사람,9500319,https://mapledb.kr/search.php?q=9500319&t=mob,round,calm,3,2,5,둥글고 차분한 인상,https://maplestory.io/api/KMS/389/mob/9500319/render/stand
+길잃은 루돌프,9500320,https://mapledb.kr/search.php?q=9500320&t=mob,round,cute,8,1,2,둥글고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/9500320/render/stand
+눈사람,9500321,https://mapledb.kr/search.php?q=9500321&t=mob,round,cute,8,2,3,"둥글고 부드러운 외형, 귀엽고 순한 인상",https://maplestory.io/api/KMS/389/mob/9500321/render/stand
+치즈 창고 고양이,9500323,https://mapledb.kr/search.php?q=9500323&t=mob,round,cute,7,1,2,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/9500323/render/stand
+크림슨발록,9500328,https://mapledb.kr/search.php?q=9500328&t=mob,square,strong,0,5,7,각지고 단단하며 전투적인 인상,https://maplestory.io/api/KMS/389/mob/9500328/render/stand
+프랑켄 로이드,9500335,https://mapledb.kr/search.php?q=9500335&t=mob,square,dark,1,7,8,각지고 단단하며 음산한 분위기를 지닌 모습,https://maplestory.io/api/KMS/389/mob/9500335/render/stand
+박,9500400,https://mapledb.kr/search.php?q=9500400&t=mob,round,cute,8,1,2,"둥글고 부드러운 외형, 귀엽고 순한 인상",https://maplestory.io/api/KMS/389/mob/9500400/render/stand
+닭,9600001,https://mapledb.kr/search.php?q=9600001&t=mob,round,strong,3,2,5,둥글고 강한 인상이지만 무서운 표정으로 강하게 보임,https://maplestory.io/api/KMS/389/mob/9600001/render/stand
+오리,9600002,https://mapledb.kr/search.php?q=9600002&t=mob,round,cute,8,1,2,둥글고 말랑한 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/9600002/render/stand
+양,9600003,https://mapledb.kr/search.php?q=9600003&t=mob,round,dark,2,6,5,"둥글고 부드러운 외형이나, 무서운 표정으로 음산한 인상",https://maplestory.io/api/KMS/389/mob/9600003/render/stand
+염소,9600004,https://mapledb.kr/search.php?q=9600004&t=mob,round,cute,6,1,2,둥글고 귀여운 인상이며 부드러운 외형,https://maplestory.io/api/KMS/389/mob/9600004/render/stand
+흑염소,9600005,https://mapledb.kr/search.php?q=9600005&t=mob,square,dark,1,7,5,각지고 단단하며 음산한 인상,https://maplestory.io/api/KMS/389/mob/9600005/render/stand
+소,9600006,https://mapledb.kr/search.php?q=9600006&t=mob,round,dark,3,5,4,둥글고 기괴한 표정을 짓고 있는 외형,https://maplestory.io/api/KMS/389/mob/9600006/render/stand
+쟁기소,9600007,https://mapledb.kr/search.php?q=9600007&t=mob,round,dark,2,6,5,둥글고 통통하지만 위협적인 인상,https://maplestory.io/api/KMS/389/mob/9600007/render/stand
+검은 양,9600008,https://mapledb.kr/search.php?q=9600008&t=mob,round,dark,3,6,5,"둥글고 기괴한 인상으로, 음산한 분위기를 풍김",https://maplestory.io/api/KMS/389/mob/9600008/render/stand
