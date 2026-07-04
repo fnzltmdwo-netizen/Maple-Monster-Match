@@ -4,15 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>메이플 몬스터 닮은꼴</title>
 
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -48,9 +43,7 @@
       line-height: 1.5;
     }
 
-    input[type="file"] {
-      margin: 16px 0;
-    }
+    input[type="file"] { margin: 16px 0; }
 
     #preview {
       display: none;
@@ -74,18 +67,12 @@
       box-shadow: 0 8px 18px rgba(101, 120, 255, 0.28);
     }
 
-    button:hover {
-      background: #5264e8;
-    }
+    button:hover { background: #5264e8; }
 
     .ghost-btn {
       background: #f0f3ff;
       color: #596cff;
       box-shadow: none;
-    }
-
-    .ghost-btn:hover {
-      background: #e5e9ff;
     }
 
     #loading {
@@ -106,14 +93,10 @@
     }
 
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      to { transform: rotate(360deg); }
     }
 
-    #result {
-      margin-top: 30px;
-    }
+    #result { margin-top: 30px; }
 
     .result-card {
       background: #f7f9ff;
@@ -123,13 +106,21 @@
       box-shadow: inset 0 0 0 1px #e2e7ff;
     }
 
-    .monster-img {
+    .monster-img-box {
       width: 120px;
       height: 120px;
-      object-fit: contain;
       margin: 12px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 58px;
+    }
+
+    .monster-img-box img {
+      max-width: 120px;
+      max-height: 120px;
+      object-fit: contain;
       display: block;
-      image-rendering: auto;
     }
 
     .rank-title {
@@ -189,10 +180,20 @@
       box-shadow: 0 5px 14px rgba(40, 60, 120, 0.08);
     }
 
-    .mini-card img {
+    .mini-img-box {
       width: 64px;
       height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+    }
+
+    .mini-img-box img {
+      max-width: 64px;
+      max-height: 64px;
       object-fit: contain;
+      display: block;
     }
 
     .mini-title {
@@ -211,10 +212,6 @@
       margin-top: 34px;
     }
 
-    .share-buttons {
-      margin-top: 18px;
-    }
-
     .sns-card-wrap {
       display: flex;
       justify-content: center;
@@ -225,7 +222,6 @@
       min-height: 720px;
       padding: 44px 34px;
       background: #f1f5ff;
-      border-radius: 0;
     }
 
     .sns-inner {
@@ -265,12 +261,21 @@
       word-break: keep-all;
     }
 
-    #snsImg {
-      width: 96px;
-      height: 96px;
+    .sns-img-box {
+      width: 110px;
+      height: 110px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+    }
+
+    .sns-img-box img {
+      max-width: 110px;
+      max-height: 110px;
       object-fit: contain;
-      margin-bottom: 22px;
-      display: none;
+      display: block;
     }
 
     #snsName {
@@ -309,10 +314,12 @@
       font-weight: 900;
     }
 
+    .share-buttons {
+      margin-top: 18px;
+    }
+
     @media (max-width: 520px) {
-      h1 {
-        font-size: 27px;
-      }
+      h1 { font-size: 27px; }
 
       .stat-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -324,25 +331,11 @@
         padding: 36px 24px;
       }
 
-      .sns-inner {
-        min-height: 580px;
-      }
-
-      .sns-header {
-        font-size: 24px;
-      }
-
-      #snsName {
-        font-size: 30px;
-      }
-
-      #snsPercent {
-        font-size: 24px;
-      }
-
-      #snsDesc {
-        font-size: 16px;
-      }
+      .sns-inner { min-height: 580px; }
+      .sns-header { font-size: 24px; }
+      #snsName { font-size: 30px; }
+      #snsPercent { font-size: 24px; }
+      #snsDesc { font-size: 16px; }
     }
   </style>
 </head>
@@ -377,7 +370,7 @@
               <div class="sns-sub">당신과 가장 닮은 몬스터는...</div>
 
               <div class="sns-main-box">
-                <img id="snsImg" alt="monster" />
+                <div class="sns-img-box" id="snsImgBox">🍄</div>
                 <div id="snsName">-</div>
                 <div id="snsPercent">-% 닮음</div>
                 <div id="snsDesc">-</div>
@@ -390,9 +383,8 @@
         </div>
 
         <div class="share-buttons">
-          <button onclick="openCardPreview()">카드 크게 보기</button>
-          <button onclick="saveCardImage()">이미지 저장</button>
-          <button class="ghost-btn" onclick="shareCard()">공유하기</button>
+          <button onclick="openCardPreview()">카드 새창 보기</button>
+          <button class="ghost-btn" onclick="shareLink()">공유하기</button>
         </div>
       </div>
     </div>
@@ -400,6 +392,7 @@
 
   <script>
     const API_URL = "https://maple-monster-match.onrender.com/match";
+    const FRONT_URL = "https://maple-monster-frontend.onrender.com";
 
     const MONSTER_IMAGE_MAP = {
       "이글루 터틀": "https://maplestory.io/api/KMS/389/mob/5130103/icon"
@@ -470,10 +463,22 @@
       );
     }
 
-    function makeImageTag(monster, className) {
+    function createMonsterImageBox(monster, boxClass) {
       const img = getMonsterImage(monster);
-      if (!img) return "";
-      return `<img class="${className}" src="${img}" crossorigin="anonymous" referrerpolicy="no-referrer" />`;
+
+      if (!img) {
+        return `<div class="${boxClass}">🍄</div>`;
+      }
+
+      return `
+        <div class="${boxClass}">
+          <img 
+            src="${img}" 
+            alt="monster"
+            onerror="this.remove(); this.parentElement.innerHTML='🍄';"
+          />
+        </div>
+      `;
     }
 
     async function analyzeImage() {
@@ -489,12 +494,8 @@
       try {
         const response = await fetch(API_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            image_base64: selectedBase64
-          })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image_base64: selectedBase64 })
         });
 
         if (!response.ok) {
@@ -502,7 +503,6 @@
         }
 
         const data = await response.json();
-
         console.log("API RESULT:", data);
 
         const monsters =
@@ -533,20 +533,16 @@
       const result = document.getElementById("result");
       const main = monsters[0];
 
-      const name = getMonsterName(main);
-      const reason = getMonsterReason(main);
-      const score = getMonsterScore(main);
-
       result.innerHTML = `
         <div class="result-card">
-          <div class="rank-title">✨ 1위 ${name}</div>
-          ${makeImageTag(main, "monster-img")}
-          <div class="score">${score}% 닮음</div>
+          <div class="rank-title">✨ 1위 ${getMonsterName(main)}</div>
+          ${createMonsterImageBox(main, "monster-img-box")}
+          <div class="score">${getMonsterScore(main)}% 닮음</div>
 
-          <div class="reason">${reason}</div>
+          <div class="reason">${getMonsterReason(main)}</div>
 
           <div class="stat-grid">
-            <div class="stat">분위기 ${safeValue(main.vibe || main.mood || main.atmosphere, "몽글")}</div>
+            <div class="stat">분위기 ${safeValue(main.vibe || main.mood || main.atmosphere, "calm")}</div>
             <div class="stat">귀여움 ${safeValue(main.cute || main.cuteness, "높음")}</div>
             <div class="stat">어둠 ${safeValue(main.dark || main.darkness, "낮음")}</div>
             <div class="stat">포스 ${safeValue(main.force || main.power, "중간")}</div>
@@ -556,9 +552,7 @@
         <div class="top3-list">
           ${monsters.map((m, index) => `
             <div class="mini-card">
-              <div>
-                ${makeImageTag(m, "")}
-              </div>
+              ${createMonsterImageBox(m, "mini-img-box")}
               <div>
                 <div class="mini-title">${index + 1}위. ${getMonsterName(m)} · ${getMonsterScore(m)}%</div>
                 <div class="mini-reason">${getMonsterReason(m)}</div>
@@ -579,34 +573,37 @@
       document.getElementById("snsPercent").innerText = `${score}% 닮음`;
       document.getElementById("snsDesc").innerText = reason;
 
-      const snsImg = document.getElementById("snsImg");
+      const snsImgBox = document.getElementById("snsImgBox");
 
       if (img) {
-        snsImg.crossOrigin = "anonymous";
-        snsImg.referrerPolicy = "no-referrer";
-        snsImg.src = img;
-        snsImg.style.display = "block";
+        snsImgBox.innerHTML = `
+          <img 
+            src="${img}" 
+            alt="monster"
+            onerror="this.remove(); this.parentElement.innerHTML='🍄';"
+          />
+        `;
       } else {
-        snsImg.style.display = "none";
+        snsImgBox.innerHTML = "🍄";
       }
 
       document.getElementById("shareArea").style.display = "block";
     }
 
-    async function makeCardCanvas() {
-      const card = document.getElementById("snsCard");
+    function openCardPreview() {
+      if (!bestMonster) {
+        alert("먼저 몬스터를 찾아줘!");
+        return;
+      }
 
-      return await html2canvas(card, {
-        backgroundColor: "#f1f5ff",
-        scale: 2,
-        useCORS: true,
-        allowTaint: true
-      });
-    }
+      const name = getMonsterName(bestMonster);
+      const img = getMonsterImage(bestMonster);
+      const reason = getMonsterReason(bestMonster);
+      const score = getMonsterScore(bestMonster);
 
-    async function openCardPreview() {
-      const canvas = await makeCardCanvas();
-      const imageUrl = canvas.toDataURL("image/png");
+      const imgHtml = img
+        ? `<img src="${img}" alt="monster" onerror="this.remove(); this.parentElement.innerHTML='🍄';" />`
+        : `🍄`;
 
       const newWindow = window.open("", "_blank");
 
@@ -630,18 +627,125 @@
               align-items: center;
               justify-content: center;
               padding: 24px;
+              font-family: Arial, sans-serif;
             }
 
-            img {
-              max-width: 95vw;
-              max-height: 95vh;
-              border-radius: 16px;
-              box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+            .card {
+              width: 430px;
+              min-height: 720px;
+              padding: 44px 34px;
+              background: #f1f5ff;
+            }
+
+            .inner {
+              width: 100%;
+              min-height: 640px;
+              background: #ffffff;
+              border-radius: 24px;
+              padding: 28px 28px 32px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              text-align: center;
+            }
+
+            .header {
+              font-size: 28px;
+              font-weight: 900;
+              margin-bottom: 28px;
+              color: #202124;
+            }
+
+            .sub {
+              font-size: 17px;
+              color: #666;
+              margin-bottom: 24px;
+            }
+
+            .main-box {
+              width: 100%;
+              min-height: 360px;
+              background: #eef3ff;
+              border-radius: 22px;
+              padding: 32px 20px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              word-break: keep-all;
+            }
+
+            .img-box {
+              width: 110px;
+              height: 110px;
+              margin-bottom: 18px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 64px;
+            }
+
+            .img-box img {
+              max-width: 110px;
+              max-height: 110px;
+              object-fit: contain;
+            }
+
+            .name {
+              font-size: 34px;
+              line-height: 1.2;
+              font-weight: 900;
+              margin-bottom: 8px;
+              color: #222;
+            }
+
+            .percent {
+              color: #6578ff;
+              font-size: 27px;
+              font-weight: 900;
+              margin-bottom: 24px;
+            }
+
+            .desc {
+              font-size: 18px;
+              line-height: 1.65;
+              color: #444;
+              max-width: 300px;
+            }
+
+            .footer {
+              margin-top: auto;
+              padding-top: 32px;
+              color: #999;
+              font-size: 15px;
+            }
+
+            .link {
+              margin-top: 14px;
+              color: #6578ff;
+              font-size: 18px;
+              font-weight: 900;
             }
           </style>
         </head>
+
         <body>
-          <img src="${imageUrl}" alt="메이플 몬스터 카드" />
+          <div class="card">
+            <div class="inner">
+              <div class="header">🍄 메이플 몬스터 닮은꼴</div>
+              <div class="sub">당신과 가장 닮은 몬스터는...</div>
+
+              <div class="main-box">
+                <div class="img-box">${imgHtml}</div>
+                <div class="name">${name}</div>
+                <div class="percent">${score}% 닮음</div>
+                <div class="desc">${reason}</div>
+              </div>
+
+              <div class="footer">maple-monster-match</div>
+              <div class="link">나도 테스트하러 가기 🍄</div>
+            </div>
+          </div>
         </body>
         </html>
       `);
@@ -649,34 +753,30 @@
       newWindow.document.close();
     }
 
-    async function saveCardImage() {
-      const canvas = await makeCardCanvas();
-      const imageUrl = canvas.toDataURL("image/png");
+    async function shareLink() {
+      const shareText = bestMonster
+        ? `내 메이플 몬스터 닮은꼴은 ${getMonsterName(bestMonster)}!`
+        : "메이플 몬스터 닮은꼴 테스트";
 
-      const link = document.createElement("a");
-      link.download = "maple_monster_card.png";
-      link.href = imageUrl;
-      link.click();
-    }
-
-    async function shareCard() {
-      const canvas = await makeCardCanvas();
-
-      canvas.toBlob(async function (blob) {
-        const file = new File([blob], "maple_monster_card.png", {
-          type: "image/png"
-        });
-
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      if (navigator.share) {
+        try {
           await navigator.share({
             title: "메이플 몬스터 닮은꼴",
-            text: "내 메이플 몬스터 닮은꼴 결과!",
-            files: [file]
+            text: shareText,
+            url: FRONT_URL
           });
-        } else {
-          alert("이 브라우저에서는 바로 공유가 안 돼서 이미지 저장을 사용해줘!");
+          return;
+        } catch (error) {
+          console.log(error);
         }
-      });
+      }
+
+      try {
+        await navigator.clipboard.writeText(FRONT_URL);
+        alert("테스트 링크가 복사됐어!");
+      } catch (error) {
+        alert(FRONT_URL);
+      }
     }
   </script>
 </body>
