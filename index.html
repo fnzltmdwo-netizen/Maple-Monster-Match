@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>메이플 몬스터 닮은꼴 테스트</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7ff;
+      text-align: center;
+      padding: 40px;
+    }
+    .box {
+      max-width: 520px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    h1 {
+      color: #333;
+    }
+    input, button {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      background: #6b7cff;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #5365e8;
+    }
+    #preview {
+      margin-top: 20px;
+      max-width: 220px;
+      border-radius: 14px;
+      display: none;
+    }
+    .result {
+      margin-top: 24px;
+      text-align: left;
+    }
+    .card {
+      background: #f0f3ff;
+      padding: 16px;
+      margin-top: 12px;
+      border-radius: 14px;
+    }
+    .rank {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .loading {
+      margin-top: 20px;
+      color: #666;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>🍄 메이플 몬스터 닮은꼴 테스트</h1>
+    <p>사진을 올리면 GPT가 분석해서 닮은 몬스터 Top 3를 찾아줘요!</p>
+
+    <input type="file" id="fileInput" accept="image/*" />
+    <br />
+    <img id="preview" />
+    <br />
+    <button onclick="uploadImage()">몬스터 찾기</button>
+
+    <div id="loading" class="loading">분석 중... 잠시만 기다려줘 😆</div>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    const API_URL = "https://maple-monster-match.onrender.com/match-image";
+
+    const fileInput = document.getElementById("fileInput");
+    const preview = document.getElementById("preview");
+
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = "inline-block";
+    });
+
+    async function uploadImage() {
+      const file = fileInput.files[0];
+      const resultDiv = document.getElementById("result");
+      const loading = document.getElementById("loading");
+
+      if (!file) {
+        alert("사진을 먼저 선택해줘!");
+        return;
+      }
+
+      resultDiv.innerHTML = "";
+      loading.style.display = "block";
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+        loading.style.display = "none";
+
+        if (data.error) {
+          resultDiv.innerHTML = `<p>${data.error}</p>`;
+          return;
+        }
+
+        let html = `
+          <h2>✨ 분석 결과</h2>
+          <p>
+            얼굴형: <b>${data.features.face_shape}</b><br>
+            분위기: <b>${data.features.vibe}</b><br>
+            귀여움: <b>${data.features.cute_level}</b> /
+            어둠: <b>${data.features.dark_level}</b> /
+            포스: <b>${data.features.power_level}</b>
+          </p>
+        `;
+
+        data.top3.forEach((monster, index) => {
+          const medals = ["🥇", "🥈", "🥉"];
+          html += `
+            <div class="card">
+              <div class="rank">${medals[index]} ${monster.name}</div>
+              <p>점수: ${monster.score}</p>
+              <p>${monster.reason}</p>
+            </div>
+          `;
+        });
+
+        resultDiv.innerHTML = html;
+
+      } catch (error) {
+        loading.style.display = "none";
+        resultDiv.innerHTML = "<p>API 호출 실패 😭 다시 시도해줘.</p>";
+      }
+    }
+  </script>
+</body>
+</html>
