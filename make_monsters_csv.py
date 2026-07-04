@@ -1,51 +1,81 @@
-import requests
 import pandas as pd
-from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
 from urllib.parse import urljoin
-import re
 
 BASE_URL = "https://mapledb.kr/mob.php"
 
-headers = {
-    "User-Agent": "Mozilla/5.0"
-}
+def main():
+    monsters = []
 
-res = requests.get(BASE_URL, headers=headers, timeout=20)
-res.raise_for_status()
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto(BASE_URL, wait_until="networkidle", timeout=60000)
+        page.wait_for_timeout(3000)
 
-soup = BeautifulSoup(res.text, "html.parser")
+        items = page.evaluate("""
+        () => {
+          const results = [];
+          const links = Array.from(document.querySelectorAll('a'));
 
-monsters = []
+          for (const a of links) {
+            const name = a.innerText.trim();
+            const href = a.getAttribute('href') || '';
+            if (!name) continue;
 
-# 페이지 안의 모든 링크 검사
-for a in soup.find_all("a"):
-    name = a.get_text(strip=True)
-    href = a.get("href", "")
+            const isMonsterLink =
+              href.includes('mob') &&
+              !href.endsWith('mob.php') &&
+              name.length <= 40;
 
-    if not name:
-        continue
+            if (!isMonsterLink) continue;
 
-    # mob 상세 링크만 추정
-    if "mob.php" in href or "mob_id" in href or "id=" in href:
-        full_url = urljoin(BASE_URL, href)
+            const parent = a.closest('tr, li, div, .card') || a.parentElement;
+            const img = parent ? parent.querySelector('img') : null;
+            const image = img ? (img.getAttribute('src') || '') : '';
+
+            results.push({
+              name,
+              href,
+              image
+            });
+          }
+
+          return results;
+        }
+        """)
+
+        browser.close()
+
+    seen = set()
+
+    for item in items:
+        name = item["name"].replace("\n", " ").strip()
+        href = urljoin(BASE_URL, item["href"])
+        image_url = urljoin(BASE_URL, item["image"]) if item["image"] else ""
+
+        if not name or name in seen:
+            continue
+
+        seen.add(name)
 
         monsters.append({
             "name": name,
-            "source_url": full_url,
+            "source_url": href,
             "face_shape": "round",
             "vibe": "cute",
             "cute_level": 5,
             "dark_level": 3,
             "power_level": 5,
-            "description": f"{name}의 메이플 몬스터 이미지와 분위기를 기반으로 한 후보",
-            "image_url": ""
+            "description": f"{name}의 외형과 분위기를 기반으로 한 메이플 몬스터 후보",
+            "image_url": image_url
         })
 
-# 중복 제거
-df = pd.DataFrame(monsters)
-df = df.drop_duplicates(subset=["name"])
+    df = pd.DataFrame(monsters)
+    df.to_csv("monsters_full.csv", index=False, encoding="utf-8-sig")
 
-df.to_csv("monsters_full.csv", index=False, encoding="utf-8-sig")
+    print(f"완료! 몬스터 {len(df)}마리 저장됨")
+    print(df.head(10))
 
-print(f"완료! 몬스터 {len(df)}마리 저장됨")
-print("파일명: monsters_full.csv")
+if __name__ == "__main__":
+    main()
