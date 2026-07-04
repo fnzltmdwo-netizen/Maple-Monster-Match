@@ -26,50 +26,46 @@ def extract_json(text):
 
 
 def analyze_monster(name, image_url):
-    prompt = f"""
-너는 메이플 몬스터 DB 분류기다.
+        prompt = f"""
+너는 메이플스토리 몬스터 DB 분류기다.
 
 절대 귀여움 편향을 가지면 안 된다.
+몬스터를 사람 닮은꼴 매칭에 쓰기 위해 외형과 분위기를 냉정하게 분류한다.
 
 몬스터 이름:
 {name}
 
-규칙:
+face_shape는 반드시 하나:
+- round: 둥글거나 말랑한 외형
+- oval: 타원형, 부드러운 세로형
+- long: 길쭉하거나 몸통이 긴 외형
+- square: 각지거나 단단한 외형
+- triangle: 뾰족하거나 날카로운 외형
 
-1. face_shape는 반드시 하나 선택
-- round (둥글다)
-- oval (타원형)
-- long (길쭉하다)
-- square (각지다)
-- triangle (뾰족하다)
+vibe는 반드시 하나:
+- cute: 귀엽고 순한 인상
+- dark: 음산함, 악마, 공포, 좀비 느낌
+- strong: 전투적, 거칠고 강한 인상
+- calm: 무표정, 차분함, 단단함
+- mysterious: 기묘함, 마법적, 알 수 없는 분위기
 
-2. vibe는 반드시 하나 선택
-- cute
-- dark
-- strong
-- calm
-- mysterious
+중요 규칙:
+- 나무, 로봇, 골렘, 바위, 갑옷 계열은 cute를 주지 말고 calm 또는 strong으로 분류해.
+- 보스형, 용, 악마형은 strong 또는 dark로 분류해.
+- 유령, 마법형, 실험체, 시계/기계 계열은 mysterious 또는 dark로 분류해.
+- 동글동글해도 표정이 무섭거나 기괴하면 cute가 아니라 dark/mysterious야.
+- power_level은 실제 전투력이 아니라 외형상 강해 보이는 정도야.
 
-판정 기준:
-- cute = 귀엽고 순함
-- dark = 음산, 악마, 공포
-- strong = 전투적, 강함
-- calm = 무표정, 차분
-- mysterious = 기묘, 마법적
+cute_level, dark_level, power_level은 0~10 정수.
 
-중요:
-나무/로봇/골렘 계열은 cute를 주지 마라.
-보스형은 strong 또는 dark.
-유령/마법형은 mysterious 또는 dark.
-
-JSON만 출력:
+반드시 JSON만 출력:
 {{
- "face_shape":"square",
- "vibe":"calm",
- "cute_level":2,
- "dark_level":4,
- "power_level":6,
- "description":"각지고 단단하며 무표정한 인상"
+  "face_shape": "square",
+  "vibe": "calm",
+  "cute_level": 2,
+  "dark_level": 4,
+  "power_level": 6,
+  "description": "각지고 단단하며 무표정한 인상"
 }}
 """
 
