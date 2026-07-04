@@ -198,6 +198,46 @@ def score_to_percent(score, rank_index):
     percent -= rank_index * 3
     return max(70, min(99, percent))
 
+def get_rank(percent):
+    if percent >= 97:
+        return "S"
+    elif percent >= 92:
+        return "A"
+    elif percent >= 85:
+        return "B"
+    return "C"
+
+
+def get_rarity(rank):
+    mapping = {
+        "S": "Legendary",
+        "A": "Epic",
+        "B": "Rare",
+        "C": "Common",
+    }
+    return mapping[rank]
+
+
+def get_monster_type(monster):
+    vibe = safe_str(monster.get("vibe"))
+    power = safe_int(monster.get("power_level"))
+    cute = safe_int(monster.get("cute_level"))
+
+    if power >= 8:
+        return "보스형"
+    if cute >= 8:
+        return "귀요미형"
+
+    mapping = {
+        "calm": "냉미남형",
+        "cute": "귀요미형",
+        "dark": "다크형",
+        "strong": "전사형",
+        "mysterious": "신비형"
+    }
+
+    return mapping.get(vibe, "밸런스형")
+
 
 def make_reason(features, monster):
     vibe = safe_str(monster.get("vibe"))
@@ -263,6 +303,14 @@ def find_top3(features):
 
     for i, item in enumerate(results):
         item["match_percent"] = score_to_percent(item["score"], i)
+        
+    for i, item in enumerate(results):
+    percent = score_to_percent(item["score"], i)
+    item["match_percent"] = percent
+    item["rank"] = get_rank(percent)
+    item["rarity"] = get_rarity(item["rank"])
+    item["monster_type"] = get_monster_type(item)
+    item["power_score"] = int(item["score"] * 73)
 
     return results
 
