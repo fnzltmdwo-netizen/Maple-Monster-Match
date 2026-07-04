@@ -216,7 +216,7 @@ cute_level, dark_level, power_level은 0~10 정수.
     candidates = find_candidates(features, limit=10)
     candidate_text = make_candidate_text(candidates)
 
-    judge_prompt = f"""
+        judge_prompt = f"""
 너는 메이플스토리 몬스터 닮은꼴 최종 심사위원이야.
 
 사진 속 인물과 아래 후보 몬스터 10마리를 비교해서
@@ -238,25 +238,25 @@ cute_level, dark_level, power_level은 0~10 정수.
 match_percent는 70~98 사이 정수로 줘.
 
 출력 형식:
-{
+{{
   "top3": [
-    {
+    {{
       "name": "몬스터명",
       "match_percent": 92,
       "reason": "닮은 이유를 자연스럽게 한 문장으로 설명"
-    },
-    {
+    }},
+    {{
       "name": "몬스터명",
       "match_percent": 88,
       "reason": "닮은 이유를 자연스럽게 한 문장으로 설명"
-    },
-    {
+    }},
+    {{
       "name": "몬스터명",
       "match_percent": 84,
       "reason": "닮은 이유를 자연스럽게 한 문장으로 설명"
-    }
+    }}
   ]
-}
+}}
 """
 
     try:
