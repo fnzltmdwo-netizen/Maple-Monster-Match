@@ -27,30 +27,49 @@ def extract_json(text):
 
 def analyze_monster(name, image_url):
     prompt = f"""
-너는 메이플스토리 몬스터 외형 분석기다.
+너는 메이플 몬스터 DB 분류기다.
+
+절대 귀여움 편향을 가지면 안 된다.
 
 몬스터 이름:
 {name}
 
-이미지를 보고 반드시 JSON만 출력.
+규칙:
 
-가능한 face_shape:
-round, oval, long, square, triangle
+1. face_shape는 반드시 하나 선택
+- round (둥글다)
+- oval (타원형)
+- long (길쭉하다)
+- square (각지다)
+- triangle (뾰족하다)
 
-가능한 vibe:
-cute, dark, strong, calm, mysterious
+2. vibe는 반드시 하나 선택
+- cute
+- dark
+- strong
+- calm
+- mysterious
 
-cute_level, dark_level, power_level:
-0~10 정수
+판정 기준:
+- cute = 귀엽고 순함
+- dark = 음산, 악마, 공포
+- strong = 전투적, 강함
+- calm = 무표정, 차분
+- mysterious = 기묘, 마법적
 
-출력 예시:
+중요:
+나무/로봇/골렘 계열은 cute를 주지 마라.
+보스형은 strong 또는 dark.
+유령/마법형은 mysterious 또는 dark.
+
+JSON만 출력:
 {{
- "face_shape":"round",
- "vibe":"cute",
- "cute_level":8,
- "dark_level":2,
- "power_level":4,
- "description":"둥글고 귀엽고 순한 인상"
+ "face_shape":"square",
+ "vibe":"calm",
+ "cute_level":2,
+ "dark_level":4,
+ "power_level":6,
+ "description":"각지고 단단하며 무표정한 인상"
 }}
 """
 
