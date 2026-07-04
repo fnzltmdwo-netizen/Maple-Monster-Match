@@ -137,9 +137,9 @@
 
     .rpg-info {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      max-width: 620px;
+      max-width: 360px;
       margin: 18px auto;
     }
 
@@ -395,7 +395,7 @@
       #snsDesc { font-size: 16px; }
     }
   </style>
-<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=215862"></script>
+<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=218775"></script>
 </head>
 
 <body>
@@ -449,10 +449,10 @@
         </div>
 
         <div class="share-buttons">
-          <button class="ghost-btn" onclick="shareLink()">카톡 공유용 링크</button>
+          <button class="ghost-btn" onclick="shareLink()">공유하기</button>
           <button class="ghost-btn" onclick="resetTest()">새 테스트하기</button>
          
-        /div>
+        </div>
       </div>
     </div>
   </div>
@@ -650,7 +650,7 @@
               ${createMonsterImageBox(m, "mini-img-box")}
               <div>
                 <div class="mini-title">${index + 1}위. ${escapeHtml(getMonsterName(m))} · ${escapeHtml(getMonsterScore(m))}%</div>
-                <div class="mini-meta">${escapeHtml(getMonsterRank(m))}등급 · ${escapeHtml(getMonsterRarity(m))}
+                <div class="mini-meta">${escapeHtml(getMonsterRank(m))}등급 · ${escapeHtml(getMonsterRarity(m))}</div>
                 <div class="mini-reason">${escapeHtml(getMonsterReason(m))}</div>
               </div>
             </div>
@@ -667,9 +667,7 @@
       document.getElementById("snsDesc").innerText = getMonsterReason(monster);
 
       document.getElementById("snsRank").innerText = `등급 ${getMonsterRank(monster)}`;
-      document.getElementById("snsType").innerText = `타입 ${getMonsterType(monster)}`;
       document.getElementById("snsRarity").innerText = `희귀도 ${getMonsterRarity(monster)}`;
-      document.getElementById("snsPower").innerText = `전투력 ${getMonsterPower(monster)}`;
 
       const snsImgBox = document.getElementById("snsImgBox");
 
