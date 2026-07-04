@@ -7,14 +7,17 @@ from openai import OpenAI
 INPUT_CSV = "monsters_full.csv"
 OUTPUT_CSV = "monsters_ai.csv"
 
-LIMIT = 50   # 테스트용. 성공하면 647로 변경
+# 50마리 테스트용. 성공하면 나중에 647로 변경
+LIMIT = 50
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 
 def extract_json(text):
     text = text.strip()
-    text = text.replace("```json", "").replace("```", "").strip()
+    text = text.replace("```json", "")
+    text = text.replace("```", "")
+    text = text.strip()
 
     start = text.find("{")
     end = text.rfind("}") + 1
@@ -26,7 +29,7 @@ def extract_json(text):
 
 
 def analyze_monster(name, image_url):
-        prompt = f"""
+    prompt = f"""
 너는 메이플스토리 몬스터 DB 분류기다.
 
 절대 귀여움 편향을 가지면 안 된다.
@@ -100,7 +103,12 @@ def main():
         name = str(row["name"])
         image_url = str(row["image_url"])
 
-        print(f"[{idx+1}] analyzing {name}")
+        print(f"[{idx + 1}] analyzing {name}")
+
+        if not image_url or image_url == "nan":
+            print("  skip: no image_url")
+            results.append(row)
+            continue
 
         try:
             ai = analyze_monster(name, image_url)
@@ -120,7 +128,8 @@ def main():
 
     out = pd.DataFrame(results)
     out.to_csv(OUTPUT_CSV, index=False, encoding="utf-8-sig")
-    print("완료!")
+
+    print(f"완료! {len(out)}마리 저장됨: {OUTPUT_CSV}")
 
 
 if __name__ == "__main__":
