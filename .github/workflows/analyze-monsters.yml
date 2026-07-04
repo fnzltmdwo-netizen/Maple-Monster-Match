@@ -2,6 +2,15 @@ name: Analyze Monsters AI
 
 on:
   workflow_dispatch:
+    inputs:
+      start:
+        description: "Start row index"
+        required: true
+        default: "0"
+      limit:
+        description: "How many rows to analyze"
+        required: true
+        default: "100"
 
 jobs:
   analyze:
@@ -24,6 +33,8 @@ jobs:
       - name: Run analyzer
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          START: ${{ github.event.inputs.start }}
+          LIMIT: ${{ github.event.inputs.limit }}
         run: |
           python analyze_monsters.py
 
@@ -32,5 +43,5 @@ jobs:
           git config user.name github-actions
           git config user.email actions@github.com
           git add monsters_ai.csv
-          git commit -m "generate ai monsters csv" || echo "No changes"
+          git commit -m "analyze monsters batch ${{ github.event.inputs.start }}" || echo "No changes"
           git push
