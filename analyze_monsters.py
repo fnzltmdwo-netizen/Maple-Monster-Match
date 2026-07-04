@@ -14,31 +14,50 @@ client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 
 def extract_json(text):
-    text = text.strip().replace("```json", "").replace("```", "").strip()
+    text = text.strip()
+    text = text.replace("```json", "")
+    text = text.replace("```", "")
+    text = text.strip()
+
     start = text.find("{")
     end = text.rfind("}") + 1
+
     if start == -1 or end <= 0:
         raise Exception("JSON 파싱 실패")
+
     return json.loads(text[start:end])
 
 
 def analyze_monster(name, image_url):
     prompt = f"""
 너는 메이플스토리 몬스터 DB 분류기다.
+
 절대 귀여움 편향을 가지면 안 된다.
+몬스터를 사람 닮은꼴 매칭에 쓰기 위해 외형과 분위기를 냉정하게 분류한다.
 
 몬스터 이름:
 {name}
 
-face_shape: round, oval, long, square, triangle 중 하나.
-vibe: cute, dark, strong, calm, mysterious 중 하나.
+face_shape는 반드시 하나:
+- round: 둥글거나 말랑한 외형
+- oval: 타원형, 부드러운 세로형
+- long: 길쭉하거나 몸통이 긴 외형
+- square: 각지거나 단단한 외형
+- triangle: 뾰족하거나 날카로운 외형
+
+vibe는 반드시 하나:
+- cute: 귀엽고 순한 인상
+- dark: 음산함, 악마, 공포, 좀비 느낌
+- strong: 전투적, 거칠고 강한 인상
+- calm: 무표정, 차분함, 단단함
+- mysterious: 기묘함, 마법적, 알 수 없는 분위기
 
 중요 규칙:
-- 나무, 로봇, 골렘, 바위, 갑옷 계열은 calm 또는 strong.
-- 보스형, 용, 악마형은 strong 또는 dark.
-- 유령, 마법형, 실험체, 시계/기계 계열은 mysterious 또는 dark.
-- 동글동글해도 무섭거나 기괴하면 dark/mysterious.
-- power_level은 외형상 강해 보이는 정도.
+- 나무, 로봇, 골렘, 바위, 갑옷 계열은 cute를 주지 말고 calm 또는 strong으로 분류해.
+- 보스형, 용, 악마형은 strong 또는 dark로 분류해.
+- 유령, 마법형, 실험체, 시계/기계 계열은 mysterious 또는 dark로 분류해.
+- 동글동글해도 표정이 무섭거나 기괴하면 cute가 아니라 dark/mysterious야.
+- power_level은 실제 전투력이 아니라 외형상 강해 보이는 정도야.
 
 cute_level, dark_level, power_level은 0~10 정수.
 
@@ -55,31 +74,30 @@ cute_level, dark_level, power_level은 0~10 정수.
 
     response = client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=[{
-            "role": "user",
-            "content": [
-                {"type": "text", "text": prompt},
-                {"type": "image_url", "image_url": {"url": image_url}},
-            ],
-        }],
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {
+                        "type": "image_url",
+                        "image_url": {"url": image_url},
+                    },
+                ],
+            }
+        ],
         max_tokens=250,
     )
 
     return extract_json(response.choices[0].message.content)
 
 
-def analyze_with_retry(name, image_url, max_retries=3):
-    last_error = None
-
-    for attempt in range(1, max_retries + 1):
-        try:
-            return analyze_monster(name, image_url)
-        except Exception as e:
-            last_error = e
-            print(f"  retry {attempt}/{max_retries} failed: {e}")
-            time.sleep(10 * attempt)
-
-    raise last_error
+def analyze_fast(name, image_url):
+    try:
+        return analyze_monster(name, image_url)
+    except Exception as e:
+        print(f"  skip failed image: {e}")
+        raise e
 
 
 def load_output_dataframe(base_df):
@@ -110,16 +128,33 @@ def load_output_dataframe(base_df):
     return out_df
 
 
+def is_default_row(row):
+    return (
+        str(row["face_shape"]) == "round"
+        and str(row["vibe"]) == "cute"
+        and float(row["cute_level"]) == 5
+        and float(row["dark_level"]) == 3
+        and float(row["power_level"]) == 5
+        and "외형과 분위기를 기반으로" in str(row["description"])
+    )
+
+
 def main():
     base_df = pd.read_csv(INPUT_CSV)
     out_df = load_output_dataframe(base_df)
 
     end = min(START + LIMIT, len(base_df))
+
     print(f"전체 몬스터 수: {len(base_df)}")
     print(f"분석 범위: {START} ~ {end - 1}")
 
     for idx in range(START, end):
-        row = base_df.iloc[idx]
+        row = out_df.iloc[idx]
+
+        if not is_default_row(row):
+            print(f"[{idx + 1}/{len(base_df)}] skip already analyzed")
+            continue
+
         name = str(row["name"])
         image_url = str(row["image_url"]).strip()
 
@@ -127,10 +162,11 @@ def main():
 
         if not image_url or image_url == "nan":
             print("  skip: no image_url")
+            out_df.loc[idx, "description"] = "분석 실패: 이미지 URL 없음"
             continue
 
         try:
-            ai = analyze_with_retry(name, image_url)
+            ai = analyze_fast(name, image_url)
 
             out_df.loc[idx, "face_shape"] = ai["face_shape"]
             out_df.loc[idx, "vibe"] = ai["vibe"]
@@ -142,10 +178,9 @@ def main():
             print("  ok")
 
         except Exception as e:
-            print("  FINAL ERROR:", e)
             out_df.loc[idx, "description"] = f"분석 실패: {e}"
 
-        time.sleep(3)
+        time.sleep(1)
 
     out_df.to_csv(OUTPUT_CSV, index=False, encoding="utf-8-sig")
     print(f"완료! 저장됨: {OUTPUT_CSV}")
