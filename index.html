@@ -178,16 +178,17 @@
     });
 
     function toPercent(score, index) {
-      const n = Number(score);
+      const base = [98, 94, 90];
 
+      const n = Number(score);
       if (Number.isNaN(n)) {
-        return 90 - index * 3;
+        return base[index] || 85;
       }
 
-      // 점수가 너무 크거나 작아도 보기 좋게 70~99 사이로 보정
-      const percent = Math.round(70 + Math.min(n, 100) * 0.29);
+      let percent = Math.round(72 + Math.min(n, 100) * 0.25);
+      percent = percent - index * 2;
 
-      return Math.max(70, Math.min(99, percent - index));
+      return Math.max(70, Math.min(99, percent));
     }
 
     function safeText(value, fallback = "") {
@@ -223,7 +224,8 @@
         });
 
         if (!response.ok) {
-          throw new Error("API 호출 실패");
+          const errorText = await response.text();
+          throw new Error(errorText);
         }
 
         const data = await response.json();
@@ -278,7 +280,8 @@
         console.error(error);
         result.innerHTML = `
           <h2 class="section-title">😭 오류 발생</h2>
-          <p>API 호출에 실패했어요. 백엔드 Render가 켜져 있는지 확인해줘.</p>
+          <p>API 호출에 실패했어요.</p>
+          <p style="font-size:13px; color:#777;">${safeText(error.message)}</p>
         `;
       } finally {
         matchButton.disabled = false;
