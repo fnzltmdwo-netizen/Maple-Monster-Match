@@ -19,7 +19,8 @@ jobs:
 
       - name: Install packages
         run: |
-          pip install requests beautifulsoup4 pandas
+          pip install pandas playwright
+          python -m playwright install chromium
 
       - name: Run crawler
         run: |
@@ -30,5 +31,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add monsters_full.csv
-          git commit -m "generate monsters full csv" || echo "No changes"
+          git commit -m "generate monsters full csv with playwright" || echo "No changes"
           git push
