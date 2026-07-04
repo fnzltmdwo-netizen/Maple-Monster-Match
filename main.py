@@ -8,7 +8,6 @@ import pandas as pd
 import base64
 import json
 import os
-import re
 
 app = FastAPI()
 
@@ -25,20 +24,13 @@ app.add_middleware(
 df = pd.read_csv("monsters.csv")
 
 MONSTER_IMAGES = {
-    "슬라임": "https://maplestory.io/api/KMS/389/mob/100100/render/stand",
-    "주황버섯": "https://maplestory.io/api/KMS/389/mob/1110100/render/stand",
-    "리본돼지": "https://maplestory.io/api/KMS/389/mob/1210100/render/stand",
-    "스텀프": "https://maplestory.io/api/KMS/389/mob/130101/render/stand",
-    "예티": "https://maplestory.io/api/KMS/389/mob/6130101/render/stand",
-    "페페": "https://maplestory.io/api/KMS/389/mob/5130103/render/stand",
-    "로보": "https://maplestory.io/api/KMS/389/mob/3110100/render/stand",
-    "틱톡": "https://maplestory.io/api/KMS/389/mob/3230302/render/stand",
-    "헥터": "https://maplestory.io/api/KMS/389/mob/5130104/render/stand",
-    "와일드보어": "https://maplestory.io/api/KMS/389/mob/2230100/render/stand",
-    "커즈아이": "https://maplestory.io/api/KMS/389/mob/3230100/render/stand",
+    "슬라임": "https://maplestory.io/api/KMS/389/mob/100006/render/stand",
+    "주황버섯": "https://maplestory.io/api/KMS/389/mob/100004/render/stand",
+    "리본돼지": "https://maplestory.io/api/KMS/389/mob/1210101/render/stand",
+    "스텀프": "https://maplestory.io/api/KMS/389/mob/100005/render/stand",
+    "와일드보어": "https://maplestory.io/api/KMS/389/mob/2230102/render/stand",
+    "커즈아이": "https://maplestory.io/api/KMS/389/mob/2230100/render/stand",
     "좀비버섯": "https://maplestory.io/api/KMS/389/mob/2230101/render/stand",
-    "주니어발록": "https://maplestory.io/api/KMS/389/mob/8130100/render/stand",
-    "발록": "https://maplestory.io/api/KMS/389/mob/8830000/render/stand",
     "핑크빈": "https://maplestory.io/api/KMS/389/mob/8820001/render/stand",
 }
 
@@ -153,7 +145,7 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A2 GPT final judge with images"
+        "mode": "A2 GPT final judge with fixed images"
     }
 
 
