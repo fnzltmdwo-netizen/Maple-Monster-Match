@@ -1,374 +1,906 @@
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from openai import OpenAI
-import pandas as pd
-import os
-import json
-import re
-import math
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>메이플 몬스터 닮은꼴</title>
 
-app = FastAPI()
+  <style>
+    * { box-sizing: border-box; }
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Apple SD Gothic Neo", Arial, sans-serif;
+      background: #eef3ff;
+      color: #222;
+      text-align: center;
+    }
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key=OPENAI_API_KEY)
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 36px 18px 60px;
+    }
 
-df = pd.read_csv("monsters_ai.csv").fillna("")
-print("Loaded monsters:", len(df))
+    .app-box {
+      background: white;
+      border-radius: 28px;
+      padding: 32px 22px;
+      box-shadow: 0 14px 40px rgba(65, 90, 180, 0.16);
+    }
 
+    h1 {
+      margin: 0 0 12px;
+      font-size: 34px;
+      font-weight: 900;
+    }
 
-MONSTER_IMAGE_FALLBACK = {
-    "이글루 터틀": "https://maplestory.io/api/KMS/389/mob/5130103/icon",
-    "코-크 달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
-    "코크 달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
-    "코-크달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
-    "코크달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
-}
+    .sub {
+      margin: 0 0 26px;
+      color: #666;
+      font-size: 17px;
+      line-height: 1.5;
+    }
 
+    input[type="file"] { margin: 16px 0; }
 
-class MatchRequest(BaseModel):
-    image_base64: str | None = None
-    image: str | None = None
+    #preview {
+      display: none;
+      width: 230px;
+      max-width: 80%;
+      margin: 18px auto;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
 
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 22px;
+      margin: 8px 5px;
+      background: #6578ff;
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(101, 120, 255, 0.28);
+    }
 
-def safe_str(value, default=""):
-    if value is None:
-        return default
-    try:
-        if isinstance(value, float) and math.isnan(value):
-            return default
-    except Exception:
-        pass
-    return str(value).strip()
+    button:hover { background: #5264e8; }
 
+    .ghost-btn {
+      background: #f0f3ff;
+      color: #596cff;
+      box-shadow: none;
+    }
 
-def safe_int(value, default=5):
-    try:
-        if value is None or value == "":
-            return default
-        if isinstance(value, float) and math.isnan(value):
-            return default
-        return int(float(value))
-    except Exception:
-        return default
+    #loading {
+      display: none;
+      margin-top: 24px;
+      color: #596cff;
+      font-weight: 800;
+    }
 
+    .spinner {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 14px;
+      border: 7px solid #dfe5ff;
+      border-top-color: #6578ff;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
 
-def clean_base64(image_base64: str) -> str:
-    if "," in image_base64:
-        image_base64 = image_base64.split(",", 1)[1]
-    return image_base64.strip()
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
+    #result { margin-top: 30px; }
 
-def extract_json(text: str):
-    text = text.strip()
-    text = text.replace("```json", "").replace("```", "").strip()
+    .result-card {
+      background: #f7f9ff;
+      border-radius: 24px;
+      padding: 24px 18px;
+      margin-top: 20px;
+      box-shadow: inset 0 0 0 1px #e2e7ff;
+    }
 
-    try:
-        return json.loads(text)
-    except Exception:
-        pass
+    .monster-img-box {
+      width: 120px;
+      height: 120px;
+      margin: 12px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 58px;
+    }
 
-    match = re.search(r"\{.*\}", text, re.DOTALL)
-    if not match:
-        raise ValueError("JSON을 찾을 수 없습니다.")
+    .monster-img-box img {
+      max-width: 120px;
+      max-height: 120px;
+      object-fit: contain;
+      display: block;
+    }
 
-    return json.loads(match.group(0))
+    .rank-title {
+      font-size: 26px;
+      font-weight: 900;
+      margin: 8px 0;
+    }
 
+    .score {
+      color: #6578ff;
+      font-size: 24px;
+      font-weight: 900;
+      margin: 8px 0 16px;
+    }
 
-def analyze_person(image_base64: str):
-    image_base64 = clean_base64(image_base64)
+    .rpg-info {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 620px;
+      margin: 18px auto;
+    }
 
-    prompt = """
-너는 사람 사진을 보고 메이플스토리 몬스터 닮은꼴 매칭용 특징을 뽑는 분석기야.
+    .rpg-item {
+      background: white;
+      border-radius: 16px;
+      padding: 12px 8px;
+      box-shadow: 0 5px 12px rgba(40, 60, 120, 0.08);
+    }
 
-반드시 JSON만 출력해.
-설명 문장 금지.
+    .rpg-label {
+      font-size: 12px;
+      color: #777;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
 
-가능한 face_shape:
-round, oval, long, square, triangle
+    .rpg-value {
+      font-size: 16px;
+      color: #222;
+      font-weight: 900;
+    }
 
-가능한 vibe:
-cute, dark, strong, calm, mysterious
+    .grade-S { color: #ff9f1c; }
+    .grade-A { color: #6578ff; }
+    .grade-B { color: #20a67a; }
+    .grade-C { color: #777; }
 
-가능한 eye_shape:
-round, sharp, sleepy, calm, intense
+    .reason {
+      max-width: 520px;
+      margin: 0 auto;
+      color: #444;
+      font-size: 16px;
+      line-height: 1.7;
+      word-break: keep-all;
+    }
 
-가능한 jawline:
-soft, sharp, square, narrow, round
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 560px;
+      margin: 20px auto 0;
+    }
 
-가능한 animal_type:
-puppy, cat, fox, bear, rabbit, turtle, bird, dragon, unknown
+    .stat {
+      background: white;
+      border-radius: 16px;
+      padding: 12px 8px;
+      font-weight: 900;
+      font-size: 14px;
+      color: #444;
+    }
 
-cute_level, dark_level, power_level은 0~10 정수.
-softness, sharpness, mature_level도 0~10 정수.
+    .top3-list {
+      margin-top: 22px;
+      display: grid;
+      gap: 12px;
+    }
 
-옷, 배경, 포즈보다 얼굴형/눈매/표정/전체 인상을 우선해.
+    .mini-card {
+      background: white;
+      border-radius: 18px;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 12px;
+      align-items: center;
+      text-align: left;
+      box-shadow: 0 5px 14px rgba(40, 60, 120, 0.08);
+    }
 
-출력 형식:
-{
-  "face_shape": "oval",
-  "vibe": "calm",
-  "eye_shape": "calm",
-  "jawline": "soft",
-  "animal_type": "cat",
-  "cute_level": 6,
-  "dark_level": 1,
-  "power_level": 3,
-  "softness": 7,
-  "sharpness": 4,
-  "mature_level": 5
-}
-"""
+    .mini-img-box {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+    }
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        temperature=0,
-        max_tokens=300,
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {"type": "text", "text": prompt},
-                    {
-                        "type": "image_url",
-                        "image_url": {
-                            "url": f"data:image/jpeg;base64,{image_base64}"
-                        },
-                    },
-                ],
+    .mini-img-box img {
+      max-width: 64px;
+      max-height: 64px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .mini-title {
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .mini-meta {
+      font-size: 13px;
+      color: #6578ff;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .mini-reason {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.45;
+    }
+
+    #shareArea {
+      display: none;
+      margin-top: 34px;
+    }
+
+    .sns-card-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    #snsCard {
+      width: 430px;
+      min-height: 720px;
+      padding: 44px 34px;
+      background: #f1f5ff;
+    }
+
+    .sns-inner {
+      width: 100%;
+      min-height: 640px;
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 28px 28px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sns-header {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 28px;
+      color: #202124;
+    }
+
+    .sns-sub {
+      font-size: 17px;
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    .sns-main-box {
+      width: 100%;
+      min-height: 360px;
+      background: #eef3ff;
+      border-radius: 22px;
+      padding: 32px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      word-break: keep-all;
+    }
+
+    .sns-img-box {
+      width: 110px;
+      height: 110px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+    }
+
+    .sns-img-box img {
+      max-width: 110px;
+      max-height: 110px;
+      object-fit: contain;
+      display: block;
+    }
+
+    #snsName {
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: #222;
+    }
+
+    #snsPercent {
+      color: #6578ff;
+      font-size: 27px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .sns-rpg {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      width: 100%;
+      margin-bottom: 18px;
+    }
+
+    .sns-rpg div {
+      background: white;
+      border-radius: 12px;
+      padding: 8px 6px;
+      font-size: 13px;
+      font-weight: 900;
+      color: #444;
+    }
+
+    #snsDesc {
+      font-size: 18px;
+      line-height: 1.65;
+      color: #444;
+      max-width: 300px;
+    }
+
+    .sns-footer {
+      margin-top: auto;
+      padding-top: 32px;
+      color: #999;
+      font-size: 15px;
+    }
+
+    .sns-link {
+      margin-top: 14px;
+      color: #6578ff;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .share-buttons {
+      margin-top: 18px;
+    }
+
+    @media (max-width: 520px) {
+      h1 { font-size: 27px; }
+
+      .stat-grid,
+      .rpg-info {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #snsCard {
+        width: 360px;
+        min-height: 650px;
+        padding: 36px 24px;
+      }
+
+      .sns-inner { min-height: 580px; }
+      .sns-header { font-size: 24px; }
+      #snsName { font-size: 30px; }
+      #snsPercent { font-size: 24px; }
+      #snsDesc { font-size: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="app-box">
+      <h1>🍄 메이플 몬스터 닮은꼴</h1>
+      <p class="sub">사진을 올리면 가장 닮은 메이플 몬스터 TOP 3를 찾아줘요.</p>
+
+      <input type="file" id="imageInput" accept="image/*" />
+      <img id="preview" alt="preview" />
+
+      <div>
+        <button onclick="analyzeImage()">몬스터 찾기</button>
+      </div>
+
+      <div id="loading">
+        <div class="spinner"></div>
+        <div>몬스터 세계에서 닮은꼴 찾는 중...</div>
+      </div>
+
+      <div id="result"></div>
+
+      <div id="shareArea">
+        <h2>📸 SNS 공유 카드</h2>
+
+        <div class="sns-card-wrap">
+          <div id="snsCard">
+            <div class="sns-inner">
+              <div class="sns-header">🍄 메이플 몬스터 닮은꼴</div>
+              <div class="sns-sub">당신과 가장 닮은 몬스터는...</div>
+
+              <div class="sns-main-box">
+                <div class="sns-img-box" id="snsImgBox">🍄</div>
+                <div id="snsName">-</div>
+                <div id="snsPercent">-% 닮음</div>
+
+                <div class="sns-rpg">
+                  <div id="snsRank">등급 -</div>
+                  <div id="snsType">타입 -</div>
+                  <div id="snsRarity">희귀도 -</div>
+                  <div id="snsPower">전투력 -</div>
+                </div>
+
+                <div id="snsDesc">-</div>
+              </div>
+
+              <div class="sns-footer">maple-monster-match</div>
+              <div class="sns-link">나도 테스트하러 가기 🍄</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="share-buttons">
+          <button onclick="openCardPreview()">카드 새창 보기</button>
+          <button class="ghost-btn" onclick="shareLink()">공유하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "https://maple-monster-match.onrender.com/match";
+    const FRONT_URL = "https://maple-monster-frontend.onrender.com";
+
+    const MONSTER_IMAGE_MAP = {
+      "이글루 터틀": "https://maplestory.io/api/KMS/389/mob/5130103/icon",
+      "코-크 달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
+      "코크 달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
+      "코-크달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
+      "코크달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon"
+    };
+
+    const imageInput = document.getElementById("imageInput");
+    const preview = document.getElementById("preview");
+
+    let selectedBase64 = "";
+    let bestMonster = null;
+
+    imageInput.addEventListener("change", function () {
+      const file = imageInput.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        selectedBase64 = e.target.result;
+        preview.src = selectedBase64;
+        preview.style.display = "block";
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    function safeValue(value, fallback = "-") {
+      if (value === undefined || value === null || value === "" || value === 0 || value === "-") {
+        return fallback;
+      }
+      return value;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function getMonsterName(monster) {
+      return monster.name || monster.monster_name || monster.몬스터명 || monster.monster || "이름 없는 몬스터";
+    }
+
+    function getMonsterImage(monster) {
+      const name = getMonsterName(monster);
+      return (
+        monster.image_url ||
+        monster.img ||
+        monster.image ||
+        monster.monster_image ||
+        monster.icon ||
+        MONSTER_IMAGE_MAP[name] ||
+        ""
+      );
+    }
+
+    function getMonsterReason(monster) {
+      return monster.reason || monster.description || monster.desc || "전체적인 분위기와 인상이 비슷해요.";
+    }
+
+    function getMonsterScore(monster) {
+      return monster.match_percent || monster.percent || monster.similarity || monster.match_score || 85;
+    }
+
+    function getMonsterRank(monster) {
+      return monster.rank || monster.grade || "A";
+    }
+
+    function getMonsterRarity(monster) {
+      return monster.rarity || "Epic";
+    }
+
+    function getMonsterType(monster) {
+      return monster.monster_type || monster.type || "밸런스형";
+    }
+
+    function getMonsterPower(monster) {
+      return monster.power_score || monster.battle_power || 7777;
+    }
+
+    function getRankClass(monster) {
+      return `grade-${getMonsterRank(monster)}`;
+    }
+
+    function createMonsterImageBox(monster, boxClass) {
+      const img = getMonsterImage(monster);
+
+      if (!img) {
+        return `<div class="${boxClass}">🍄</div>`;
+      }
+
+      return `
+        <div class="${boxClass}">
+          <img src="${escapeHtml(img)}" alt="monster" onerror="this.remove(); this.parentElement.innerHTML='🍄';" />
+        </div>
+      `;
+    }
+
+    async function analyzeImage() {
+      if (!selectedBase64) {
+        alert("사진을 먼저 업로드해줘!");
+        return;
+      }
+
+      document.getElementById("loading").style.display = "block";
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("shareArea").style.display = "none";
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image_base64: selectedBase64 })
+        });
+
+        if (!response.ok) {
+          throw new Error("API 호출 실패");
+        }
+
+        const data = await response.json();
+        console.log("API RESULT:", data);
+
+        const monsters = data.top3 || data.matches || data.results || data.monsters || [];
+
+        if (!monsters.length) {
+          throw new Error("몬스터 결과 없음");
+        }
+
+        bestMonster = monsters[0];
+
+        renderResult(monsters);
+        renderShareCard(bestMonster);
+
+      } catch (error) {
+        console.error(error);
+        alert("분석 실패 😭 다시 시도해줘!");
+      } finally {
+        document.getElementById("loading").style.display = "none";
+      }
+    }
+
+    function renderResult(monsters) {
+      const result = document.getElementById("result");
+      const main = monsters[0];
+
+      result.innerHTML = `
+        <div class="result-card">
+          <div class="rank-title">✨ 1위 ${escapeHtml(getMonsterName(main))}</div>
+          ${createMonsterImageBox(main, "monster-img-box")}
+          <div class="score">${escapeHtml(getMonsterScore(main))}% 닮음</div>
+
+          <div class="rpg-info">
+            <div class="rpg-item">
+              <div class="rpg-label">등급</div>
+              <div class="rpg-value ${escapeHtml(getRankClass(main))}">${escapeHtml(getMonsterRank(main))}</div>
+            </div>
+            <div class="rpg-item">
+              <div class="rpg-label">타입</div>
+              <div class="rpg-value">${escapeHtml(getMonsterType(main))}</div>
+            </div>
+            <div class="rpg-item">
+              <div class="rpg-label">희귀도</div>
+              <div class="rpg-value">${escapeHtml(getMonsterRarity(main))}</div>
+            </div>
+            <div class="rpg-item">
+              <div class="rpg-label">전투력</div>
+              <div class="rpg-value">⚔️ ${escapeHtml(getMonsterPower(main))}</div>
+            </div>
+          </div>
+
+          <div class="reason">${escapeHtml(getMonsterReason(main))}</div>
+
+          <div class="stat-grid">
+            <div class="stat">분위기 ${escapeHtml(safeValue(main.vibe || main.mood || main.atmosphere, "calm"))}</div>
+            <div class="stat">귀여움 ${escapeHtml(safeValue(main.cute || main.cuteness || main.cute_level, "높음"))}</div>
+            <div class="stat">어둠 ${escapeHtml(safeValue(main.dark || main.darkness || main.dark_level, "낮음"))}</div>
+            <div class="stat">포스 ${escapeHtml(safeValue(main.force || main.power || main.power_level, "중간"))}</div>
+          </div>
+        </div>
+
+        <div class="top3-list">
+          ${monsters.map((m, index) => `
+            <div class="mini-card">
+              ${createMonsterImageBox(m, "mini-img-box")}
+              <div>
+                <div class="mini-title">${index + 1}위. ${escapeHtml(getMonsterName(m))} · ${escapeHtml(getMonsterScore(m))}%</div>
+                <div class="mini-meta">${escapeHtml(getMonsterRank(m))}등급 · ${escapeHtml(getMonsterType(m))} · ${escapeHtml(getMonsterRarity(m))} · 전투력 ${escapeHtml(getMonsterPower(m))}</div>
+                <div class="mini-reason">${escapeHtml(getMonsterReason(m))}</div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderShareCard(monster) {
+      const img = getMonsterImage(monster);
+
+      document.getElementById("snsName").innerText = getMonsterName(monster);
+      document.getElementById("snsPercent").innerText = `${getMonsterScore(monster)}% 닮음`;
+      document.getElementById("snsDesc").innerText = getMonsterReason(monster);
+
+      document.getElementById("snsRank").innerText = `등급 ${getMonsterRank(monster)}`;
+      document.getElementById("snsType").innerText = `타입 ${getMonsterType(monster)}`;
+      document.getElementById("snsRarity").innerText = `희귀도 ${getMonsterRarity(monster)}`;
+      document.getElementById("snsPower").innerText = `전투력 ${getMonsterPower(monster)}`;
+
+      const snsImgBox = document.getElementById("snsImgBox");
+
+      if (img) {
+        snsImgBox.innerHTML = `<img src="${escapeHtml(img)}" alt="monster" onerror="this.remove(); this.parentElement.innerHTML='🍄';" />`;
+      } else {
+        snsImgBox.innerHTML = "🍄";
+      }
+
+      document.getElementById("shareArea").style.display = "block";
+    }
+
+    function openCardPreview() {
+      if (!bestMonster) {
+        alert("먼저 몬스터를 찾아줘!");
+        return;
+      }
+
+      const name = escapeHtml(getMonsterName(bestMonster));
+      const img = escapeHtml(getMonsterImage(bestMonster));
+      const reason = escapeHtml(getMonsterReason(bestMonster));
+      const score = escapeHtml(getMonsterScore(bestMonster));
+      const rank = escapeHtml(getMonsterRank(bestMonster));
+      const type = escapeHtml(getMonsterType(bestMonster));
+      const rarity = escapeHtml(getMonsterRarity(bestMonster));
+      const power = escapeHtml(getMonsterPower(bestMonster));
+
+      const imgHtml = img
+        ? `<img src="${img}" alt="monster" onerror="this.remove(); this.parentElement.innerHTML='🍄';" />`
+        : `🍄`;
+
+      const newWindow = window.open("", "_blank");
+
+      if (!newWindow) {
+        alert("팝업이 차단됐어! 브라우저에서 팝업 허용해줘.");
+        return;
+      }
+
+      const popupHtml = `
+        <!DOCTYPE html>
+        <html lang="ko">
+        <head>
+          <meta charset="UTF-8" />
+          <title>메이플 몬스터 카드</title>
+          <style>
+            * { box-sizing: border-box; }
+
+            body {
+              margin: 0;
+              min-height: 100vh;
+              background: #171923;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 18px;
+              font-family: Arial, sans-serif;
             }
-        ],
-    )
 
-    text = response.choices[0].message.content
-    return extract_json(text)
+            .card {
+              width: min(430px, 92vw);
+              background: #f1f5ff;
+              padding: 28px 22px;
+              border-radius: 18px;
+            }
 
+            .inner {
+              width: 100%;
+              background: #ffffff;
+              border-radius: 24px;
+              padding: 24px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              text-align: center;
+            }
 
-def score_monster(features, row):
-    score = 0
+            .header {
+              font-size: 24px;
+              font-weight: 900;
+              margin-bottom: 22px;
+              color: #202124;
+            }
 
-    user_face = safe_str(features.get("face_shape"))
-    user_vibe = safe_str(features.get("vibe"))
-    user_eye = safe_str(features.get("eye_shape"))
-    user_jaw = safe_str(features.get("jawline"))
-    user_animal = safe_str(features.get("animal_type"))
+            .sub {
+              font-size: 16px;
+              color: #666;
+              margin-bottom: 18px;
+            }
 
-    monster_face = safe_str(row.get("face_shape"))
-    monster_vibe = safe_str(row.get("vibe"))
-    monster_eye = safe_str(row.get("eye_shape"))
-    monster_jaw = safe_str(row.get("jawline"))
-    monster_animal = safe_str(row.get("animal_type"))
+            .main-box {
+              width: 100%;
+              background: #eef3ff;
+              border-radius: 22px;
+              padding: 26px 18px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              word-break: keep-all;
+            }
 
-    user_cute = safe_int(features.get("cute_level"))
-    user_dark = safe_int(features.get("dark_level"))
-    user_power = safe_int(features.get("power_level"))
-    user_soft = safe_int(features.get("softness"))
-    user_sharp = safe_int(features.get("sharpness"))
-    user_mature = safe_int(features.get("mature_level"))
+            .img-box {
+              width: 100px;
+              height: 100px;
+              margin-bottom: 14px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 58px;
+            }
 
-    monster_cute = safe_int(row.get("cute_level"))
-    monster_dark = safe_int(row.get("dark_level"))
-    monster_power = safe_int(row.get("power_level"))
-    monster_soft = safe_int(row.get("softness"))
-    monster_sharp = safe_int(row.get("sharpness"))
-    monster_mature = safe_int(row.get("mature_level"))
+            .img-box img {
+              max-width: 100px;
+              max-height: 100px;
+              object-fit: contain;
+            }
 
-    if user_face == monster_face:
-        score += 25
-    if user_vibe == monster_vibe:
-        score += 25
-    if user_eye and user_eye == monster_eye:
-        score += 12
-    if user_jaw and user_jaw == monster_jaw:
-        score += 8
-    if user_animal and user_animal == monster_animal:
-        score += 10
+            .name {
+              font-size: 28px;
+              line-height: 1.2;
+              font-weight: 900;
+              margin-bottom: 8px;
+              color: #222;
+            }
 
-    score += max(0, 15 - abs(user_cute - monster_cute) * 2)
-    score += max(0, 12 - abs(user_dark - monster_dark) * 2)
-    score += max(0, 12 - abs(user_power - monster_power) * 2)
-    score += max(0, 10 - abs(user_soft - monster_soft) * 2)
-    score += max(0, 10 - abs(user_sharp - monster_sharp) * 2)
-    score += max(0, 10 - abs(user_mature - monster_mature) * 2)
+            .percent {
+              color: #6578ff;
+              font-size: 24px;
+              font-weight: 900;
+              margin-bottom: 14px;
+            }
 
-    return round(score, 2)
+            .rpg {
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 8px;
+              width: 100%;
+              margin-bottom: 16px;
+            }
 
+            .rpg div {
+              background: white;
+              border-radius: 12px;
+              padding: 8px 6px;
+              font-size: 13px;
+              font-weight: 900;
+              color: #444;
+            }
 
-def score_to_percent(score, rank_index):
-    percent = int(70 + min(score, 100) * 0.28)
-    percent -= rank_index * 3
-    return max(70, min(99, percent))
+            .desc {
+              font-size: 16px;
+              line-height: 1.6;
+              color: #444;
+              max-width: 300px;
+            }
 
+            .footer {
+              margin-top: 24px;
+              color: #999;
+              font-size: 14px;
+            }
 
-def get_rank(percent):
-    if percent >= 97:
-        return "S"
-    elif percent >= 92:
-        return "A"
-    elif percent >= 85:
-        return "B"
-    return "C"
+            .link {
+              margin-top: 10px;
+              color: #6578ff;
+              font-size: 17px;
+              font-weight: 900;
+            }
+          </style>
+        </head>
 
+        <body>
+          <div class="card">
+            <div class="inner">
+              <div class="header">🍄 메이플 몬스터 닮은꼴</div>
+              <div class="sub">당신과 가장 닮은 몬스터는...</div>
 
-def get_rarity(rank):
-    mapping = {
-        "S": "Legendary",
-        "A": "Epic",
-        "B": "Rare",
-        "C": "Common",
+              <div class="main-box">
+                <div class="img-box">${imgHtml}</div>
+                <div class="name">${name}</div>
+                <div class="percent">${score}% 닮음</div>
+
+                <div class="rpg">
+                  <div>등급 ${rank}</div>
+                  <div>타입 ${type}</div>
+                  <div>희귀도 ${rarity}</div>
+                  <div>전투력 ${power}</div>
+                </div>
+
+                <div class="desc">${reason}</div>
+              </div>
+
+              <div class="footer">maple-monster-match</div>
+              <div class="link">나도 테스트하러 가기 🍄</div>
+            </div>
+          </div>
+        </body>
+        </html>
+      `;
+
+      newWindow.document.open();
+      newWindow.document.write(popupHtml);
+      newWindow.document.close();
     }
-    return mapping.get(rank, "Common")
 
+    async function shareLink() {
+      const shareText = bestMonster
+        ? `내 메이플 몬스터 닮은꼴은 ${getMonsterName(bestMonster)}!`
+        : "메이플 몬스터 닮은꼴 테스트";
 
-def get_monster_type(monster):
-    vibe = safe_str(monster.get("vibe"))
-    power = safe_int(monster.get("power_level"))
-    cute = safe_int(monster.get("cute_level"))
-
-    if power >= 8:
-        return "보스형"
-    if cute >= 8:
-        return "귀요미형"
-
-    mapping = {
-        "calm": "냉미남형",
-        "cute": "귀요미형",
-        "dark": "다크형",
-        "strong": "전사형",
-        "mysterious": "신비형",
-    }
-
-    return mapping.get(vibe, "밸런스형")
-
-
-def get_image_url(row):
-    name = safe_str(row.get("name"))
-    image_url = safe_str(row.get("image_url"))
-
-    if image_url:
-        return image_url
-
-    return MONSTER_IMAGE_FALLBACK.get(name, "")
-
-
-def make_reason(features, monster):
-    vibe = safe_str(monster.get("vibe"))
-    face = safe_str(monster.get("face_shape"))
-    cute = safe_int(monster.get("cute_level"))
-    dark = safe_int(monster.get("dark_level"))
-    power = safe_int(monster.get("power_level"))
-    name = safe_str(monster.get("name"))
-
-    face_text = {
-        "round": "둥글고 부드러운 인상",
-        "oval": "깔끔한 세로형 인상",
-        "long": "길쭉하고 차분한 인상",
-        "square": "단단하고 안정적인 인상",
-        "triangle": "날렵하고 개성 있는 인상",
-    }.get(face, "전체적인 얼굴형")
-
-    vibe_text = {
-        "cute": "귀여운 분위기",
-        "calm": "차분한 분위기",
-        "strong": "강한 존재감",
-        "dark": "어둡고 신비로운 느낌",
-        "mysterious": "묘하고 독특한 분위기",
-    }.get(vibe, "전체적인 분위기")
-
-    extra = []
-
-    if cute >= 8:
-        extra.append("귀여운 느낌이 강해요")
-    elif cute >= 6:
-        extra.append("은근히 귀여운 매력이 있어요")
-
-    if dark >= 6:
-        extra.append("살짝 어두운 매력이 있어요")
-
-    if power >= 7:
-        extra.append("존재감이 또렷해요")
-
-    if not extra:
-        extra.append("부담스럽지 않고 자연스러운 인상이 있어요")
-
-    return f"{name}은 {face_text}과 {vibe_text}가 잘 살아나는 몬스터예요. {extra[0]}."
-
-
-def find_top3(features):
-    results = []
-
-    for _, row in df.iterrows():
-        score = score_monster(features, row)
-
-        monster = {
-            "name": safe_str(row.get("name")),
-            "image_url": get_image_url(row),
-            "score": score,
-            "face_shape": safe_str(row.get("face_shape")),
-            "vibe": safe_str(row.get("vibe")),
-            "eye_shape": safe_str(row.get("eye_shape")),
-            "jawline": safe_str(row.get("jawline")),
-            "animal_type": safe_str(row.get("animal_type")),
-            "cute_level": safe_int(row.get("cute_level")),
-            "dark_level": safe_int(row.get("dark_level")),
-            "power_level": safe_int(row.get("power_level")),
-            "softness": safe_int(row.get("softness")),
-            "sharpness": safe_int(row.get("sharpness")),
-            "mature_level": safe_int(row.get("mature_level")),
-            "description": safe_str(row.get("description")),
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: "메이플 몬스터 닮은꼴",
+            text: shareText,
+            url: FRONT_URL
+          });
+          return;
+        } catch (error) {
+          console.log(error);
         }
+      }
 
-        monster["reason"] = make_reason(features, monster)
-        results.append(monster)
-
-    results = sorted(results, key=lambda x: (-x["score"], x["name"]))[:3]
-
-    for i, item in enumerate(results):
-        percent = score_to_percent(item["score"], i)
-        rank = get_rank(percent)
-
-        item["match_percent"] = percent
-        item["rank"] = rank
-        item["rarity"] = get_rarity(rank)
-        item["monster_type"] = get_monster_type(item)
-        item["power_score"] = int(item["score"] * 73)
-
-    return results
-
-
-@app.get("/")
-def home():
-    return {
-        "message": "Maple Monster Match API is running!",
-        "monster_count": len(df),
-        "mode": "image_base64 stable python top3 rpg-card",
+      try {
+        await navigator.clipboard.writeText(FRONT_URL);
+        alert("테스트 링크가 복사됐어!");
+      } catch (error) {
+        alert(FRONT_URL);
+      }
     }
-
-
-@app.post("/match")
-def match_monster(req: MatchRequest):
-    image_data = req.image_base64 or req.image
-
-    if not image_data:
-        raise HTTPException(status_code=422, detail="image_base64 is required")
-
-    try:
-        features = analyze_person(image_data)
-        top3 = find_top3(features)
-
-        return {
-            "person_features": features,
-            "features": features,
-            "top3": top3,
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+  </script>
+</body>
+</html>
