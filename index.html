@@ -454,14 +454,14 @@
     }
 
     function getMonsterScore(monster) {
-      return (
-        monster.score ||
-        monster.similarity ||
-        monster.match_score ||
-        monster.percent ||
-        85
-      );
-    }
+  return (
+    monster.match_percent ||
+    monster.percent ||
+    monster.similarity ||
+    monster.match_score ||
+    85
+  );
+}
 
     function createMonsterImageBox(monster, boxClass) {
       const img = getMonsterImage(monster);
