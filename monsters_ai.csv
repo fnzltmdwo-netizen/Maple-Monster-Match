@@ -1,0 +1,571 @@
+﻿name,mob_id,source_url,face_shape,vibe,cute_level,dark_level,power_level,description,image_url
+달팽이,100100,https://mapledb.kr/search.php?q=100100&t=mob,round,calm,5,1,3,둥글고 부드러운 외형을 가진 차분한 인상,https://maplestory.io/api/KMS/389/mob/100100/render/stand
+파란 달팽이,100101,https://mapledb.kr/search.php?q=100101&t=mob,round,calm,3,1,2,둥글고 부드러운 외형이지만 무표정한 인상,https://maplestory.io/api/KMS/389/mob/100101/render/stand
+스포아,120100,https://mapledb.kr/search.php?q=120100&t=mob,round,dark,3,5,4,둥글고 말랑한 외형에 무서운 표정을 지닌 모습,https://maplestory.io/api/KMS/389/mob/120100/render/stand
+스텀프,130100,https://mapledb.kr/search.php?q=130100&t=mob,square,calm,2,3,7,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/130100/render/stand
+빨간 달팽이,130101,https://mapledb.kr/search.php?q=130101&t=mob,round,cute,7,1,3,둥글고 귀여운 인상으로 순한 느낌,https://maplestory.io/api/KMS/389/mob/130101/render/stand
+슬라임,210100,https://mapledb.kr/search.php?q=210100&t=mob,round,cute,8,1,3,둥글고 말랑한 외형에 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/210100/render/stand
+초록버섯,1110100,https://mapledb.kr/search.php?q=1110100&t=mob,round,cute,8,1,2,둥글고 말랑한 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/1110100/render/stand
+다크 스텀프,1110101,https://mapledb.kr/search.php?q=1110101&t=mob,square,calm,2,4,6,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/1110101/render/stand
+옥토퍼스,1120100,https://mapledb.kr/search.php?q=1120100&t=mob,round,mysterious,3,5,4,둥글고 기괴하며 기묘한 인상,https://maplestory.io/api/KMS/389/mob/1120100/render/stand
+엑스텀프,1130100,https://mapledb.kr/search.php?q=1130100&t=mob,square,calm,2,3,7,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/1130100/render/stand
+고스텀프,1140100,https://mapledb.kr/search.php?q=1140100&t=mob,square,calm,0,3,5,각지고 단단하며 차분한 인상,https://maplestory.io/api/KMS/389/mob/1140100/render/stand
+돼지,1210100,https://mapledb.kr/search.php?q=1210100&t=mob,round,cute,8,1,2,둥글고 부드러운 외형으로 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/1210100/render/stand
+리본 돼지,1210101,https://mapledb.kr/search.php?q=1210101&t=mob,round,calm,4,2,4,둥글고 부드러운 외형이며 차분한 인상,https://maplestory.io/api/KMS/389/mob/1210101/render/stand
+주황버섯,1210102,https://mapledb.kr/search.php?q=1210102&t=mob,round,cute,7,1,2,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/1210102/render/stand
+버블링,1210103,https://mapledb.kr/search.php?q=1210103&t=mob,round,cute,8,1,2,"둥글고 부드러운 외형, 귀엽고 순한 인상",https://maplestory.io/api/KMS/389/mob/1210103/render/stand
+흰 모래토끼,2100100,https://mapledb.kr/search.php?q=2100100&t=mob,round,cute,8,1,2,동글동글하고 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100100/render/stand
+갈색 모래토끼,2100101,https://mapledb.kr/search.php?q=2100101&t=mob,round,cute,8,1,2,"둥글고 순한 인상으로, 부드러운 외형을 가지고 있음",https://maplestory.io/api/KMS/389/mob/2100101/render/stand
+주니어 카투스,2100102,https://mapledb.kr/search.php?q=2100102&t=mob,round,cute,8,1,3,부드러운 둥글 형태로 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/2100102/render/stand
+카투스,2100103,https://mapledb.kr/search.php?q=2100103&t=mob,round,cute,7,1,2,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100103/render/stand
+로얄 카투스,2100104,https://mapledb.kr/search.php?q=2100104&t=mob,round,cute,8,1,3,동글동글하고 표정이 부드러운 인상,https://maplestory.io/api/KMS/389/mob/2100104/render/stand
+벨라모아,2100105,https://mapledb.kr/search.php?q=2100105&t=mob,round,cute,8,1,2,둥글고 말랑한 외형으로 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/2100105/render/stand
+귀마개 프릴드,2100106,https://mapledb.kr/search.php?q=2100106&t=mob,oval,cute,7,1,3,부드러운 세로형 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100106/render/stand
+목도리 프릴드,2100107,https://mapledb.kr/search.php?q=2100107&t=mob,oval,cute,8,1,2,부드러운 타원형의 외형과 귀여운 인상을 가진 몬스터,https://maplestory.io/api/KMS/389/mob/2100107/render/stand
+미요캐츠,2100108,https://mapledb.kr/search.php?q=2100108&t=mob,oval,cute,8,1,2,부드러운 세로형 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100108/render/stand
+뿔버섯,2110200,https://mapledb.kr/search.php?q=2110200&t=mob,round,cute,8,1,3,동글동글하고 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2110200/render/stand
+모래 두더지,2110300,https://mapledb.kr/search.php?q=2110300&t=mob,round,calm,5,1,3,둥글고 부드러운 외형으로 차분한 인상,https://maplestory.io/api/KMS/389/mob/2110300/render/stand
+스콜피언,2110301,https://mapledb.kr/search.php?q=2110301&t=mob,round,dark,3,6,4,둥글고 기괴한 인상으로 음산한 분위기,https://maplestory.io/api/KMS/389/mob/2110301/render/stand
+다크 엑스텀프,2130100,https://mapledb.kr/search.php?q=2130100&t=mob,square,calm,1,3,5,각지고 단단하며 차분한 인상,https://maplestory.io/api/KMS/389/mob/2130100/render/stand
+주니어 네키,2130103,https://mapledb.kr/search.php?q=2130103&t=mob,oval,cute,8,1,2,부드럽고 둥글며 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2130103/render/stand
+마노,2220000,https://mapledb.kr/search.php?q=2220000&t=mob,round,calm,4,1,3,둥글고 부드러운 외형에 차분한 인상,https://maplestory.io/api/KMS/389/mob/2220000/render/stand
+파란버섯,2220100,https://mapledb.kr/search.php?q=2220100&t=mob,round,cute,8,1,2,둥글고 부드러운 외형과 순한 인상,https://maplestory.io/api/KMS/389/mob/2220100/render/stand
+이블아이,2230100,https://mapledb.kr/search.php?q=2230100&t=mob,round,dark,5,6,5,둥글고 기괴한 형태로 어둡고 음산한 인상,https://maplestory.io/api/KMS/389/mob/2230100/render/stand
+좀비버섯,2230101,https://mapledb.kr/search.php?q=2230101&t=mob,round,dark,3,6,4,둥글고 약간 음산한 인상,https://maplestory.io/api/KMS/389/mob/2230101/render/stand
+와일드보어,2230102,https://mapledb.kr/search.php?q=2230102&t=mob,round,strong,3,2,7,둥글고 강한 인상으로 전투적인 분위기,https://maplestory.io/api/KMS/389/mob/2230102/render/stand
+트릭스터,2230103,https://mapledb.kr/search.php?q=2230103&t=mob,round,cute,8,1,2,"둥글고 귀여운 외형, 순한 인상",https://maplestory.io/api/KMS/389/mob/2230103/render/stand
+그린 트릭스터,2230104,https://mapledb.kr/search.php?q=2230104&t=mob,round,mysterious,3,5,4,둥글고 기묘한 외형으로 다소 음산한 분위기,https://maplestory.io/api/KMS/389/mob/2230104/render/stand
+씨클,2230105,https://mapledb.kr/search.php?q=2230105&t=mob,oval,cute,8,1,3,부드러운 타원형 외형과 순한 인상,https://maplestory.io/api/KMS/389/mob/2230105/render/stand
+씨코,2230106,https://mapledb.kr/search.php?q=2230106&t=mob,oval,cute,8,0,2,부드러운 타원형 외형과 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2230106/render/stand
+크라피,2230107,https://mapledb.kr/search.php?q=2230107&t=mob,round,cute,6,1,3,둥글고 말랑한 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2230107/render/stand
+핀붐,2230108,https://mapledb.kr/search.php?q=2230108&t=mob,round,dark,3,7,4,"둥글고 어두운 외형, 무표정한 눈",https://maplestory.io/api/KMS/389/mob/2230108/render/stand
+버블피쉬,2230109,https://mapledb.kr/search.php?q=2230109&t=mob,oval,cute,8,1,3,부드러운 타원형 외형과 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2230109/render/stand
+우드 마스크,2230110,https://mapledb.kr/search.php?q=2230110&t=mob,square,calm,3,2,5,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/2230110/render/stand
+스톤 마스크,2230111,https://mapledb.kr/search.php?q=2230111&t=mob,square,calm,3,2,5,각지고 단단하며 다소 부자연스러운 인상,https://maplestory.io/api/KMS/389/mob/2230111/render/stand
+플라워 피쉬,2230200,https://mapledb.kr/search.php?q=2230200&t=mob,round,calm,5,1,3,둥글고 부드럽지만 무표정한 인상,https://maplestory.io/api/KMS/389/mob/2230200/render/stand
+스티지,2300100,https://mapledb.kr/search.php?q=2300100&t=mob,round,cute,5,3,5,스티지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/2300100/render/stand
+스톤볼,3000000,https://mapledb.kr/search.php?q=3000000&t=mob,round,calm,2,2,5,둥글고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/3000000/render/stand
+페어리,3000001,https://mapledb.kr/search.php?q=3000001&t=mob,oval,cute,8,1,2,부드러운 타원형 외형과 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3000001/render/stand
+브라운테니,3000005,https://mapledb.kr/search.php?q=3000005&t=mob,round,cute,8,1,3,동글동글하고 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3000005/render/stand
+크립,3000006,https://mapledb.kr/search.php?q=3000006&t=mob,oval,cute,7,1,3,부드럽고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/3000006/render/stand
+모래난쟁이,3100101,https://mapledb.kr/search.php?q=3100101&t=mob,round,calm,6,2,3,둥글고 부드러운 외형에 차분한 인상,https://maplestory.io/api/KMS/389/mob/3100101/render/stand
+키요,3100102,https://mapledb.kr/search.php?q=3100102&t=mob,oval,dark,1,7,5,부드러운 타원형 외형에 음산한 인상,https://maplestory.io/api/KMS/389/mob/3100102/render/stand
+리게이터,3110100,https://mapledb.kr/search.php?q=3110100&t=mob,oval,dark,3,6,5,부드러운 타원형 외형에 음산한 인상,https://maplestory.io/api/KMS/389/mob/3110100/render/stand
+핑크테니,3110101,https://mapledb.kr/search.php?q=3110101&t=mob,round,cute,8,1,2,둥글고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/3110101/render/stand
+라츠,3110102,https://mapledb.kr/search.php?q=3110102&t=mob,round,cute,7,1,2,"둥글고 귀여운 외형, 순한 인상",https://maplestory.io/api/KMS/389/mob/3110102/render/stand
+큐브슬라임,3110300,https://mapledb.kr/search.php?q=3110300&t=mob,square,calm,2,3,5,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/3110300/render/stand
+붉은 모래난쟁이,3110301,https://mapledb.kr/search.php?q=3110301&t=mob,round,calm,3,1,4,"둥글고 부드러운 외형, 다소 차분한 인상",https://maplestory.io/api/KMS/389/mob/3110301/render/stand
+루모,3110302,https://mapledb.kr/search.php?q=3110302&t=mob,round,calm,3,1,2,"둥글고 부드러운 외형, 차분한 인상",https://maplestory.io/api/KMS/389/mob/3110302/render/stand
+트리플 루모,3110303,https://mapledb.kr/search.php?q=3110303&t=mob,square,calm,1,2,5,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/3110303/render/stand
+파이어보어,3210100,https://mapledb.kr/search.php?q=3210100&t=mob,round,strong,3,2,7,"둥글고 강한 인상, 불꽃이 나는 외형",https://maplestory.io/api/KMS/389/mob/3210100/render/stand
+주니어 샐리온,3210200,https://mapledb.kr/search.php?q=3210200&t=mob,round,cute,8,1,2,동글동글하고 귀여운 외형,https://maplestory.io/api/KMS/389/mob/3210200/render/stand
+주니어 라이오너,3210201,https://mapledb.kr/search.php?q=3210201&t=mob,round,cute,8,1,3,둥글고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/3210201/render/stand
+주니어 그류핀,3210202,https://mapledb.kr/search.php?q=3210202&t=mob,round,cute,8,1,2,둥글고 말랑하며 밝은 인상,https://maplestory.io/api/KMS/389/mob/3210202/render/stand
+팬더테니,3210203,https://mapledb.kr/search.php?q=3210203&t=mob,round,cute,8,2,3,둥글고 귀여우며 순한 인상,https://maplestory.io/api/KMS/389/mob/3210203/render/stand
+더키 패밀리,3210204,https://mapledb.kr/search.php?q=3210204&t=mob,round,cute,8,1,3,"둥글고 귀여운 외형, 부드러운 인상",https://maplestory.io/api/KMS/389/mob/3210204/render/stand
+블랙 라츠,3210205,https://mapledb.kr/search.php?q=3210205&t=mob,round,dark,3,7,4,"둥글고 어두운 외형, 불길한 분위기",https://maplestory.io/api/KMS/389/mob/3210205/render/stand
+치크세이버,3210206,https://mapledb.kr/search.php?q=3210206&t=mob,round,dark,1,7,5,"둥글고 기괴한 외형, 음산한 느낌",https://maplestory.io/api/KMS/389/mob/3210206/render/stand
+티키,3210207,https://mapledb.kr/search.php?q=3210207&t=mob,round,cute,8,0,2,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3210207/render/stand
+레츠,3210208,https://mapledb.kr/search.php?q=3210208&t=mob,round,cute,8,1,3,"둥글고 귀여운 외형, 순한 인상",https://maplestory.io/api/KMS/389/mob/3210208/render/stand
+스쿠버 페페,3210450,https://mapledb.kr/search.php?q=3210450&t=mob,round,cute,7,1,3,둥글고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/3210450/render/stand
+루팡,3210800,https://mapledb.kr/search.php?q=3210800&t=mob,round,cute,8,1,3,"둥글고 귀여운 외형으로, 상반신에 바나나를 들고 있는 모습",https://maplestory.io/api/KMS/389/mob/3210800/render/stand
+스텀피,3220000,https://mapledb.kr/search.php?q=3220000&t=mob,square,dark,0,8,7,각지고 단단하며 음산한 인상,https://maplestory.io/api/KMS/389/mob/3220000/render/stand
+데우,3220001,https://mapledb.kr/search.php?q=3220001&t=mob,round,calm,4,2,3,둥글고 부드러운 외형에 차분한 인상,https://maplestory.io/api/KMS/389/mob/3220001/render/stand
+커즈아이,3230100,https://mapledb.kr/search.php?q=3230100&t=mob,round,dark,3,6,5,"둥글고 기괴한 외형, 무서운 표정",https://maplestory.io/api/KMS/389/mob/3230100/render/stand
+주니어 레이스,3230101,https://mapledb.kr/search.php?q=3230101&t=mob,round,cute,7,1,2,"둥글고 부드러운 외형, 귀엽고 순한 인상",https://maplestory.io/api/KMS/389/mob/3230101/render/stand
+로랑,3230102,https://mapledb.kr/search.php?q=3230102&t=mob,round,cute,8,1,3,동글동글하고 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3230102/render/stand
+킹 블록퍼스,3230103,https://mapledb.kr/search.php?q=3230103&t=mob,round,cute,7,1,3,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3230103/render/stand
+마스크피쉬,3230104,https://mapledb.kr/search.php?q=3230104&t=mob,round,calm,6,1,3,둥글고 부드러운 형태로 차분한 인상,https://maplestory.io/api/KMS/389/mob/3230104/render/stand
+스타픽시,3230200,https://mapledb.kr/search.php?q=3230200&t=mob,round,cute,8,1,2,둥글고 귀여운 외형에 부드러운 인상,https://maplestory.io/api/KMS/389/mob/3230200/render/stand
+주니어 부기,3230300,https://mapledb.kr/search.php?q=3230300&t=mob,round,cute,8,1,3,"둥글고 귀여운 외형, 순한 인상",https://maplestory.io/api/KMS/389/mob/3230300/render/stand
+블록퍼스,3230302,https://mapledb.kr/search.php?q=3230302&t=mob,round,mysterious,4,2,5,"둥글고 기묘한 외형으로, 약간의 신비로운 분위기를 가진 몬스터",https://maplestory.io/api/KMS/389/mob/3230302/render/stand
+핑크세이버,3230303,https://mapledb.kr/search.php?q=3230303&t=mob,square,strong,1,3,7,각지고 단단하며 전투적인 인상,https://maplestory.io/api/KMS/389/mob/3230303/render/stand
+스카이세이버,3230304,https://mapledb.kr/search.php?q=3230304&t=mob,square,calm,1,3,5,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/3230304/render/stand
+장난감 목마,3230305,https://mapledb.kr/search.php?q=3230305&t=mob,oval,calm,3,1,4,부드러운 세로형 외형과 무표정한 인상,https://maplestory.io/api/KMS/389/mob/3230305/render/stand
+크로노스,3230306,https://mapledb.kr/search.php?q=3230306&t=mob,round,mysterious,1,7,4,"둥글고 기괴한 인상, 신비롭고 음산한 분위기",https://maplestory.io/api/KMS/389/mob/3230306/render/stand
+처프,3230307,https://mapledb.kr/search.php?q=3230307&t=mob,round,cute,8,1,3,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3230307/render/stand
+트위터,3230308,https://mapledb.kr/search.php?q=3230308&t=mob,oval,cute,7,1,2,부드러운 세로형 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3230308/render/stand
+북치는 토끼,3230400,https://mapledb.kr/search.php?q=3230400&t=mob,round,cute,8,1,2,둥글고 말랑한 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3230400/render/stand
+주니어 씰,3230405,https://mapledb.kr/search.php?q=3230405&t=mob,round,cute,8,1,2,둥글고 말랑한 외형으로 귀여운 인상을 주는 몬스터,https://maplestory.io/api/KMS/389/mob/3230405/render/stand
+아이언 호그(히든),4090000,https://mapledb.kr/search.php?q=4090000&t=mob,square,calm,2,2,7,각지고 단단한 외형으로 무표정한 인상,https://maplestory.io/api/KMS/389/mob/4090000/render/stand
+아이언 뮤테,4110300,https://mapledb.kr/search.php?q=4110300&t=mob,square,mysterious,1,5,4,각지고 기계적인 외형으로 기묘한 인상,https://maplestory.io/api/KMS/389/mob/4110300/render/stand
+강화된 아이언 뮤테,4110301,https://mapledb.kr/search.php?q=4110301&t=mob,square,calm,1,2,5,각지고 단단한 외형으로 무표정한 인상,https://maplestory.io/api/KMS/389/mob/4110301/render/stand
+미스릴 뮤테,4110302,https://mapledb.kr/search.php?q=4110302&t=mob,round,mysterious,1,5,4,둥글고 기괴한 외형에 음산한 인상,https://maplestory.io/api/KMS/389/mob/4110302/render/stand
+카파 드레이크,4130100,https://mapledb.kr/search.php?q=4130100&t=mob,oval,strong,3,2,7,부드러운 세로형 외형에 전투적인 모습,https://maplestory.io/api/KMS/389/mob/4130100/render/stand
+엄티,4130101,https://mapledb.kr/search.php?q=4130101&t=mob,round,cute,7,1,2,둥글고 귀여운 외형,https://maplestory.io/api/KMS/389/mob/4130101/render/stand
+다크 네펜데스,4130102,https://mapledb.kr/search.php?q=4130102&t=mob,round,dark,3,7,5,"둥글고 음산한 인상, 위협적인 느낌을 주는 보스형 몬스터",https://maplestory.io/api/KMS/389/mob/4130102/render/stand
+롬바드,4130103,https://mapledb.kr/search.php?q=4130103&t=mob,square,calm,0,3,7,각지고 단단하며 차분한 인상,https://maplestory.io/api/KMS/389/mob/4130103/render/stand
+세르프,4220000,https://mapledb.kr/search.php?q=4220000&t=mob,round,cute,7,1,2,동글동글한 외형에 귀여운 표정,https://maplestory.io/api/KMS/389/mob/4220000/render/stand
+콜드아이,4230100,https://mapledb.kr/search.php?q=4230100&t=mob,round,dark,1,7,5,"둥글고 기괴한 외형, 음산한 인상",https://maplestory.io/api/KMS/389/mob/4230100/render/stand
+좀비루팡,4230101,https://mapledb.kr/search.php?q=4230101&t=mob,round,cute,8,1,3,둥글고 귀여운 인상,https://maplestory.io/api/KMS/389/mob/4230101/render/stand
+레이스,4230102,https://mapledb.kr/search.php?q=4230102&t=mob,oval,mysterious,3,6,4,부드러운 타원형 외형과 신비로운 분위기,https://maplestory.io/api/KMS/389/mob/4230102/render/stand
+아이언 호그,4230103,https://mapledb.kr/search.php?q=4230103&t=mob,round,cute,5,3,5,아이언 호그의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230103/render/stand
+클랑,4230104,https://mapledb.kr/search.php?q=4230104&t=mob,round,cute,5,3,5,클랑의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230104/render/stand
+네펜데스,4230105,https://mapledb.kr/search.php?q=4230105&t=mob,round,cute,5,3,5,네펜데스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230105/render/stand
+루나픽시,4230106,https://mapledb.kr/search.php?q=4230106&t=mob,round,cute,5,3,5,루나픽시의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230106/render/stand
+플라이아이,4230107,https://mapledb.kr/search.php?q=4230107&t=mob,round,cute,5,3,5,플라이아이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230107/render/stand
+주니어 불독,4230108,https://mapledb.kr/search.php?q=4230108&t=mob,round,cute,5,3,5,주니어 불독의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230108/render/stand
+블록골렘,4230109,https://mapledb.kr/search.php?q=4230109&t=mob,round,cute,5,3,5,블록골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230109/render/stand
+킹 블록골렘,4230110,https://mapledb.kr/search.php?q=4230110&t=mob,round,cute,5,3,5,킹 블록골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230110/render/stand
+로보토이,4230111,https://mapledb.kr/search.php?q=4230111&t=mob,round,cute,5,3,5,로보토이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230111/render/stand
+마스터 로보,4230112,https://mapledb.kr/search.php?q=4230112&t=mob,round,cute,5,3,5,마스터 로보의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230112/render/stand
+틱톡,4230113,https://mapledb.kr/search.php?q=4230113&t=mob,round,cute,5,3,5,틱톡의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230113/render/stand
+플래툰 크로노스,4230114,https://mapledb.kr/search.php?q=4230114&t=mob,round,cute,5,3,5,플래툰 크로노스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230114/render/stand
+마스터 크로노스,4230115,https://mapledb.kr/search.php?q=4230115&t=mob,round,cute,5,3,5,마스터 크로노스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230115/render/stand
+바나드 그레이,4230116,https://mapledb.kr/search.php?q=4230116&t=mob,round,cute,5,3,5,바나드 그레이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230116/render/stand
+제타 그레이,4230117,https://mapledb.kr/search.php?q=4230117&t=mob,round,cute,5,3,5,제타 그레이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230117/render/stand
+울트라 그레이,4230118,https://mapledb.kr/search.php?q=4230118&t=mob,round,cute,5,3,5,울트라 그레이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230118/render/stand
+마티안,4230119,https://mapledb.kr/search.php?q=4230119&t=mob,round,cute,5,3,5,마티안의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230119/render/stand
+플라티안,4230120,https://mapledb.kr/search.php?q=4230120&t=mob,round,cute,5,3,5,플라티안의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230120/render/stand
+메카티안,4230121,https://mapledb.kr/search.php?q=4230121&t=mob,round,cute,5,3,5,메카티안의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230121/render/stand
+스파커,4230123,https://mapledb.kr/search.php?q=4230123&t=mob,round,cute,5,3,5,스파커의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230123/render/stand
+프리져,4230124,https://mapledb.kr/search.php?q=4230124&t=mob,round,cute,5,3,5,프리져의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230124/render/stand
+스켈독,4230125,https://mapledb.kr/search.php?q=4230125&t=mob,round,cute,5,3,5,스켈독의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230125/render/stand
+머미독,4230126,https://mapledb.kr/search.php?q=4230126&t=mob,round,cute,5,3,5,머미독의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230126/render/stand
+푸퍼,4230200,https://mapledb.kr/search.php?q=4230200&t=mob,round,cute,5,3,5,푸퍼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230200/render/stand
+포이즌 푸퍼,4230201,https://mapledb.kr/search.php?q=4230201&t=mob,round,cute,5,3,5,포이즌 푸퍼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230201/render/stand
+월묘,4230300,https://mapledb.kr/search.php?q=4230300&t=mob,round,cute,5,3,5,월묘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230300/render/stand
+아이언보어,4230400,https://mapledb.kr/search.php?q=4230400&t=mob,round,cute,5,3,5,아이언보어의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230400/render/stand
+별다람쥐,4230500,https://mapledb.kr/search.php?q=4230500&t=mob,round,cute,5,3,5,별다람쥐의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230500/render/stand
+호저,4230501,https://mapledb.kr/search.php?q=4230501&t=mob,round,cute,5,3,5,호저의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230501/render/stand
+흑저,4230502,https://mapledb.kr/search.php?q=4230502&t=mob,round,cute,5,3,5,흑저의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230502/render/stand
+청화사,4230503,https://mapledb.kr/search.php?q=4230503&t=mob,round,cute,5,3,5,청화사의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230503/render/stand
+홍화사,4230504,https://mapledb.kr/search.php?q=4230504&t=mob,round,cute,5,3,5,홍화사의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230504/render/stand
+단지,4230505,https://mapledb.kr/search.php?q=4230505&t=mob,round,cute,5,3,5,단지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230505/render/stand
+삼단지,4230506,https://mapledb.kr/search.php?q=4230506&t=mob,round,cute,5,3,5,삼단지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230506/render/stand
+모래거인,4230600,https://mapledb.kr/search.php?q=4230600&t=mob,round,cute,5,3,5,모래거인의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4230600/render/stand
+원로 그레이,4240000,https://mapledb.kr/search.php?q=4240000&t=mob,round,cute,5,3,5,원로 그레이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4240000/render/stand
+이끼 달팽이,4250000,https://mapledb.kr/search.php?q=4250000&t=mob,round,cute,5,3,5,이끼 달팽이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4250000/render/stand
+트리로드,4250001,https://mapledb.kr/search.php?q=4250001&t=mob,round,cute,5,3,5,트리로드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/4250001/render/stand
+셰이드,5090000,https://mapledb.kr/search.php?q=5090000&t=mob,round,cute,5,3,5,셰이드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5090000/render/stand
+선인인형,5090001,https://mapledb.kr/search.php?q=5090001&t=mob,round,cute,5,3,5,선인인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5090001/render/stand
+주니어 예티,5100000,https://mapledb.kr/search.php?q=5100000&t=mob,round,cute,5,3,5,주니어 예티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5100000/render/stand
+파이어봄,5100002,https://mapledb.kr/search.php?q=5100002&t=mob,round,cute,5,3,5,파이어봄의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5100002/render/stand
+호돌이,5100003,https://mapledb.kr/search.php?q=5100003&t=mob,round,cute,5,3,5,호돌이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5100003/render/stand
+삼미호,5100004,https://mapledb.kr/search.php?q=5100004&t=mob,round,cute,5,3,5,삼미호의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5100004/render/stand
+호걸,5100005,https://mapledb.kr/search.php?q=5100005&t=mob,round,cute,5,3,5,호걸의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5100005/render/stand
+강화된 미스릴 뮤테,5110300,https://mapledb.kr/search.php?q=5110300&t=mob,round,cute,5,3,5,강화된 미스릴 뮤테의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5110300/render/stand
+로이드,5110301,https://mapledb.kr/search.php?q=5110301&t=mob,round,cute,5,3,5,로이드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5110301/render/stand
+네오 휴로이드,5110302,https://mapledb.kr/search.php?q=5110302&t=mob,round,cute,5,3,5,네오 휴로이드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5110302/render/stand
+러스터픽시,5120000,https://mapledb.kr/search.php?q=5120000&t=mob,round,cute,5,3,5,러스터픽시의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120000/render/stand
+샐리온,5120001,https://mapledb.kr/search.php?q=5120001&t=mob,round,cute,5,3,5,샐리온의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120001/render/stand
+라이오너,5120002,https://mapledb.kr/search.php?q=5120002&t=mob,round,cute,5,3,5,라이오너의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120002/render/stand
+그류핀,5120003,https://mapledb.kr/search.php?q=5120003&t=mob,round,cute,5,3,5,그류핀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120003/render/stand
+머신 MT-09,5120100,https://mapledb.kr/search.php?q=5120100&t=mob,round,cute,5,3,5,머신 MT-09의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120100/render/stand
+달곰,5120500,https://mapledb.kr/search.php?q=5120500&t=mob,round,cute,5,3,5,달곰의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120500/render/stand
+도라지,5120501,https://mapledb.kr/search.php?q=5120501&t=mob,round,cute,5,3,5,도라지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120501/render/stand
+늙은 도라지,5120502,https://mapledb.kr/search.php?q=5120502&t=mob,round,cute,5,3,5,늙은 도라지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120502/render/stand
+훈련용 짚인형,5120503,https://mapledb.kr/search.php?q=5120503&t=mob,round,cute,5,3,5,훈련용 짚인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120503/render/stand
+훈련용 나무인형,5120504,https://mapledb.kr/search.php?q=5120504&t=mob,round,cute,5,3,5,훈련용 나무인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120504/render/stand
+천록,5120505,https://mapledb.kr/search.php?q=5120505&t=mob,round,cute,5,3,5,천록의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120505/render/stand
+비급,5120506,https://mapledb.kr/search.php?q=5120506&t=mob,round,cute,5,3,5,비급의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5120506/render/stand
+드레이크,5130100,https://mapledb.kr/search.php?q=5130100&t=mob,round,cute,5,3,5,드레이크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5130100/render/stand
+스톤골렘,5130101,https://mapledb.kr/search.php?q=5130101&t=mob,round,cute,5,3,5,스톤골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5130101/render/stand
+다크 스톤골렘,5130102,https://mapledb.kr/search.php?q=5130102&t=mob,round,cute,5,3,5,다크 스톤골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5130102/render/stand
+크로코,5130103,https://mapledb.kr/search.php?q=5130103&t=mob,round,cute,5,3,5,크로코의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5130103/render/stand
+헥터,5130104,https://mapledb.kr/search.php?q=5130104&t=mob,round,cute,5,3,5,헥터의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5130104/render/stand
+다크 주니어 예티,5130105,https://mapledb.kr/search.php?q=5130105&t=mob,round,cute,5,3,5,다크 주니어 예티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5130105/render/stand
+쿨리 좀비,5130107,https://mapledb.kr/search.php?q=5130107&t=mob,round,cute,5,3,5,쿨리 좀비의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5130107/render/stand
+마이너 좀비,5130108,https://mapledb.kr/search.php?q=5130108&t=mob,round,cute,5,3,5,마이너 좀비의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5130108/render/stand
+화이트팽,5140000,https://mapledb.kr/search.php?q=5140000&t=mob,round,cute,5,3,5,화이트팽의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5140000/render/stand
+믹스골렘,5150000,https://mapledb.kr/search.php?q=5150000&t=mob,round,cute,5,3,5,믹스골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5150000/render/stand
+스켈레톤 사병,5150001,https://mapledb.kr/search.php?q=5150001&t=mob,round,cute,5,3,5,스켈레톤 사병의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5150001/render/stand
+주니어 스톤볼,5200000,https://mapledb.kr/search.php?q=5200000&t=mob,round,cute,5,3,5,주니어 스톤볼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5200000/render/stand
+아이스 스톤볼,5200001,https://mapledb.kr/search.php?q=5200001&t=mob,round,cute,5,3,5,아이스 스톤볼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5200001/render/stand
+파이어 스톤볼,5200002,https://mapledb.kr/search.php?q=5200002&t=mob,round,cute,5,3,5,파이어 스톤볼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5200002/render/stand
+킹크랑,5220000,https://mapledb.kr/search.php?q=5220000&t=mob,round,cute,5,3,5,킹크랑의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5220000/render/stand
+파우스트,5220002,https://mapledb.kr/search.php?q=5220002&t=mob,round,cute,5,3,5,파우스트의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5220002/render/stand
+타이머,5220003,https://mapledb.kr/search.php?q=5220003&t=mob,round,cute,5,3,5,타이머의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5220003/render/stand
+이끼버섯,5250000,https://mapledb.kr/search.php?q=5250000&t=mob,round,cute,5,3,5,이끼버섯의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5250000/render/stand
+스톤버그,5250001,https://mapledb.kr/search.php?q=5250001&t=mob,round,cute,5,3,5,스톤버그의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5250001/render/stand
+원시멧돼지,5250002,https://mapledb.kr/search.php?q=5250002&t=mob,round,cute,5,3,5,원시멧돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5250002/render/stand
+리티,5300000,https://mapledb.kr/search.php?q=5300000&t=mob,round,cute,5,3,5,리티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5300000/render/stand
+다크 리티,5300001,https://mapledb.kr/search.php?q=5300001&t=mob,round,cute,5,3,5,다크 리티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5300001/render/stand
+멜러디,5300100,https://mapledb.kr/search.php?q=5300100&t=mob,round,cute,5,3,5,멜러디의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5300100/render/stand
+주니어 페페,5400000,https://mapledb.kr/search.php?q=5400000&t=mob,round,cute,5,3,5,주니어 페페의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/5400000/render/stand
+리치,6090000,https://mapledb.kr/search.php?q=6090000&t=mob,round,cute,5,3,5,리치의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6090000/render/stand
+설산의 마녀,6090001,https://mapledb.kr/search.php?q=6090001&t=mob,round,cute,5,3,5,설산의 마녀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6090001/render/stand
+대나무 무사,6090002,https://mapledb.kr/search.php?q=6090002&t=mob,round,cute,5,3,5,대나무 무사의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6090002/render/stand
+선비귀신,6090003,https://mapledb.kr/search.php?q=6090003&t=mob,round,cute,5,3,5,선비귀신의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6090003/render/stand
+루루모,6090004,https://mapledb.kr/search.php?q=6090004&t=mob,round,cute,5,3,5,루루모의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6090004/render/stand
+호문,6110300,https://mapledb.kr/search.php?q=6110300&t=mob,round,cute,5,3,5,호문의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6110300/render/stand
+사이티,6110301,https://mapledb.kr/search.php?q=6110301&t=mob,round,cute,5,3,5,사이티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6110301/render/stand
+레드 드레이크,6130100,https://mapledb.kr/search.php?q=6130100&t=mob,round,cute,5,3,5,레드 드레이크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130100/render/stand
+머쉬맘,6130101,https://mapledb.kr/search.php?q=6130101&t=mob,round,cute,5,3,5,머쉬맘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130101/render/stand
+페페,6130102,https://mapledb.kr/search.php?q=6130102&t=mob,round,cute,5,3,5,페페의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130102/render/stand
+부기,6130104,https://mapledb.kr/search.php?q=6130104&t=mob,round,cute,5,3,5,부기의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130104/render/stand
+버피,6130200,https://mapledb.kr/search.php?q=6130200&t=mob,round,cute,5,3,5,버피의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130200/render/stand
+깨비,6130201,https://mapledb.kr/search.php?q=6130201&t=mob,round,cute,5,3,5,깨비의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130201/render/stand
+판다곰,6130203,https://mapledb.kr/search.php?q=6130203&t=mob,round,cute,5,3,5,판다곰의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130203/render/stand
+게비알,6130204,https://mapledb.kr/search.php?q=6130204&t=mob,round,cute,5,3,5,게비알의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130204/render/stand
+원공,6130207,https://mapledb.kr/search.php?q=6130207&t=mob,round,cute,5,3,5,원공의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130207/render/stand
+크루,6130208,https://mapledb.kr/search.php?q=6130208&t=mob,round,cute,5,3,5,크루의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130208/render/stand
+묘선,6130209,https://mapledb.kr/search.php?q=6130209&t=mob,round,cute,5,3,5,묘선의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6130209/render/stand
+다일,6220000,https://mapledb.kr/search.php?q=6220000&t=mob,round,cute,5,3,5,다일의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6220000/render/stand
+제노,6220001,https://mapledb.kr/search.php?q=6220001&t=mob,round,cute,5,3,5,제노의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6220001/render/stand
+와일드카고,6230100,https://mapledb.kr/search.php?q=6230100&t=mob,round,cute,5,3,5,와일드카고의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6230100/render/stand
+푸코,6230101,https://mapledb.kr/search.php?q=6230101&t=mob,round,cute,5,3,5,푸코의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6230101/render/stand
+다크 페페,6230200,https://mapledb.kr/search.php?q=6230200&t=mob,round,cute,5,3,5,다크 페페의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6230200/render/stand
+레이지 버피,6230300,https://mapledb.kr/search.php?q=6230300&t=mob,round,cute,5,3,5,레이지 버피의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6230300/render/stand
+소울테니,6230400,https://mapledb.kr/search.php?q=6230400&t=mob,round,cute,5,3,5,소울테니의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6230400/render/stand
+주니어 루이넬,6230401,https://mapledb.kr/search.php?q=6230401&t=mob,round,cute,5,3,5,주니어 루이넬의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6230401/render/stand
+마스터 소울테니,6230500,https://mapledb.kr/search.php?q=6230500&t=mob,round,cute,5,3,5,마스터 소울테니의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6230500/render/stand
+아이스 드레이크,6230600,https://mapledb.kr/search.php?q=6230600&t=mob,round,cute,5,3,5,아이스 드레이크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6230600/render/stand
+다크 드레이크,6230601,https://mapledb.kr/search.php?q=6230601&t=mob,round,cute,5,3,5,다크 드레이크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6230601/render/stand
+스켈레톤 장교,6230602,https://mapledb.kr/search.php?q=6230602&t=mob,round,cute,5,3,5,스켈레톤 장교의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6230602/render/stand
+예티,6300000,https://mapledb.kr/search.php?q=6300000&t=mob,round,cute,5,3,5,예티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6300000/render/stand
+푼코,6300003,https://mapledb.kr/search.php?q=6300003&t=mob,round,cute,5,3,5,푼코의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6300003/render/stand
+파츠,6300004,https://mapledb.kr/search.php?q=6300004&t=mob,round,cute,5,3,5,파츠의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6300004/render/stand
+좀비 머쉬맘,6300005,https://mapledb.kr/search.php?q=6300005&t=mob,round,cute,5,3,5,좀비 머쉬맘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6300005/render/stand
+버푼,6300100,https://mapledb.kr/search.php?q=6300100&t=mob,round,cute,5,3,5,버푼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6300100/render/stand
+다크 예티,6400000,https://mapledb.kr/search.php?q=6400000&t=mob,round,cute,5,3,5,다크 예티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6400000/render/stand
+쿠스코,6400003,https://mapledb.kr/search.php?q=6400003&t=mob,round,cute,5,3,5,쿠스코의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6400003/render/stand
+오파츠,6400004,https://mapledb.kr/search.php?q=6400004&t=mob,round,cute,5,3,5,오파츠의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6400004/render/stand
+딥 버푼,6400100,https://mapledb.kr/search.php?q=6400100&t=mob,round,cute,5,3,5,딥 버푼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/6400100/render/stand
+자동경비시스템,7090000,https://mapledb.kr/search.php?q=7090000&t=mob,round,cute,5,3,5,자동경비시스템의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7090000/render/stand
+D.로이,7110300,https://mapledb.kr/search.php?q=7110300&t=mob,round,cute,5,3,5,D.로이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7110300/render/stand
+호문쿨루,7110301,https://mapledb.kr/search.php?q=7110301&t=mob,round,cute,5,3,5,호문쿨루의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7110301/render/stand
+루이넬,7130000,https://mapledb.kr/search.php?q=7130000&t=mob,round,cute,5,3,5,루이넬의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130000/render/stand
+불독,7130001,https://mapledb.kr/search.php?q=7130001&t=mob,round,cute,5,3,5,불독의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130001/render/stand
+비틀,7130002,https://mapledb.kr/search.php?q=7130002&t=mob,round,cute,5,3,5,비틀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130002/render/stand
+듀얼 비틀,7130003,https://mapledb.kr/search.php?q=7130003&t=mob,round,cute,5,3,5,듀얼 비틀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130003/render/stand
+헹키,7130004,https://mapledb.kr/search.php?q=7130004&t=mob,round,cute,5,3,5,헹키의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130004/render/stand
+데스테니,7130010,https://mapledb.kr/search.php?q=7130010&t=mob,round,cute,5,3,5,데스테니의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130010/render/stand
+망둥이,7130020,https://mapledb.kr/search.php?q=7130020&t=mob,round,cute,5,3,5,망둥이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130020/render/stand
+타우로마시스,7130100,https://mapledb.kr/search.php?q=7130100&t=mob,round,cute,5,3,5,타우로마시스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130100/render/stand
+타우로스피어,7130101,https://mapledb.kr/search.php?q=7130101&t=mob,round,cute,5,3,5,타우로스피어의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130101/render/stand
+예티와 페페,7130102,https://mapledb.kr/search.php?q=7130102&t=mob,round,cute,5,3,5,예티와 페페의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130102/render/stand
+스켈레톤 지휘관,7130103,https://mapledb.kr/search.php?q=7130103&t=mob,round,cute,5,3,5,스켈레톤 지휘관의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130103/render/stand
+캡틴,7130104,https://mapledb.kr/search.php?q=7130104&t=mob,round,cute,5,3,5,캡틴의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130104/render/stand
+웨어울프,7130200,https://mapledb.kr/search.php?q=7130200&t=mob,round,cute,5,3,5,웨어울프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130200/render/stand
+마스터 데스테니,7130300,https://mapledb.kr/search.php?q=7130300&t=mob,round,cute,5,3,5,마스터 데스테니의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130300/render/stand
+노란 왕도깨비,7130400,https://mapledb.kr/search.php?q=7130400&t=mob,round,cute,5,3,5,노란 왕도깨비의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130400/render/stand
+파란 왕도깨비,7130401,https://mapledb.kr/search.php?q=7130401&t=mob,round,cute,5,3,5,파란 왕도깨비의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130401/render/stand
+초록 왕도깨비,7130402,https://mapledb.kr/search.php?q=7130402&t=mob,round,cute,5,3,5,초록 왕도깨비의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130402/render/stand
+레쉬,7130500,https://mapledb.kr/search.php?q=7130500&t=mob,round,cute,5,3,5,레쉬의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130500/render/stand
+다크 레쉬,7130501,https://mapledb.kr/search.php?q=7130501&t=mob,round,cute,5,3,5,다크 레쉬의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130501/render/stand
+호브,7130600,https://mapledb.kr/search.php?q=7130600&t=mob,round,cute,5,3,5,호브의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130600/render/stand
+핀호브,7130601,https://mapledb.kr/search.php?q=7130601&t=mob,round,cute,5,3,5,핀호브의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130601/render/stand
+가시덤불,7130602,https://mapledb.kr/search.php?q=7130602&t=mob,round,cute,5,3,5,가시덤불의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7130602/render/stand
+파이렛,7140000,https://mapledb.kr/search.php?q=7140000&t=mob,round,cute,5,3,5,파이렛의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7140000/render/stand
+듀얼 파이렛,7160000,https://mapledb.kr/search.php?q=7160000&t=mob,round,cute,5,3,5,듀얼 파이렛의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7160000/render/stand
+태륜,7220000,https://mapledb.kr/search.php?q=7220000&t=mob,round,cute,5,3,5,태륜의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7220000/render/stand
+구미호,7220001,https://mapledb.kr/search.php?q=7220001&t=mob,round,cute,5,3,5,구미호의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7220001/render/stand
+요괴선사,7220002,https://mapledb.kr/search.php?q=7220002&t=mob,round,cute,5,3,5,요괴선사의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/7220002/render/stand
+디트와 로이,8090000,https://mapledb.kr/search.php?q=8090000&t=mob,round,cute,5,3,5,디트와 로이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8090000/render/stand
+호문스큘러,8110300,https://mapledb.kr/search.php?q=8110300&t=mob,round,cute,5,3,5,호문스큘러의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8110300/render/stand
+주니어 발록,8130100,https://mapledb.kr/search.php?q=8130100&t=mob,round,cute,5,3,5,주니어 발록의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8130100/render/stand
+라이칸스로프,8140000,https://mapledb.kr/search.php?q=8140000&t=mob,round,cute,5,3,5,라이칸스로프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140000/render/stand
+하프,8140001,https://mapledb.kr/search.php?q=8140001&t=mob,round,cute,5,3,5,하프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140001/render/stand
+블러드 하프,8140002,https://mapledb.kr/search.php?q=8140002&t=mob,round,cute,5,3,5,블러드 하프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140002/render/stand
+다크 예티와 페페,8140100,https://mapledb.kr/search.php?q=8140100&t=mob,round,cute,5,3,5,다크 예티와 페페의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140100/render/stand
+검은 켄타우로스,8140101,https://mapledb.kr/search.php?q=8140101&t=mob,round,cute,5,3,5,검은 켄타우로스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140101/render/stand
+붉은 켄타우로스,8140102,https://mapledb.kr/search.php?q=8140102&t=mob,round,cute,5,3,5,붉은 켄타우로스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140102/render/stand
+푸른 켄타우로스,8140103,https://mapledb.kr/search.php?q=8140103&t=mob,round,cute,5,3,5,푸른 켄타우로스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140103/render/stand
+버크,8140110,https://mapledb.kr/search.php?q=8140110&t=mob,round,cute,5,3,5,버크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140110/render/stand
+듀얼 버크,8140111,https://mapledb.kr/search.php?q=8140111&t=mob,round,cute,5,3,5,듀얼 버크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140111/render/stand
+클라크,8140200,https://mapledb.kr/search.php?q=8140200&t=mob,round,cute,5,3,5,클라크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140200/render/stand
+다크 클라크,8140300,https://mapledb.kr/search.php?q=8140300&t=mob,round,cute,5,3,5,다크 클라크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140300/render/stand
+파이어독,8140500,https://mapledb.kr/search.php?q=8140500&t=mob,round,cute,5,3,5,파이어독의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140500/render/stand
+폭렬 망둥이집,8140555,https://mapledb.kr/search.php?q=8140555&t=mob,round,cute,5,3,5,폭렬 망둥이집의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140555/render/stand
+본피쉬,8140600,https://mapledb.kr/search.php?q=8140600&t=mob,round,cute,5,3,5,본피쉬의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140600/render/stand
+블루 드래곤터틀,8140700,https://mapledb.kr/search.php?q=8140700&t=mob,round,cute,5,3,5,블루 드래곤터틀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140700/render/stand
+레드 드래곤터틀,8140701,https://mapledb.kr/search.php?q=8140701&t=mob,round,cute,5,3,5,레드 드래곤터틀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140701/render/stand
+리스튼,8140702,https://mapledb.kr/search.php?q=8140702&t=mob,round,cute,5,3,5,리스튼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140702/render/stand
+브레스튼,8140703,https://mapledb.kr/search.php?q=8140703&t=mob,round,cute,5,3,5,브레스튼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8140703/render/stand
+바이킹,8141000,https://mapledb.kr/search.php?q=8141000&t=mob,round,cute,5,3,5,바이킹의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8141000/render/stand
+기간틱 바이킹,8141100,https://mapledb.kr/search.php?q=8141100&t=mob,round,cute,5,3,5,기간틱 바이킹의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8141100/render/stand
+스퀴드,8141300,https://mapledb.kr/search.php?q=8141300&t=mob,round,cute,5,3,5,스퀴드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8141300/render/stand
+팬텀워치,8142000,https://mapledb.kr/search.php?q=8142000&t=mob,round,cute,5,3,5,팬텀워치의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8142000/render/stand
+리셀스퀴드,8142100,https://mapledb.kr/search.php?q=8142100&t=mob,round,cute,5,3,5,리셀스퀴드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8142100/render/stand
+G.팬텀워치,8143000,https://mapledb.kr/search.php?q=8143000&t=mob,round,cute,5,3,5,G.팬텀워치의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8143000/render/stand
+크림슨 발록,8150000,https://mapledb.kr/search.php?q=8150000&t=mob,round,cute,5,3,5,크림슨 발록의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8150000/render/stand
+샤크,8150100,https://mapledb.kr/search.php?q=8150100&t=mob,round,cute,5,3,5,샤크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8150100/render/stand
+콜드샤크,8150101,https://mapledb.kr/search.php?q=8150101&t=mob,round,cute,5,3,5,콜드샤크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8150101/render/stand
+그린코니언,8150200,https://mapledb.kr/search.php?q=8150200&t=mob,round,cute,5,3,5,그린코니언의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8150200/render/stand
+다크코니언,8150201,https://mapledb.kr/search.php?q=8150201&t=mob,round,cute,5,3,5,다크코니언의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8150201/render/stand
+레드 와이번,8150300,https://mapledb.kr/search.php?q=8150300&t=mob,round,cute,5,3,5,레드 와이번의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8150300/render/stand
+블루 와이번,8150301,https://mapledb.kr/search.php?q=8150301&t=mob,round,cute,5,3,5,블루 와이번의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8150301/render/stand
+다크 와이번,8150302,https://mapledb.kr/search.php?q=8150302&t=mob,round,cute,5,3,5,다크 와이번의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8150302/render/stand
+게이트키퍼,8160000,https://mapledb.kr/search.php?q=8160000&t=mob,round,cute,5,3,5,게이트키퍼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8160000/render/stand
+타나토스,8170000,https://mapledb.kr/search.php?q=8170000&t=mob,round,cute,5,3,5,타나토스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8170000/render/stand
+마뇽,8180000,https://mapledb.kr/search.php?q=8180000&t=mob,round,cute,5,3,5,마뇽의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8180000/render/stand
+그리프,8180001,https://mapledb.kr/search.php?q=8180001&t=mob,round,cute,5,3,5,그리프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8180001/render/stand
+뉴트주니어,8190000,https://mapledb.kr/search.php?q=8190000&t=mob,round,cute,5,3,5,뉴트주니어의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8190000/render/stand
+네스트골렘,8190002,https://mapledb.kr/search.php?q=8190002&t=mob,round,cute,5,3,5,네스트골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8190002/render/stand
+스켈레곤,8190003,https://mapledb.kr/search.php?q=8190003&t=mob,round,cute,5,3,5,스켈레곤의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8190003/render/stand
+스켈로스,8190004,https://mapledb.kr/search.php?q=8190004&t=mob,round,cute,5,3,5,스켈로스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8190004/render/stand
+엘리쟈,8220000,https://mapledb.kr/search.php?q=8220000&t=mob,round,cute,5,3,5,엘리쟈의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8220000/render/stand
+스노우맨,8220001,https://mapledb.kr/search.php?q=8220001&t=mob,round,cute,5,3,5,스노우맨의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8220001/render/stand
+키메라,8220002,https://mapledb.kr/search.php?q=8220002&t=mob,round,cute,5,3,5,키메라의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8220002/render/stand
+레비아탄,8220003,https://mapledb.kr/search.php?q=8220003&t=mob,round,cute,5,3,5,레비아탄의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8220003/render/stand
+시간의 구,8500000,https://mapledb.kr/search.php?q=8500000&t=mob,round,cute,5,3,5,시간의 구의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8500000/render/stand
+파풀라투스의 시계,8500001,https://mapledb.kr/search.php?q=8500001&t=mob,round,cute,5,3,5,파풀라투스의 시계의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8500001/render/stand
+파풀라투스,8500002,https://mapledb.kr/search.php?q=8500002&t=mob,round,cute,5,3,5,파풀라투스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8500002/render/stand
+로우 다크스타,8500003,https://mapledb.kr/search.php?q=8500003&t=mob,round,cute,5,3,5,로우 다크스타의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8500003/render/stand
+하이 다크스타,8500004,https://mapledb.kr/search.php?q=8500004&t=mob,round,cute,5,3,5,하이 다크스타의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8500004/render/stand
+피아누스,8510000,https://mapledb.kr/search.php?q=8510000&t=mob,round,cute,5,3,5,피아누스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8510000/render/stand
+블러드붐,8510100,https://mapledb.kr/search.php?q=8510100&t=mob,round,cute,5,3,5,블러드붐의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8510100/render/stand
+자쿰,8800000,https://mapledb.kr/search.php?q=8800000&t=mob,round,cute,5,3,5,자쿰의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8800000/render/stand
+자쿰팔1,8800003,https://mapledb.kr/search.php?q=8800003&t=mob,round,cute,5,3,5,자쿰팔1의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8800003/render/stand
+자쿰팔2,8800004,https://mapledb.kr/search.php?q=8800004&t=mob,round,cute,5,3,5,자쿰팔2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8800004/render/stand
+자쿰팔3,8800005,https://mapledb.kr/search.php?q=8800005&t=mob,round,cute,5,3,5,자쿰팔3의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8800005/render/stand
+자쿰팔4,8800006,https://mapledb.kr/search.php?q=8800006&t=mob,round,cute,5,3,5,자쿰팔4의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8800006/render/stand
+자쿰팔5,8800007,https://mapledb.kr/search.php?q=8800007&t=mob,round,cute,5,3,5,자쿰팔5의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8800007/render/stand
+자쿰팔6,8800008,https://mapledb.kr/search.php?q=8800008&t=mob,round,cute,5,3,5,자쿰팔6의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8800008/render/stand
+자쿰팔7,8800009,https://mapledb.kr/search.php?q=8800009&t=mob,round,cute,5,3,5,자쿰팔7의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8800009/render/stand
+자쿰팔8,8800010,https://mapledb.kr/search.php?q=8800010&t=mob,round,cute,5,3,5,자쿰팔8의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8800010/render/stand
+그린 코니언,8810022,https://mapledb.kr/search.php?q=8810022&t=mob,round,cute,5,3,5,그린 코니언의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8810022/render/stand
+다크 코니언,8810023,https://mapledb.kr/search.php?q=8810023&t=mob,round,cute,5,3,5,다크 코니언의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/8810023/render/stand
+늪지괴물,9000300,https://mapledb.kr/search.php?q=9000300&t=mob,round,cute,5,3,5,늪지괴물의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9000300/render/stand
+파란 버섯,9000301,https://mapledb.kr/search.php?q=9000301&t=mob,round,cute,5,3,5,파란 버섯의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9000301/render/stand
+주먹펴고 일어서의 분신,9001000,https://mapledb.kr/search.php?q=9001000&t=mob,round,cute,5,3,5,주먹펴고 일어서의 분신의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9001000/render/stand
+하인즈의 분신,9001001,https://mapledb.kr/search.php?q=9001001&t=mob,round,cute,5,3,5,하인즈의 분신의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9001001/render/stand
+헬레나의 분신,9001002,https://mapledb.kr/search.php?q=9001002&t=mob,round,cute,5,3,5,헬레나의 분신의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9001002/render/stand
+다크로드의 분신,9001003,https://mapledb.kr/search.php?q=9001003&t=mob,round,cute,5,3,5,다크로드의 분신의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9001003/render/stand
+카이린의 분신,9001004,https://mapledb.kr/search.php?q=9001004&t=mob,round,cute,5,3,5,카이린의 분신의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9001004/render/stand
+파이렛옥토,9001005,https://mapledb.kr/search.php?q=9001005&t=mob,round,cute,5,3,5,파이렛옥토의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9001005/render/stand
+수련용 허수아비,9001007,https://mapledb.kr/search.php?q=9001007&t=mob,round,cute,5,3,5,수련용 허수아비의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9001007/render/stand
+카이린의 분신의 분신,9001008,https://mapledb.kr/search.php?q=9001008&t=mob,round,cute,5,3,5,카이린의 분신의 분신의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9001008/render/stand
+슈퍼 슬라임,9100000,https://mapledb.kr/search.php?q=9100000&t=mob,round,cute,5,3,5,슈퍼 슬라임의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9100000/render/stand
+슈퍼 주니어 네키,9100001,https://mapledb.kr/search.php?q=9100001&t=mob,round,cute,5,3,5,슈퍼 주니어 네키의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9100001/render/stand
+슈퍼 스티지,9100002,https://mapledb.kr/search.php?q=9100002&t=mob,round,cute,5,3,5,슈퍼 스티지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9100002/render/stand
+울트라 주니어 네키,9100003,https://mapledb.kr/search.php?q=9100003&t=mob,round,cute,5,3,5,울트라 주니어 네키의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9100003/render/stand
+슈퍼 트릭스터,9100005,https://mapledb.kr/search.php?q=9100005&t=mob,round,cute,5,3,5,슈퍼 트릭스터의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9100005/render/stand
+슈퍼 그린 트릭스터,9100006,https://mapledb.kr/search.php?q=9100006&t=mob,round,cute,5,3,5,슈퍼 그린 트릭스터의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9100006/render/stand
+슈퍼 리본돼지,9100007,https://mapledb.kr/search.php?q=9100007&t=mob,round,cute,5,3,5,슈퍼 리본돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9100007/render/stand
+울트라 코-크 달팽이,9100008,https://mapledb.kr/search.php?q=9100008&t=mob,round,cute,5,3,5,울트라 코-크 달팽이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9100008/render/stand
+슈퍼 검은 양,9100010,https://mapledb.kr/search.php?q=9100010&t=mob,round,cute,5,3,5,슈퍼 검은 양의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9100010/render/stand
+아딘의 분신,9100013,https://mapledb.kr/search.php?q=9100013&t=mob,round,cute,5,3,5,아딘의 분신의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9100013/render/stand
+미믹,9300004,https://mapledb.kr/search.php?q=9300004&t=mob,round,cute,5,3,5,미믹의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300004/render/stand
+차원의 라츠,9300005,https://mapledb.kr/search.php?q=9300005&t=mob,round,cute,5,3,5,차원의 라츠의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300005/render/stand
+차원의 블랙 라츠,9300006,https://mapledb.kr/search.php?q=9300006&t=mob,round,cute,5,3,5,차원의 블랙 라츠의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300006/render/stand
+차원의 블록퍼스,9300007,https://mapledb.kr/search.php?q=9300007&t=mob,round,cute,5,3,5,차원의 블록퍼스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300007/render/stand
+차원의 쉐도우아이,9300008,https://mapledb.kr/search.php?q=9300008&t=mob,round,cute,5,3,5,차원의 쉐도우아이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300008/render/stand
+차원의 블록골렘,9300009,https://mapledb.kr/search.php?q=9300009&t=mob,round,cute,5,3,5,차원의 블록골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300009/render/stand
+차원의 롬바드,9300010,https://mapledb.kr/search.php?q=9300010&t=mob,round,cute,5,3,5,차원의 롬바드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300010/render/stand
+알리샤르,9300012,https://mapledb.kr/search.php?q=9300012&t=mob,round,cute,5,3,5,알리샤르의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300012/render/stand
+차원의 킹 블록골렘,9300013,https://mapledb.kr/search.php?q=9300013&t=mob,round,cute,5,3,5,차원의 킹 블록골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300013/render/stand
+차원의 다크아이,9300014,https://mapledb.kr/search.php?q=9300014&t=mob,round,cute,5,3,5,차원의 다크아이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300014/render/stand
+마스터 머슬스톤,9300019,https://mapledb.kr/search.php?q=9300019&t=mob,round,cute,5,3,5,마스터 머슬스톤의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300019/render/stand
+머슬스톤,9300020,https://mapledb.kr/search.php?q=9300020&t=mob,round,cute,5,3,5,머슬스톤의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300020/render/stand
+다크 머슬스톤,9300021,https://mapledb.kr/search.php?q=9300021&t=mob,round,cute,5,3,5,다크 머슬스톤의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300021/render/stand
+블랙 나이트,9300022,https://mapledb.kr/search.php?q=9300022&t=mob,round,cute,5,3,5,블랙 나이트의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300022/render/stand
+미스트 나이트,9300023,https://mapledb.kr/search.php?q=9300023&t=mob,round,cute,5,3,5,미스트 나이트의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300023/render/stand
+퍼펫골렘,9300024,https://mapledb.kr/search.php?q=9300024&t=mob,round,cute,5,3,5,퍼펫골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300024/render/stand
+가고일,9300025,https://mapledb.kr/search.php?q=9300025&t=mob,round,cute,5,3,5,가고일의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300025/render/stand
+주니어 가고일,9300026,https://mapledb.kr/search.php?q=9300026&t=mob,round,cute,5,3,5,주니어 가고일의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300026/render/stand
+악마 슬라임,9300027,https://mapledb.kr/search.php?q=9300027&t=mob,round,cute,5,3,5,악마 슬라임의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300027/render/stand
+에레고스,9300028,https://mapledb.kr/search.php?q=9300028&t=mob,round,cute,5,3,5,에레고스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300028/render/stand
+사자석상 A,9300029,https://mapledb.kr/search.php?q=9300029&t=mob,round,cute,5,3,5,사자석상 A의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300029/render/stand
+사자석상 B,9300030,https://mapledb.kr/search.php?q=9300030&t=mob,round,cute,5,3,5,사자석상 B의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300030/render/stand
+기사석상 A,9300031,https://mapledb.kr/search.php?q=9300031&t=mob,round,cute,5,3,5,기사석상 A의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300031/render/stand
+기사석상 B,9300032,https://mapledb.kr/search.php?q=9300032&t=mob,round,cute,5,3,5,기사석상 B의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300032/render/stand
+고스트픽시,9300038,https://mapledb.kr/search.php?q=9300038&t=mob,round,cute,5,3,5,고스트픽시의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300038/render/stand
+파파픽시,9300039,https://mapledb.kr/search.php?q=9300039&t=mob,round,cute,5,3,5,파파픽시의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300039/render/stand
+여신 탑의 샐리온,9300040,https://mapledb.kr/search.php?q=9300040&t=mob,round,cute,5,3,5,여신 탑의 샐리온의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300040/render/stand
+여신 탑의 그류핀,9300042,https://mapledb.kr/search.php?q=9300042&t=mob,round,cute,5,3,5,여신 탑의 그류핀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300042/render/stand
+여신 탑의 라이오너,9300043,https://mapledb.kr/search.php?q=9300043&t=mob,round,cute,5,3,5,여신 탑의 라이오너의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300043/render/stand
+여신 탑의 루이넬,9300044,https://mapledb.kr/search.php?q=9300044&t=mob,round,cute,5,3,5,여신 탑의 루이넬의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300044/render/stand
+여신 탑의 루나픽시,9300045,https://mapledb.kr/search.php?q=9300045&t=mob,round,cute,5,3,5,여신 탑의 루나픽시의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300045/render/stand
+여신 탑의 스타픽시,9300046,https://mapledb.kr/search.php?q=9300046&t=mob,round,cute,5,3,5,여신 탑의 스타픽시의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300046/render/stand
+여신 탑의 러스터픽시,9300047,https://mapledb.kr/search.php?q=9300047&t=mob,round,cute,5,3,5,여신 탑의 러스터픽시의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300047/render/stand
+여신 탑의 네펜데스,9300048,https://mapledb.kr/search.php?q=9300048&t=mob,round,cute,5,3,5,여신 탑의 네펜데스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300048/render/stand
+여신 탑의 로얄 네펜데스,9300049,https://mapledb.kr/search.php?q=9300049&t=mob,round,cute,5,3,5,여신 탑의 로얄 네펜데스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300049/render/stand
+플라잉 부기,9300050,https://mapledb.kr/search.php?q=9300050&t=mob,round,cute,5,3,5,플라잉 부기의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300050/render/stand
+여신 탑의 주니어 샐리온,9300051,https://mapledb.kr/search.php?q=9300051&t=mob,round,cute,5,3,5,여신 탑의 주니어 샐리온의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300051/render/stand
+여신 탑의 주니어 라이오너,9300052,https://mapledb.kr/search.php?q=9300052&t=mob,round,cute,5,3,5,여신 탑의 주니어 라이오너의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300052/render/stand
+여신 탑의 주니어 그류핀,9300053,https://mapledb.kr/search.php?q=9300053&t=mob,round,cute,5,3,5,여신 탑의 주니어 그류핀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300053/render/stand
+여신 탑의 루나픽시(보스 소환용),9300054,https://mapledb.kr/search.php?q=9300054&t=mob,round,cute,5,3,5,여신 탑의 루나픽시(보스 소환용)의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300054/render/stand
+여신 탑의 스타픽시(보스 소환용),9300055,https://mapledb.kr/search.php?q=9300055&t=mob,round,cute,5,3,5,여신 탑의 스타픽시(보스 소환용)의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300055/render/stand
+여신 탑의 러스터픽시(보스 소환용),9300056,https://mapledb.kr/search.php?q=9300056&t=mob,round,cute,5,3,5,여신 탑의 러스터픽시(보스 소환용)의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300056/render/stand
+도깨비불,9300064,https://mapledb.kr/search.php?q=9300064&t=mob,round,cute,5,3,5,도깨비불의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300064/render/stand
+동굴 그린 코니언1,9300065,https://mapledb.kr/search.php?q=9300065&t=mob,round,cute,5,3,5,동굴 그린 코니언1의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300065/render/stand
+동굴 그린 코니언2,9300066,https://mapledb.kr/search.php?q=9300066&t=mob,round,cute,5,3,5,동굴 그린 코니언2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300066/render/stand
+동굴 다크 코니언1,9300067,https://mapledb.kr/search.php?q=9300067&t=mob,round,cute,5,3,5,동굴 다크 코니언1의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300067/render/stand
+동굴 다크 코니언2,9300068,https://mapledb.kr/search.php?q=9300068&t=mob,round,cute,5,3,5,동굴 다크 코니언2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300068/render/stand
+동굴 레드 와이번1,9300069,https://mapledb.kr/search.php?q=9300069&t=mob,round,cute,5,3,5,동굴 레드 와이번1의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300069/render/stand
+동굴 레드 와이번2,9300070,https://mapledb.kr/search.php?q=9300070&t=mob,round,cute,5,3,5,동굴 레드 와이번2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300070/render/stand
+동굴 블루 와이번1,9300071,https://mapledb.kr/search.php?q=9300071&t=mob,round,cute,5,3,5,동굴 블루 와이번1의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300071/render/stand
+동굴 블루 와이번2,9300072,https://mapledb.kr/search.php?q=9300072&t=mob,round,cute,5,3,5,동굴 블루 와이번2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300072/render/stand
+동굴 다크 와이번1,9300073,https://mapledb.kr/search.php?q=9300073&t=mob,round,cute,5,3,5,동굴 다크 와이번1의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300073/render/stand
+동굴 다크 와이번2,9300074,https://mapledb.kr/search.php?q=9300074&t=mob,round,cute,5,3,5,동굴 다크 와이번2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300074/render/stand
+동굴 스켈레곤1,9300075,https://mapledb.kr/search.php?q=9300075&t=mob,round,cute,5,3,5,동굴 스켈레곤1의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300075/render/stand
+동굴 스켈레곤2,9300076,https://mapledb.kr/search.php?q=9300076&t=mob,round,cute,5,3,5,동굴 스켈레곤2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300076/render/stand
+동굴 T-스켈래곤,9300077,https://mapledb.kr/search.php?q=9300077&t=mob,round,cute,5,3,5,동굴 T-스켈래곤의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300077/render/stand
+동굴 뉴트주니어,9300078,https://mapledb.kr/search.php?q=9300078&t=mob,round,cute,5,3,5,동굴 뉴트주니어의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300078/render/stand
+동굴 네스트골렘,9300079,https://mapledb.kr/search.php?q=9300079&t=mob,round,cute,5,3,5,동굴 네스트골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300079/render/stand
+죽음의 공포,9300084,https://mapledb.kr/search.php?q=9300084&t=mob,round,cute,5,3,5,죽음의 공포의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300084/render/stand
+이계의 주니어 발록,9300085,https://mapledb.kr/search.php?q=9300085&t=mob,round,cute,5,3,5,이계의 주니어 발록의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300085/render/stand
+속성의 타나토스,9300086,https://mapledb.kr/search.php?q=9300086&t=mob,round,cute,5,3,5,속성의 타나토스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300086/render/stand
+돌진 타우로스피어,9300087,https://mapledb.kr/search.php?q=9300087&t=mob,round,cute,5,3,5,돌진 타우로스피어의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300087/render/stand
+다크로드의 제자,9300088,https://mapledb.kr/search.php?q=9300088&t=mob,round,cute,5,3,5,다크로드의 제자의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300088/render/stand
+피닉스,9300089,https://mapledb.kr/search.php?q=9300089&t=mob,round,cute,5,3,5,피닉스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300089/render/stand
+프리저,9300090,https://mapledb.kr/search.php?q=9300090&t=mob,round,cute,5,3,5,프리저의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300090/render/stand
+어둠의 머슬스톤,9300091,https://mapledb.kr/search.php?q=9300091&t=mob,round,cute,5,3,5,어둠의 머슬스톤의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300091/render/stand
+잊혀진 신전의 주니어 발록,9300092,https://mapledb.kr/search.php?q=9300092&t=mob,round,cute,5,3,5,잊혀진 신전의 주니어 발록의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300092/render/stand
+타일러스,9300093,https://mapledb.kr/search.php?q=9300093&t=mob,round,cute,5,3,5,타일러스의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300093/render/stand
+납치범 크림슨 발록,9300094,https://mapledb.kr/search.php?q=9300094&t=mob,round,cute,5,3,5,납치범 크림슨 발록의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300094/render/stand
+납치범 라이칸스로프,9300095,https://mapledb.kr/search.php?q=9300095&t=mob,round,cute,5,3,5,납치범 라이칸스로프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300095/render/stand
+일그러진 차원의 망둥이,9300097,https://mapledb.kr/search.php?q=9300097&t=mob,round,cute,5,3,5,일그러진 차원의 망둥이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300097/render/stand
+일그러진 차원의 본피쉬,9300098,https://mapledb.kr/search.php?q=9300098&t=mob,round,cute,5,3,5,일그러진 차원의 본피쉬의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300098/render/stand
+일그러진 차원의 샤크,9300099,https://mapledb.kr/search.php?q=9300099&t=mob,round,cute,5,3,5,일그러진 차원의 샤크의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300099/render/stand
+길들일 수 있는 멧돼지,9300101,https://mapledb.kr/search.php?q=9300101&t=mob,round,cute,5,3,5,길들일 수 있는 멧돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300101/render/stand
+호위용 멧돼지,9300102,https://mapledb.kr/search.php?q=9300102&t=mob,round,cute,5,3,5,호위용 멧돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300102/render/stand
+화난 데비존,9300105,https://mapledb.kr/search.php?q=9300105&t=mob,round,cute,5,3,5,화난 데비존의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300105/render/stand
+분노한 데비존,9300106,https://mapledb.kr/search.php?q=9300106&t=mob,round,cute,5,3,5,분노한 데비존의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300106/render/stand
+엿보는 데비존,9300107,https://mapledb.kr/search.php?q=9300107&t=mob,round,cute,5,3,5,엿보는 데비존의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300107/render/stand
+데비존의 단지,9300108,https://mapledb.kr/search.php?q=9300108&t=mob,round,cute,5,3,5,데비존의 단지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300108/render/stand
+데비존의 삼단지,9300109,https://mapledb.kr/search.php?q=9300109&t=mob,round,cute,5,3,5,데비존의 삼단지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300109/render/stand
+데비존의 도라지,9300110,https://mapledb.kr/search.php?q=9300110&t=mob,round,cute,5,3,5,데비존의 도라지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300110/render/stand
+데비존의 늙은 도라지,9300111,https://mapledb.kr/search.php?q=9300111&t=mob,round,cute,5,3,5,데비존의 늙은 도라지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300111/render/stand
+데비존의 100년 된 도라지,9300112,https://mapledb.kr/search.php?q=9300112&t=mob,round,cute,5,3,5,데비존의 100년 된 도라지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300112/render/stand
+데비존의 100년 된 늙은 도라지,9300113,https://mapledb.kr/search.php?q=9300113&t=mob,round,cute,5,3,5,데비존의 100년 된 늙은 도라지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300113/render/stand
+데비존의 사나운 게비알,9300114,https://mapledb.kr/search.php?q=9300114&t=mob,round,cute,5,3,5,데비존의 사나운 게비알의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300114/render/stand
+데비존의 사나운 크루,9300115,https://mapledb.kr/search.php?q=9300115&t=mob,round,cute,5,3,5,데비존의 사나운 크루의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300115/render/stand
+데비존의 사나운 캡틴,9300116,https://mapledb.kr/search.php?q=9300116&t=mob,round,cute,5,3,5,데비존의 사나운 캡틴의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300116/render/stand
+데비존의 심복 크루,9300117,https://mapledb.kr/search.php?q=9300117&t=mob,round,cute,5,3,5,데비존의 심복 크루의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300117/render/stand
+데비존의 심복 캡틴,9300118,https://mapledb.kr/search.php?q=9300118&t=mob,round,cute,5,3,5,데비존의 심복 캡틴의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300118/render/stand
+데비존,9300119,https://mapledb.kr/search.php?q=9300119&t=mob,round,cute,5,3,5,데비존의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300119/render/stand
+데비존의 더 사나운 게비알,9300120,https://mapledb.kr/search.php?q=9300120&t=mob,round,cute,5,3,5,데비존의 더 사나운 게비알의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300120/render/stand
+데비존의 더 사나운 크루,9300121,https://mapledb.kr/search.php?q=9300121&t=mob,round,cute,5,3,5,데비존의 더 사나운 크루의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300121/render/stand
+데비존의 더 사나운 캡틴,9300122,https://mapledb.kr/search.php?q=9300122&t=mob,round,cute,5,3,5,데비존의 더 사나운 캡틴의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300122/render/stand
+데비존의 게비알,9300123,https://mapledb.kr/search.php?q=9300123&t=mob,round,cute,5,3,5,데비존의 게비알의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300123/render/stand
+데비존의 크루,9300124,https://mapledb.kr/search.php?q=9300124&t=mob,round,cute,5,3,5,데비존의 크루의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300124/render/stand
+데비존의 캡틴,9300125,https://mapledb.kr/search.php?q=9300125&t=mob,round,cute,5,3,5,데비존의 캡틴의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300125/render/stand
+데비존의 사나운 삼단지,9300126,https://mapledb.kr/search.php?q=9300126&t=mob,round,cute,5,3,5,데비존의 사나운 삼단지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300126/render/stand
+줄리엣,9300137,https://mapledb.kr/search.php?q=9300137&t=mob,round,cute,5,3,5,줄리엣의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300137/render/stand
+로미오,9300138,https://mapledb.kr/search.php?q=9300138&t=mob,round,cute,5,3,5,로미오의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300138/render/stand
+프랑켄로이드,9300139,https://mapledb.kr/search.php?q=9300139&t=mob,round,cute,5,3,5,프랑켄로이드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300139/render/stand
+화난 프랑켄로이드,9300140,https://mapledb.kr/search.php?q=9300140&t=mob,round,cute,5,3,5,화난 프랑켄로이드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300140/render/stand
+폐쇄된 연구실의 호문,9300141,https://mapledb.kr/search.php?q=9300141&t=mob,round,cute,5,3,5,폐쇄된 연구실의 호문의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300141/render/stand
+숨겨진 연구실의 호문쿨루,9300142,https://mapledb.kr/search.php?q=9300142&t=mob,round,cute,5,3,5,숨겨진 연구실의 호문쿨루의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300142/render/stand
+방해물 뮤테,9300153,https://mapledb.kr/search.php?q=9300153&t=mob,round,cute,5,3,5,방해물 뮤테의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300153/render/stand
+실험용 네오 휴로이드,9300154,https://mapledb.kr/search.php?q=9300154&t=mob,round,cute,5,3,5,실험용 네오 휴로이드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300154/render/stand
+검은 마법사의 수하,9300156,https://mapledb.kr/search.php?q=9300156&t=mob,round,cute,5,3,5,검은 마법사의 수하의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300156/render/stand
+카이린,9300158,https://mapledb.kr/search.php?q=9300158&t=mob,round,cute,5,3,5,카이린의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300158/render/stand
+델리,9300162,https://mapledb.kr/search.php?q=9300162&t=mob,round,cute,5,3,5,델리의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300162/render/stand
+폭탄,9300166,https://mapledb.kr/search.php?q=9300166&t=mob,round,cute,5,3,5,폭탄의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300166/render/stand
+차원의 블랙라츠,9300170,https://mapledb.kr/search.php?q=9300170&t=mob,round,cute,5,3,5,차원의 블랙라츠의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300170/render/stand
+중독된 트리로드,9300172,https://mapledb.kr/search.php?q=9300172&t=mob,round,cute,5,3,5,중독된 트리로드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300172/render/stand
+중독된 스톤버그,9300173,https://mapledb.kr/search.php?q=9300173&t=mob,round,cute,5,3,5,중독된 스톤버그의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300173/render/stand
+포이즌 플라워,9300174,https://mapledb.kr/search.php?q=9300174&t=mob,round,cute,5,3,5,포이즌 플라워의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300174/render/stand
+중독된 스프라이트,9300175,https://mapledb.kr/search.php?q=9300175&t=mob,round,cute,5,3,5,중독된 스프라이트의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300175/render/stand
+멀쩡한 스프라이트,9300176,https://mapledb.kr/search.php?q=9300176&t=mob,round,cute,5,3,5,멀쩡한 스프라이트의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300176/render/stand
+더 중독된 트리로드,9300177,https://mapledb.kr/search.php?q=9300177&t=mob,round,cute,5,3,5,더 중독된 트리로드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300177/render/stand
+더 중독된 스톤버그,9300178,https://mapledb.kr/search.php?q=9300178&t=mob,round,cute,5,3,5,더 중독된 스톤버그의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300178/render/stand
+더 중독된 스프라이트,9300179,https://mapledb.kr/search.php?q=9300179&t=mob,round,cute,5,3,5,더 중독된 스프라이트의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300179/render/stand
+포이즌 골렘,9300180,https://mapledb.kr/search.php?q=9300180&t=mob,round,cute,5,3,5,포이즌 골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300180/render/stand
+강화형 포이즌 골렘,9300181,https://mapledb.kr/search.php?q=9300181&t=mob,round,cute,5,3,5,강화형 포이즌 골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300181/render/stand
+초강화형 포이즌 골렘,9300182,https://mapledb.kr/search.php?q=9300182&t=mob,round,cute,5,3,5,초강화형 포이즌 골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300182/render/stand
+보스 몬스터 퇴치 체크용 투명 몬스터,9300183,https://mapledb.kr/search.php?q=9300183&t=mob,round,cute,5,3,5,보스 몬스터 퇴치 체크용 투명 몬스터의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300183/render/stand
+킹슬라임,9300187,https://mapledb.kr/search.php?q=9300187&t=mob,round,cute,5,3,5,킹슬라임의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300187/render/stand
+대왕지네,9300188,https://mapledb.kr/search.php?q=9300188&t=mob,round,cute,5,3,5,대왕지네의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9300188/render/stand
+까마귀,9400000,https://mapledb.kr/search.php?q=9400000&t=mob,round,cute,5,3,5,까마귀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400000/render/stand
+불너구리,9400001,https://mapledb.kr/search.php?q=9400001&t=mob,round,cute,5,3,5,불너구리의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400001/render/stand
+구름여우,9400002,https://mapledb.kr/search.php?q=9400002&t=mob,round,cute,5,3,5,구름여우의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400002/render/stand
+망령,9400003,https://mapledb.kr/search.php?q=9400003&t=mob,round,cute,5,3,5,망령의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400003/render/stand
+큰 구름여우,9400004,https://mapledb.kr/search.php?q=9400004&t=mob,round,cute,5,3,5,큰 구름여우의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400004/render/stand
+제등귀신,9400011,https://mapledb.kr/search.php?q=9400011&t=mob,round,cute,5,3,5,제등귀신의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400011/render/stand
+물도깨비,9400012,https://mapledb.kr/search.php?q=9400012&t=mob,round,cute,5,3,5,물도깨비의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400012/render/stand
+몽롱귀신,9400013,https://mapledb.kr/search.php?q=9400013&t=mob,round,cute,5,3,5,몽롱귀신의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400013/render/stand
+천구,9400014,https://mapledb.kr/search.php?q=9400014&t=mob,round,cute,5,3,5,천구의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400014/render/stand
+수하 A,9400100,https://mapledb.kr/search.php?q=9400100&t=mob,round,cute,5,3,5,수하 A의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400100/render/stand
+수하 B,9400101,https://mapledb.kr/search.php?q=9400101&t=mob,round,cute,5,3,5,수하 B의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400101/render/stand
+수하 C,9400102,https://mapledb.kr/search.php?q=9400102&t=mob,round,cute,5,3,5,수하 C의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400102/render/stand
+수하 D,9400103,https://mapledb.kr/search.php?q=9400103&t=mob,round,cute,5,3,5,수하 D의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400103/render/stand
+간부 A,9400110,https://mapledb.kr/search.php?q=9400110&t=mob,round,cute,5,3,5,간부 A의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400110/render/stand
+간부 B,9400111,https://mapledb.kr/search.php?q=9400111&t=mob,round,cute,5,3,5,간부 B의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400111/render/stand
+두목,9400120,https://mapledb.kr/search.php?q=9400120&t=mob,round,cute,5,3,5,두목의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400120/render/stand
+여두목,9400121,https://mapledb.kr/search.php?q=9400121&t=mob,round,cute,5,3,5,여두목의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400121/render/stand
+레드 슬라임,9400204,https://mapledb.kr/search.php?q=9400204&t=mob,round,cute,5,3,5,레드 슬라임의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400204/render/stand
+블루머쉬맘,9400205,https://mapledb.kr/search.php?q=9400205&t=mob,round,cute,5,3,5,블루머쉬맘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400205/render/stand
+하급닌자,9400400,https://mapledb.kr/search.php?q=9400400&t=mob,round,cute,5,3,5,하급닌자의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400400/render/stand
+중급닌자,9400401,https://mapledb.kr/search.php?q=9400401&t=mob,round,cute,5,3,5,중급닌자의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400401/render/stand
+상급닌자,9400402,https://mapledb.kr/search.php?q=9400402&t=mob,round,cute,5,3,5,상급닌자의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400402/render/stand
+닌자두목,9400403,https://mapledb.kr/search.php?q=9400403&t=mob,round,cute,5,3,5,닌자두목의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400403/render/stand
+아시가루,9400404,https://mapledb.kr/search.php?q=9400404&t=mob,round,cute,5,3,5,아시가루의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400404/render/stand
+갑주무사,9400405,https://mapledb.kr/search.php?q=9400405&t=mob,round,cute,5,3,5,갑주무사의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400405/render/stand
+쿠노이치,9400406,https://mapledb.kr/search.php?q=9400406&t=mob,round,cute,5,3,5,쿠노이치의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400406/render/stand
+두꺼비 영주,9400408,https://mapledb.kr/search.php?q=9400408&t=mob,round,cute,5,3,5,두꺼비 영주의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400408/render/stand
+웨딩캔들,9400513,https://mapledb.kr/search.php?q=9400513&t=mob,round,cute,5,3,5,웨딩캔들의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9400513/render/stand
+튜토리얼Mob1,9409000,https://mapledb.kr/search.php?q=9409000&t=mob,round,cute,5,3,5,튜토리얼Mob1의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9409000/render/stand
+튜토리얼Mob2,9409001,https://mapledb.kr/search.php?q=9409001&t=mob,round,cute,5,3,5,튜토리얼Mob2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9409001/render/stand
+들개,9410000,https://mapledb.kr/search.php?q=9410000&t=mob,round,cute,5,3,5,들개의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410000/render/stand
+멋쟁이 들개,9410001,https://mapledb.kr/search.php?q=9410001&t=mob,round,cute,5,3,5,멋쟁이 들개의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410001/render/stand
+험악한 들개,9410002,https://mapledb.kr/search.php?q=9410002&t=mob,round,cute,5,3,5,험악한 들개의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410002/render/stand
+광대 원숭이,9410003,https://mapledb.kr/search.php?q=9410003&t=mob,round,cute,5,3,5,광대 원숭이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410003/render/stand
+폭주족 원숭이,9410004,https://mapledb.kr/search.php?q=9410004&t=mob,round,cute,5,3,5,폭주족 원숭이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410004/render/stand
+레드 버블티,9410005,https://mapledb.kr/search.php?q=9410005&t=mob,round,cute,5,3,5,레드 버블티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410005/render/stand
+옐로우 버블티,9410006,https://mapledb.kr/search.php?q=9410006&t=mob,round,cute,5,3,5,옐로우 버블티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410006/render/stand
+그린 버블티,9410007,https://mapledb.kr/search.php?q=9410007&t=mob,round,cute,5,3,5,그린 버블티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410007/render/stand
+예티 인형자판기,9410008,https://mapledb.kr/search.php?q=9410008&t=mob,round,cute,5,3,5,예티 인형자판기의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410008/render/stand
+예티 인형,9410009,https://mapledb.kr/search.php?q=9410009&t=mob,round,cute,5,3,5,예티 인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410009/render/stand
+주니어페페 인형자판기,9410010,https://mapledb.kr/search.php?q=9410010&t=mob,round,cute,5,3,5,주니어페페 인형자판기의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410010/render/stand
+주니어페페 인형,9410011,https://mapledb.kr/search.php?q=9410011&t=mob,round,cute,5,3,5,주니어페페 인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410011/render/stand
+인형자판기,9410012,https://mapledb.kr/search.php?q=9410012&t=mob,round,cute,5,3,5,인형자판기의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410012/render/stand
+인형뽑기 기계,9410013,https://mapledb.kr/search.php?q=9410013&t=mob,round,cute,5,3,5,인형뽑기 기계의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410013/render/stand
+포장마차,9410014,https://mapledb.kr/search.php?q=9410014&t=mob,round,cute,5,3,5,포장마차의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9410014/render/stand
+두꺼비,9420000,https://mapledb.kr/search.php?q=9420000&t=mob,round,cute,5,3,5,두꺼비의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420000/render/stand
+개구리,9420001,https://mapledb.kr/search.php?q=9420001&t=mob,round,cute,5,3,5,개구리의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420001/render/stand
+구렁이,9420002,https://mapledb.kr/search.php?q=9420002&t=mob,round,cute,5,3,5,구렁이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420002/render/stand
+빨간 도마뱀,9420003,https://mapledb.kr/search.php?q=9420003&t=mob,round,cute,5,3,5,빨간 도마뱀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420003/render/stand
+노란 도마뱀,9420004,https://mapledb.kr/search.php?q=9420004&t=mob,round,cute,5,3,5,노란 도마뱀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420004/render/stand
+흰 닭,9420005,https://mapledb.kr/search.php?q=9420005&t=mob,round,cute,5,3,5,흰 닭의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9420005/render/stand
+파이어 독,9500138,https://mapledb.kr/search.php?q=9500138&t=mob,round,cute,5,3,5,파이어 독의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500138/render/stand
+코-크 돼지,9500143,https://mapledb.kr/search.php?q=9500143&t=mob,round,cute,5,3,5,코-크 돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500143/render/stand
+코-크 달팽이,9500144,https://mapledb.kr/search.php?q=9500144&t=mob,round,cute,5,3,5,코-크 달팽이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500144/render/stand
+코-크 씰,9500145,https://mapledb.kr/search.php?q=9500145&t=mob,round,cute,5,3,5,코-크 씰의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500145/render/stand
+플레이 씰,9500146,https://mapledb.kr/search.php?q=9500146&t=mob,round,cute,5,3,5,플레이 씰의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500146/render/stand
+예티와 코-크텀프,9500147,https://mapledb.kr/search.php?q=9500147&t=mob,round,cute,5,3,5,예티와 코-크텀프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500147/render/stand
+이글루 터틀,9500148,https://mapledb.kr/search.php?q=9500148&t=mob,round,cute,5,3,5,이글루 터틀의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500148/render/stand
+코-크 골렘,9500149,https://mapledb.kr/search.php?q=9500149&t=mob,round,cute,5,3,5,코-크 골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500149/render/stand
+아이스 골렘,9500150,https://mapledb.kr/search.php?q=9500150&t=mob,round,cute,5,3,5,아이스 골렘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500150/render/stand
+코-크 슬라임,9500151,https://mapledb.kr/search.php?q=9500151&t=mob,round,cute,5,3,5,코-크 슬라임의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500151/render/stand
+코-크 버섯,9500152,https://mapledb.kr/search.php?q=9500152&t=mob,round,cute,5,3,5,코-크 버섯의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500152/render/stand
+코-크텀프,9500153,https://mapledb.kr/search.php?q=9500153&t=mob,round,cute,5,3,5,코-크텀프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500153/render/stand
+코-크텀프 라이트,9500154,https://mapledb.kr/search.php?q=9500154&t=mob,round,cute,5,3,5,코-크텀프 라이트의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500154/render/stand
+황금돼지,9500167,https://mapledb.kr/search.php?q=9500167&t=mob,round,cute,5,3,5,황금돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500167/render/stand
+파파 픽시,9500170,https://mapledb.kr/search.php?q=9500170&t=mob,round,cute,5,3,5,파파 픽시의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500170/render/stand
+블루 머쉬맘,9500176,https://mapledb.kr/search.php?q=9500176&t=mob,round,cute,5,3,5,블루 머쉬맘의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500176/render/stand
+포장마차(변신전),9500178,https://mapledb.kr/search.php?q=9500178&t=mob,round,cute,5,3,5,포장마차(변신전)의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500178/render/stand
+포장마차(변신후),9500179,https://mapledb.kr/search.php?q=9500179&t=mob,round,cute,5,3,5,포장마차(변신후)의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500179/render/stand
+수박파수꾼 호걸,9500182,https://mapledb.kr/search.php?q=9500182&t=mob,round,cute,5,3,5,수박파수꾼 호걸의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500182/render/stand
+라이드워드,9500184,https://mapledb.kr/search.php?q=9500184&t=mob,round,cute,5,3,5,라이드워드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500184/render/stand
+라이드워드Y,9500185,https://mapledb.kr/search.php?q=9500185&t=mob,round,cute,5,3,5,라이드워드Y의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500185/render/stand
+라이드워드B,9500186,https://mapledb.kr/search.php?q=9500186&t=mob,round,cute,5,3,5,라이드워드B의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500186/render/stand
+망가진 인형,9500187,https://mapledb.kr/search.php?q=9500187&t=mob,round,cute,5,3,5,망가진 인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500187/render/stand
+부서진 인형,9500188,https://mapledb.kr/search.php?q=9500188&t=mob,round,cute,5,3,5,부서진 인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500188/render/stand
+선물상자,9500189,https://mapledb.kr/search.php?q=9500189&t=mob,round,cute,5,3,5,선물상자의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500189/render/stand
+삐에로 인형,9500190,https://mapledb.kr/search.php?q=9500190&t=mob,round,cute,5,3,5,삐에로 인형의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500190/render/stand
+고스트,9500191,https://mapledb.kr/search.php?q=9500191&t=mob,round,cute,5,3,5,고스트의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500191/render/stand
+호박기사,9500192,https://mapledb.kr/search.php?q=9500192&t=mob,round,cute,5,3,5,호박기사의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500192/render/stand
+파이어 스티드,9500193,https://mapledb.kr/search.php?q=9500193&t=mob,round,cute,5,3,5,파이어 스티드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500193/render/stand
+거울 유령,9500194,https://mapledb.kr/search.php?q=9500194&t=mob,round,cute,5,3,5,거울 유령의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500194/render/stand
+잭오랜턴,9500195,https://mapledb.kr/search.php?q=9500195&t=mob,round,cute,5,3,5,잭오랜턴의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500195/render/stand
+유령,9500196,https://mapledb.kr/search.php?q=9500196&t=mob,round,cute,5,3,5,유령의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500196/render/stand
+Zoo 발록,9500200,https://mapledb.kr/search.php?q=9500200&t=mob,round,cute,5,3,5,Zoo 발록의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500200/render/stand
+Zoo 예티,9500201,https://mapledb.kr/search.php?q=9500201&t=mob,round,cute,5,3,5,Zoo 예티의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500201/render/stand
+Zoo 화이트팽,9500202,https://mapledb.kr/search.php?q=9500202&t=mob,round,cute,5,3,5,Zoo 화이트팽의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500202/render/stand
+Zoo 돼지,9500203,https://mapledb.kr/search.php?q=9500203&t=mob,round,cute,5,3,5,Zoo 돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500203/render/stand
+Zoo 리본돼지,9500204,https://mapledb.kr/search.php?q=9500204&t=mob,round,cute,5,3,5,Zoo 리본돼지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500204/render/stand
+호박밭의 잭오랜턴,9500302,https://mapledb.kr/search.php?q=9500302&t=mob,round,cute,5,3,5,호박밭의 잭오랜턴의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500302/render/stand
+거울 유령2,9500303,https://mapledb.kr/search.php?q=9500303&t=mob,round,cute,5,3,5,거울 유령2의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500303/render/stand
+거울 유령3,9500304,https://mapledb.kr/search.php?q=9500304&t=mob,round,cute,5,3,5,거울 유령3의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500304/render/stand
+꼬마 눈사람,9500317,https://mapledb.kr/search.php?q=9500317&t=mob,round,cute,5,3,5,꼬마 눈사람의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500317/render/stand
+화난 눈사람,9500318,https://mapledb.kr/search.php?q=9500318&t=mob,round,cute,5,3,5,화난 눈사람의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500318/render/stand
+거대 눈사람,9500319,https://mapledb.kr/search.php?q=9500319&t=mob,round,cute,5,3,5,거대 눈사람의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500319/render/stand
+길잃은 루돌프,9500320,https://mapledb.kr/search.php?q=9500320&t=mob,round,cute,5,3,5,길잃은 루돌프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500320/render/stand
+눈사람,9500321,https://mapledb.kr/search.php?q=9500321&t=mob,round,cute,5,3,5,눈사람의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500321/render/stand
+치즈 창고 고양이,9500323,https://mapledb.kr/search.php?q=9500323&t=mob,round,cute,5,3,5,치즈 창고 고양이의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500323/render/stand
+크림슨발록,9500328,https://mapledb.kr/search.php?q=9500328&t=mob,round,cute,5,3,5,크림슨발록의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500328/render/stand
+프랑켄 로이드,9500335,https://mapledb.kr/search.php?q=9500335&t=mob,round,cute,5,3,5,프랑켄 로이드의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500335/render/stand
+박,9500400,https://mapledb.kr/search.php?q=9500400&t=mob,round,cute,5,3,5,박의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9500400/render/stand
+닭,9600001,https://mapledb.kr/search.php?q=9600001&t=mob,round,cute,5,3,5,닭의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600001/render/stand
+오리,9600002,https://mapledb.kr/search.php?q=9600002&t=mob,round,cute,5,3,5,오리의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600002/render/stand
+양,9600003,https://mapledb.kr/search.php?q=9600003&t=mob,round,cute,5,3,5,양의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600003/render/stand
+염소,9600004,https://mapledb.kr/search.php?q=9600004&t=mob,round,cute,5,3,5,염소의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600004/render/stand
+흑염소,9600005,https://mapledb.kr/search.php?q=9600005&t=mob,round,cute,5,3,5,흑염소의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600005/render/stand
+소,9600006,https://mapledb.kr/search.php?q=9600006&t=mob,round,cute,5,3,5,소의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600006/render/stand
+쟁기소,9600007,https://mapledb.kr/search.php?q=9600007&t=mob,round,cute,5,3,5,쟁기소의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600007/render/stand
+검은 양,9600008,https://mapledb.kr/search.php?q=9600008&t=mob,round,cute,5,3,5,검은 양의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/9600008/render/stand
