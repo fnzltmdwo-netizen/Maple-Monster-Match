@@ -202,24 +202,40 @@ def score_to_percent(score, rank_index):
 def make_reason(features, monster):
     vibe = safe_str(monster.get("vibe"))
     face = safe_str(monster.get("face_shape"))
+    cute = safe_int(monster.get("cute_level"))
+    dark = safe_int(monster.get("dark_level"))
+    power = safe_int(monster.get("power_level"))
+
+    name = safe_str(monster.get("name"))
+
+    face_text = {
+        "round": "둥글고 부드러운 인상",
+        "oval": "깔끔한 세로형 인상",
+        "long": "길쭉하고 차분한 인상",
+        "square": "단단하고 안정적인 인상",
+        "triangle": "날렵하고 개성 있는 인상",
+    }.get(face, "전체적인 얼굴형")
 
     vibe_text = {
-        "cute": "귀엽고 부드러운 분위기",
-        "calm": "차분하고 안정적인 분위기",
-        "strong": "강하고 또렷한 분위기",
-        "dark": "어둡고 신비로운 분위기",
+        "cute": "귀여운 분위기",
+        "calm": "차분한 분위기",
+        "strong": "강한 존재감",
+        "dark": "어둡고 신비로운 느낌",
         "mysterious": "묘하고 독특한 분위기",
     }.get(vibe, "전체적인 분위기")
 
-    face_text = {
-        "round": "둥근 인상",
-        "oval": "부드러운 세로형 인상",
-        "long": "길쭉한 인상",
-        "square": "단단한 인상",
-        "triangle": "날카로운 인상",
-    }.get(face, "얼굴형")
+    extra = []
 
-    return f"{face_text}과 {vibe_text}가 사진 속 인물의 인상과 잘 어울립니다."
+    if cute >= 7:
+        extra.append("귀여운 느낌이 강해요")
+    if dark >= 6:
+        extra.append("살짝 어두운 매력이 있어요")
+    if power >= 7:
+        extra.append("존재감이 또렷해요")
+    if not extra:
+        extra.append("부담스럽지 않고 자연스러운 인상이 있어요")
+
+    return f"{name}은 {face_text}과 {vibe_text}가 잘 살아나는 몬스터예요. {extra[0]}."
 
 
 def find_top3(features):
