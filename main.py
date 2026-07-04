@@ -11,6 +11,7 @@ import os
 import re
 
 app = FastAPI()
+
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 app.add_middleware(
@@ -35,41 +36,44 @@ class MatchRequest(BaseModel):
 def extract_json(text: str):
     text = text.strip()
 
-    if text.startswith("```"):
-        text = re.sub(r"^```json", "", text)
-        text = re.sub(r"^```", "", text)
-        text = re.sub(r"```$", "", text)
-        text = text.strip()
+    text = text.replace("```json", "")
+    text = text.replace("```", "")
+    text = text.strip()
 
     start = text.find("{")
     end = text.rfind("}") + 1
 
-    if start == -1 or end == 0:
+    if start == -1 or end <= 0:
         raise ValueError("JSON을 찾을 수 없습니다.")
 
     return json.loads(text[start:end])
+
+
+def score_monster(features, row):
+    score = 0
+
+    if str(row["face_shape"]) != features["face_shape"]:
+        score += 3
+
+    if str(row["vibe"]) != features["vibe"]:
+        score += 3
+
+    score += abs(int(row["cute_level"]) - int(features["cute_level"]))
+    score += abs(int(row["dark_level"]) - int(features["dark_level"]))
+    score += abs(int(row["power_level"]) - int(features["power_level"]))
+
+    return score
 
 
 def find_top3(features):
     results = []
 
     for _, row in df.iterrows():
-        score = 0
-
-        if str(row["face_shape"]) != features["face_shape"]:
-            score += 3
-
-        if str(row["vibe"]) != features["vibe"]:
-            score += 3
-
-        score += abs(int(row["cute_level"]) - int(features["cute_level"]))
-        score += abs(int(row["dark_level"]) - int(features["dark_level"]))
-        score += abs(int(row["power_level"]) - int(features["power_level"]))
-
+        score = score_monster(features, row)
         match_percent = max(0, 100 - score * 5)
 
         results.append({
-            "name": row["name"],
+            "name": str(row["name"]),
             "score": score,
             "match_percent": match_percent,
             "reason": f"{row['vibe']} 분위기, 귀여움 {row['cute_level']}, 어둠 {row['dark_level']}, 포스 {row['power_level']}"
@@ -82,27 +86,17 @@ def find_candidates(features, limit=10):
     results = []
 
     for _, row in df.iterrows():
-        score = 0
-
-        if str(row["face_shape"]) != features["face_shape"]:
-            score += 3
-
-        if str(row["vibe"]) != features["vibe"]:
-            score += 3
-
-        score += abs(int(row["cute_level"]) - int(features["cute_level"]))
-        score += abs(int(row["dark_level"]) - int(features["dark_level"]))
-        score += abs(int(row["power_level"]) - int(features["power_level"]))
+        score = score_monster(features, row)
 
         description = ""
         if "description" in df.columns and pd.notna(row.get("description", "")):
             description = str(row["description"])
 
         results.append({
-            "name": row["name"],
+            "name": str(row["name"]),
             "score": score,
-            "face_shape": row["face_shape"],
-            "vibe": row["vibe"],
+            "face_shape": str(row["face_shape"]),
+            "vibe": str(row["vibe"]),
             "cute_level": int(row["cute_level"]),
             "dark_level": int(row["dark_level"]),
             "power_level": int(row["power_level"]),
@@ -113,22 +107,24 @@ def find_candidates(features, limit=10):
 
 
 def make_candidate_text(candidates):
-    text = ""
+    lines = []
 
     for i, monster in enumerate(candidates, start=1):
-        text += (
+        line = (
             f"{i}. {monster['name']} "
-            f"(face_shape={monster['face_shape']}, vibe={monster['vibe']}, "
-            f"cute={monster['cute_level']}, dark={monster['dark_level']}, "
+            f"(face_shape={monster['face_shape']}, "
+            f"vibe={monster['vibe']}, "
+            f"cute={monster['cute_level']}, "
+            f"dark={monster['dark_level']}, "
             f"power={monster['power_level']})"
         )
 
         if monster.get("description"):
-            text += f" - {monster['description']}"
+            line += f" - {monster['description']}"
 
-        text += "\n"
+        lines.append(line)
 
-    return text
+    return "\n".join(lines)
 
 
 @app.get("/")
@@ -143,6 +139,7 @@ def home():
 @app.post("/match")
 def match_monster(req: MatchRequest):
     features = req.dict()
+
     return {
         "features": features,
         "top3": find_top3(features)
@@ -163,7 +160,7 @@ async def match_image(file: UploadFile = File(...)):
     feature_prompt = """
 너는 사람 사진을 보고 메이플스토리 몬스터 닮은꼴 매칭용 특징을 뽑는 분석기야.
 
-반드시 아래 JSON 형식만 출력해.
+반드시 JSON만 출력해.
 설명 문장 금지.
 
 가능한 face_shape:
@@ -174,7 +171,7 @@ cute, dark, strong, calm, mysterious
 
 cute_level, dark_level, power_level은 0~10 정수.
 
-출력 예시:
+출력 형식:
 {
   "face_shape": "round",
   "vibe": "cute",
@@ -216,11 +213,10 @@ cute_level, dark_level, power_level은 0~10 정수.
     candidates = find_candidates(features, limit=10)
     candidate_text = make_candidate_text(candidates)
 
-        judge_prompt = f"""
+    judge_prompt = f"""
 너는 메이플스토리 몬스터 닮은꼴 최종 심사위원이야.
 
-사진 속 인물과 아래 후보 몬스터 10마리를 비교해서
-가장 닮은 Top 3를 골라.
+사진 속 인물과 아래 후보 몬스터 10마리를 비교해서 가장 닮은 Top 3를 골라.
 
 판단 기준:
 - 얼굴형
@@ -293,5 +289,5 @@ match_percent는 70~98 사이 정수로 줘.
     return {
         "features": features,
         "candidates": candidates,
-        "top3": final_result["top3"]
+        "top3": final_result.get("top3", [])
     }
