@@ -1,8 +1,23 @@
 import pandas as pd
 from playwright.sync_api import sync_playwright
 from urllib.parse import urljoin
+import re
 
 BASE_URL = "https://mapledb.kr/mob.php"
+
+
+def clean_monster_name(raw_name):
+    name = raw_name.replace("\n", " ").strip()
+    name = re.sub(r"\s+", " ", name)
+
+    # LEVEL / HP / EXP 뒤 정보 제거
+    name = re.sub(r"\s+LEVEL\s+\d+.*$", "", name)
+    name = re.sub(r"\s+Lv\.\s*\d+.*$", "", name)
+    name = re.sub(r"\s+HP\s+[\d,]+.*$", "", name)
+    name = re.sub(r"\s+EXP\s+[\d,]+.*$", "", name)
+
+    return name.strip()
+
 
 def main():
     monsters = []
@@ -19,14 +34,13 @@ def main():
           const links = Array.from(document.querySelectorAll('a'));
 
           for (const a of links) {
-            const name = a.innerText.trim();
+            const rawName = a.innerText.trim();
             const href = a.getAttribute('href') || '';
-            if (!name) continue;
+            if (!rawName) continue;
 
             const isMonsterLink =
-              href.includes('mob') &&
-              !href.endsWith('mob.php') &&
-              name.length <= 40;
+              href.includes('search.php') &&
+              href.includes('t=mob');
 
             if (!isMonsterLink) continue;
 
@@ -35,7 +49,7 @@ def main():
             const image = img ? (img.getAttribute('src') || '') : '';
 
             results.push({
-              name,
+              raw_name: rawName,
               href,
               image
             });
@@ -50,8 +64,8 @@ def main():
     seen = set()
 
     for item in items:
-        name = item["name"].replace("\n", " ").strip()
-        href = urljoin(BASE_URL, item["href"])
+        name = clean_monster_name(item["raw_name"])
+        source_url = urljoin(BASE_URL, item["href"])
         image_url = urljoin(BASE_URL, item["image"]) if item["image"] else ""
 
         if not name or name in seen:
@@ -61,7 +75,7 @@ def main():
 
         monsters.append({
             "name": name,
-            "source_url": href,
+            "source_url": source_url,
             "face_shape": "round",
             "vibe": "cute",
             "cute_level": 5,
@@ -75,7 +89,8 @@ def main():
     df.to_csv("monsters_full.csv", index=False, encoding="utf-8-sig")
 
     print(f"완료! 몬스터 {len(df)}마리 저장됨")
-    print(df.head(10))
+    print(df.head(20))
+
 
 if __name__ == "__main__":
     main()
