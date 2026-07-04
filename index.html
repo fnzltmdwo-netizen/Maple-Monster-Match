@@ -18,9 +18,7 @@
       border-radius: 20px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     }
-    h1 {
-      color: #333;
-    }
+    h1 { color: #333; }
     input, button {
       margin-top: 20px;
       font-size: 16px;
@@ -34,9 +32,7 @@
       cursor: pointer;
       font-weight: bold;
     }
-    button:hover {
-      background: #5365e8;
-    }
+    button:hover { background: #5365e8; }
     #preview {
       margin-top: 20px;
       max-width: 220px;
@@ -57,6 +53,11 @@
       font-size: 20px;
       font-weight: bold;
     }
+    .percent {
+      font-size: 18px;
+      font-weight: bold;
+      color: #5365e8;
+    }
     .loading {
       margin-top: 20px;
       color: #666;
@@ -67,7 +68,7 @@
 <body>
   <div class="box">
     <h1>🍄 메이플 몬스터 닮은꼴 테스트</h1>
-    <p>사진을 올리면 GPT가 분석해서 닮은 몬스터 Top 3를 찾아줘요!</p>
+    <p>정면 얼굴 사진을 올리면 GPT가 닮은 몬스터 Top 3를 찾아줘요!</p>
 
     <input type="file" id="fileInput" accept="image/*" />
     <br />
@@ -116,10 +117,17 @@
         });
 
         const data = await response.json();
+        console.log(data);
+
         loading.style.display = "none";
 
         if (data.error) {
-          resultDiv.innerHTML = `<p>${data.error}</p>`;
+          resultDiv.innerHTML = `<p>에러: ${data.error}</p><p>${data.detail ?? ""}</p>`;
+          return;
+        }
+
+        if (!data.top3 || data.top3.length === 0) {
+          resultDiv.innerHTML = "<p>결과가 비어있어 😭 다시 시도해줘.</p>";
           return;
         }
 
@@ -132,14 +140,17 @@
             어둠: <b>${data.features.dark_level}</b> /
             포스: <b>${data.features.power_level}</b>
           </p>
+
+          <h2>🏆 닮은 몬스터 Top 3</h2>
         `;
 
         data.top3.forEach((monster, index) => {
           const medals = ["🥇", "🥈", "🥉"];
+
           html += `
             <div class="card">
               <div class="rank">${medals[index]} ${monster.name}</div>
-              <p>점수: ${monster.score}</p>
+              <p class="percent">${monster.match_percent}% 닮음</p>
               <p>${monster.reason}</p>
             </div>
           `;
@@ -148,8 +159,9 @@
         resultDiv.innerHTML = html;
 
       } catch (error) {
+        console.error(error);
         loading.style.display = "none";
-        resultDiv.innerHTML = "<p>API 호출 실패 😭 다시 시도해줘.</p>";
+        resultDiv.innerHTML = `<p>에러: ${error.message}</p>`;
       }
     }
   </script>
