@@ -436,10 +436,8 @@
 
                 <div class="sns-rpg">
                   <div id="snsRank">등급 -</div>
-                  <div id="snsType">타입 -</div>
                   <div id="snsRarity">희귀도 -</div>
-                  <div id="snsPower">전투력 -</div>
-                </div>
+                 </div>
 
                 <div id="snsDesc">-</div>
               </div>
@@ -451,10 +449,10 @@
         </div>
 
         <div class="share-buttons">
-          <button onclick="openCardPreview()">카드 새창 보기</button>
           <button class="ghost-btn" onclick="shareLink()">카톡 공유용 링크</button>
           <button class="ghost-btn" onclick="resetTest()">새 테스트하기</button>
-        </div>
+         
+        /div>
       </div>
     </div>
   </div>
@@ -631,16 +629,8 @@
               <div class="rpg-value ${escapeHtml(getRankClass(main))}">${escapeHtml(getMonsterRank(main))}</div>
             </div>
             <div class="rpg-item">
-              <div class="rpg-label">타입</div>
-              <div class="rpg-value">${escapeHtml(getMonsterType(main))}</div>
-            </div>
-            <div class="rpg-item">
               <div class="rpg-label">희귀도</div>
               <div class="rpg-value">${escapeHtml(getMonsterRarity(main))}</div>
-            </div>
-            <div class="rpg-item">
-              <div class="rpg-label">전투력</div>
-              <div class="rpg-value">⚔️ ${escapeHtml(getMonsterPower(main))}</div>
             </div>
           </div>
 
@@ -660,7 +650,7 @@
               ${createMonsterImageBox(m, "mini-img-box")}
               <div>
                 <div class="mini-title">${index + 1}위. ${escapeHtml(getMonsterName(m))} · ${escapeHtml(getMonsterScore(m))}%</div>
-                <div class="mini-meta">${escapeHtml(getMonsterRank(m))}등급 · ${escapeHtml(getMonsterType(m))} · ${escapeHtml(getMonsterRarity(m))} · 전투력 ${escapeHtml(getMonsterPower(m))}</div>
+                <div class="mini-meta">${escapeHtml(getMonsterRank(m))}등급 · ${escapeHtml(getMonsterRarity(m))}
                 <div class="mini-reason">${escapeHtml(getMonsterReason(m))}</div>
               </div>
             </div>
