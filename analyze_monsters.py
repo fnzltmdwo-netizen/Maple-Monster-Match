@@ -14,11 +14,17 @@ client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 
 def extract_json(text):
-    text = text.strip().replace("```json", "").replace("```", "").strip()
+    text = text.strip()
+    text = text.replace("```json", "")
+    text = text.replace("```", "")
+    text = text.strip()
+
     start = text.find("{")
     end = text.rfind("}") + 1
+
     if start == -1 or end <= 0:
         raise Exception("JSON 파싱 실패")
+
     return json.loads(text[start:end])
 
 
@@ -73,7 +79,10 @@ cute_level, dark_level, power_level은 0~10 정수.
                 "role": "user",
                 "content": [
                     {"type": "text", "text": prompt},
-                    {"type": "image_url", "image_url": {"url": image_url}},
+                    {
+                        "type": "image_url",
+                        "image_url": {"url": image_url},
+                    },
                 ],
             }
         ],
@@ -83,21 +92,45 @@ cute_level, dark_level, power_level은 0~10 정수.
     return extract_json(response.choices[0].message.content)
 
 
+def load_output_dataframe(base_df):
+    out_df = base_df.copy()
+
+    if not os.path.exists(OUTPUT_CSV):
+        print("기존 AI CSV 없음. monsters_full.csv 기준으로 새로 생성")
+        return out_df
+
+    old_df = pd.read_csv(OUTPUT_CSV)
+    print(f"기존 {OUTPUT_CSV} 불러옴: {len(old_df)} rows")
+
+    copy_cols = [
+        "face_shape",
+        "vibe",
+        "cute_level",
+        "dark_level",
+        "power_level",
+        "description",
+    ]
+
+    max_len = min(len(old_df), len(out_df))
+
+    for col in copy_cols:
+        if col in old_df.columns:
+            out_df.loc[:max_len - 1, col] = old_df.loc[:max_len - 1, col].values
+
+    return out_df
+
+
 def main():
     base_df = pd.read_csv(INPUT_CSV)
-
-    if os.path.exists(OUTPUT_CSV):
-        out_df = pd.read_csv(OUTPUT_CSV)
-        print(f"기존 {OUTPUT_CSV} 불러옴: {len(out_df)} rows")
-    else:
-        out_df = base_df.copy()
-        print("기존 AI CSV 없음. 새로 생성")
+    out_df = load_output_dataframe(base_df)
 
     end = min(START + LIMIT, len(base_df))
+    print(f"전체 몬스터 수: {len(base_df)}")
     print(f"분석 범위: {START} ~ {end - 1}")
 
     for idx in range(START, end):
         row = base_df.iloc[idx]
+
         name = str(row["name"])
         image_url = str(row["image_url"]).strip()
 
