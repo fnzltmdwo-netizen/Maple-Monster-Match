@@ -395,19 +395,22 @@
       #snsDesc { font-size: 16px; }
     }
   </style>
+<script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;request-id=215862"></script>
 </head>
 
 <body>
   <div class="page">
     <div class="app-box">
       <h1>🍄 메이플 몬스터 닮은꼴</h1>
-      <p class="sub">사진을 올리면 가장 닮은 메이플 몬스터 TOP 3를 찾아줘요.</p>
+      <p class="sub" id="subtitle">사진을 올리면 가장 닮은 메이플 몬스터 TOP 3를 찾아줘요.</p>
 
-      <input type="file" id="imageInput" accept="image/*" />
-      <img id="preview" alt="preview" />
+      <div id="uploadArea">
+        <input type="file" id="imageInput" accept="image/*" />
+        <img id="preview" alt="preview" />
 
-      <div>
-        <button onclick="analyzeImage()">몬스터 찾기</button>
+        <div>
+          <button onclick="analyzeImage()">몬스터 찾기</button>
+        </div>
       </div>
 
       <div id="loading">
@@ -449,14 +452,16 @@
 
         <div class="share-buttons">
           <button onclick="openCardPreview()">카드 새창 보기</button>
-          <button class="ghost-btn" onclick="shareLink()">공유하기</button>
+          <button class="ghost-btn" onclick="shareLink()">카톡 공유용 링크</button>
+          <button class="ghost-btn" onclick="resetTest()">새 테스트하기</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    const API_URL = "https://maple-monster-match.onrender.com/match";
+    const API_BASE = "https://maple-monster-match.onrender.com";
+    const API_URL = `${API_BASE}/match`;
     const FRONT_URL = "https://maple-monster-frontend.onrender.com";
 
     const MONSTER_IMAGE_MAP = {
@@ -472,6 +477,9 @@
 
     let selectedBase64 = "";
     let bestMonster = null;
+    let currentResultId = "";
+
+    window.addEventListener("DOMContentLoaded", loadSharedResultIfExists);
 
     imageInput.addEventListener("change", function () {
       const file = imageInput.files[0];
@@ -593,6 +601,7 @@
           throw new Error("몬스터 결과 없음");
         }
 
+        currentResultId = data.result_id || "";
         bestMonster = monsters[0];
 
         renderResult(monsters);
@@ -876,7 +885,16 @@
       newWindow.document.close();
     }
 
+    function getShareUrl() {
+      if (!currentResultId) {
+        return FRONT_URL;
+      }
+      return `${FRONT_URL}?result=${encodeURIComponent(currentResultId)}`;
+    }
+
     async function shareLink() {
+      const shareUrl = getShareUrl();
+
       const shareText = bestMonster
         ? `내 메이플 몬스터 닮은꼴은 ${getMonsterName(bestMonster)}!`
         : "메이플 몬스터 닮은꼴 테스트";
@@ -886,7 +904,7 @@
           await navigator.share({
             title: "메이플 몬스터 닮은꼴",
             text: shareText,
-            url: FRONT_URL
+            url: shareUrl
           });
           return;
         } catch (error) {
@@ -895,11 +913,60 @@
       }
 
       try {
-        await navigator.clipboard.writeText(FRONT_URL);
-        alert("테스트 링크가 복사됐어!");
+        await navigator.clipboard.writeText(shareUrl);
+        alert("결과 공유 링크가 복사됐어!");
       } catch (error) {
-        alert(FRONT_URL);
+        alert(shareUrl);
       }
+    }
+
+    async function loadSharedResultIfExists() {
+      const params = new URLSearchParams(window.location.search);
+      const resultId = params.get("result");
+
+      if (!resultId) return;
+
+      document.getElementById("uploadArea").style.display = "none";
+      document.getElementById("subtitle").innerText = "공유된 메이플 몬스터 닮은꼴 결과예요.";
+      document.getElementById("loading").style.display = "block";
+      document.getElementById("result").innerHTML = "";
+      document.getElementById("shareArea").style.display = "none";
+
+      try {
+        const response = await fetch(`${API_BASE}/result/${encodeURIComponent(resultId)}`);
+
+        if (!response.ok) {
+          throw new Error("공유 결과를 찾을 수 없음");
+        }
+
+        const data = await response.json();
+        const monsters = data.top3 || data.matches || data.results || data.monsters || [];
+
+        if (!monsters.length) {
+          throw new Error("몬스터 결과 없음");
+        }
+
+        currentResultId = data.result_id || resultId;
+        bestMonster = monsters[0];
+
+        renderResult(monsters);
+        renderShareCard(bestMonster);
+      } catch (error) {
+        console.error(error);
+        document.getElementById("result").innerHTML = `
+          <div class="result-card">
+            <div class="rank-title">공유 결과를 불러올 수 없어요 😭</div>
+            <div class="reason">서버가 재시작되었거나 결과가 만료됐을 수 있어요.</div>
+            <button onclick="resetTest()">새 테스트하기</button>
+          </div>
+        `;
+      } finally {
+        document.getElementById("loading").style.display = "none";
+      }
+    }
+
+    function resetTest() {
+      window.location.href = FRONT_URL;
     }
   </script>
 </body>
