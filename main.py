@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pandas as pd
+from fastapi import UploadFile, File
+from PIL import Image
+from io import BytesIO
 
 app = FastAPI()
 
@@ -64,4 +67,23 @@ def match_monster(req: MatchRequest):
 
     return {
         "top3": results[:3]
+    }
+@app.post("/match-image")
+async def match_image(file: UploadFile = File(...)):
+    image_bytes = await file.read()
+
+    try:
+        image = Image.open(BytesIO(image_bytes)).convert("RGB")
+    except Exception:
+        return {
+            "error": "이미지 파일을 읽을 수 없습니다."
+        }
+
+    width, height = image.size
+
+    return {
+        "message": "이미지 업로드 성공!",
+        "filename": file.filename,
+        "width": width,
+        "height": height
     }
