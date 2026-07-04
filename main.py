@@ -7,6 +7,7 @@ import os
 import json
 import re
 import math
+import uuid
 
 app = FastAPI()
 
@@ -24,6 +25,7 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 df = pd.read_csv("monsters_ai.csv").fillna("")
 print("Loaded monsters:", len(df))
 
+RESULT_STORE = {}
 
 MONSTER_IMAGE_FALLBACK = {
     "이글루 터틀": "https://maplestory.io/api/KMS/389/mob/5130103/icon",
@@ -219,13 +221,12 @@ def get_rank(percent):
 
 
 def get_rarity(rank):
-    mapping = {
+    return {
         "S": "Legendary",
         "A": "Epic",
         "B": "Rare",
         "C": "Common",
-    }
-    return mapping.get(rank, "Common")
+    }.get(rank, "Common")
 
 
 def get_monster_type(monster):
@@ -238,15 +239,13 @@ def get_monster_type(monster):
     if cute >= 8:
         return "귀요미형"
 
-    mapping = {
+    return {
         "calm": "냉미남형",
         "cute": "귀요미형",
         "dark": "다크형",
         "strong": "전사형",
         "mysterious": "신비형",
-    }
-
-    return mapping.get(vibe, "밸런스형")
+    }.get(vibe, "밸런스형")
 
 
 def get_image_url(row):
@@ -349,8 +348,16 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "image_base64 stable python top3 rpg-card",
+        "saved_result_count": len(RESULT_STORE),
+        "mode": "image_base64 stable python top3 result-share",
     }
+
+
+@app.get("/result/{result_id}")
+def get_saved_result(result_id: str):
+    if result_id not in RESULT_STORE:
+        raise HTTPException(status_code=404, detail="result not found")
+    return RESULT_STORE[result_id]
 
 
 @app.post("/match")
@@ -364,11 +371,18 @@ def match_monster(req: MatchRequest):
         features = analyze_person(image_data)
         top3 = find_top3(features)
 
-        return {
+        result_id = str(uuid.uuid4())[:8]
+
+        result_data = {
+            "result_id": result_id,
             "person_features": features,
             "features": features,
             "top3": top3,
         }
+
+        RESULT_STORE[result_id] = result_data
+
+        return result_data
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
