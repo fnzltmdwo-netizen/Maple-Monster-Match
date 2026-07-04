@@ -1,51 +1,51 @@
-name,face_shape,vibe,cute_level,dark_level,power_level
-슬라임,round,cute,10,0,1
-주황버섯,round,cute,9,0,2
-리본돼지,round,cute,8,0,3
-예티,round,cute,9,1,5
-핑크빈,round,cute,10,0,7
-스텀프,square,calm,4,1,3
-와일드보어,oval,strong,3,2,5
-커즈아이,round,dark,2,8,4
-좀비버섯,round,dark,3,7,4
-주니어발록,triangle,dark,1,10,9
-발록,triangle,dark,1,10,10
-드레이크,long,strong,2,5,7
-레드드레이크,long,strong,2,6,8
-와이번,long,strong,1,6,9
-페페,round,cute,8,1,4
-헥터,round,strong,5,2,5
-라이칸스로프,long,dark,2,8,8
-울프스파이더,long,dark,1,9,7
-호문쿨루,oval,mysterious,4,5,6
-마스터크로노스,square,mysterious,4,6,6
-로보,square,calm,3,3,5
-틱톡,square,cute,6,1,3
-키요,round,cute,8,0,4
-월묘,round,cute,10,0,4
-고스트,round,dark,4,8,4
-듀얼파이렛,square,strong,2,4,7
-블러드하프,triangle,dark,1,9,8
-켄타우로스,long,strong,2,3,8
-샤크,long,strong,1,4,8
-피아누스,oval,strong,1,5,10
-자쿰,triangle,dark,1,10,10
-혼테일,triangle,dark,1,10,10
-힐라,oval,dark,2,9,9
-매그너스,triangle,strong,1,8,10
-반레온,square,strong,2,7,9
-아카이럼,triangle,dark,1,9,9
-벨룸,long,dark,1,9,10
-블러디퀸,oval,dark,2,9,9
-피에르,round,mysterious,5,4,8
-반반,triangle,mysterious,3,5,8
-벨데로스,long,dark,1,9,9
-세르프,long,calm,3,2,6
-크림슨발록,triangle,dark,1,10,10
-라바나,triangle,dark,1,9,10
-무루무루,triangle,strong,1,8,10
-카오스핑크빈,round,cute,8,2,10
-파풀라투스,square,mysterious,3,7,9
-시그너스,oval,calm,5,2,9
-검은마법사,triangle,dark,1,10,10
-세렌,oval,strong,2,7,10
+name,face_shape,vibe,cute_level,dark_level,power_level,description
+슬라임,round,cute,10,0,1,둥글고 말랑말랑하며 순하고 귀여운 인상
+주황버섯,round,cute,9,0,2,동글동글하고 장난기 많고 친근한 인상
+리본돼지,round,cute,8,0,3,통통하고 순둥순둥하며 귀여운 분위기의 인상
+예티,round,cute,9,1,5,포근하고 덩치가 있지만 귀엽고 부드러운 인상
+핑크빈,round,cute,10,0,7,매우 귀엽고 장난스럽지만 존재감이 강한 인상
+스텀프,square,calm,4,1,3,무뚝뚝하고 차분하며 단단한 나무 같은 인상
+와일드보어,oval,strong,3,2,5,활동적이고 거칠지만 너무 어둡지는 않은 강한 인상
+커즈아이,round,dark,2,8,4,동그랗지만 음산하고 날카로운 눈빛의 인상
+좀비버섯,round,dark,3,7,4,동글지만 어딘가 멍하고 음침한 분위기의 인상
+주니어발록,triangle,dark,1,10,9,날카롭고 어두우며 강한 악마형 인상
+발록,triangle,dark,1,10,10,압도적이고 어두우며 강력한 보스형 인상
+드레이크,long,strong,2,5,7,길쭉하고 강하며 야생적인 몬스터 인상
+레드드레이크,long,strong,2,6,8,강렬하고 공격적이며 뜨거운 분위기의 인상
+와이번,long,strong,1,6,9,날렵하고 위협적이며 강한 비행 몬스터 인상
+페페,round,cute,8,1,4,작고 둥글며 귀엽고 살짝 엉뚱한 인상
+헥터,round,strong,5,2,5,동물처럼 활발하고 튼튼하며 친근한 강한 인상
+라이칸스로프,long,dark,2,8,8,날카롭고 어두우며 야성적인 늑대형 인상
+울프스파이더,long,dark,1,9,7,길고 음산하며 낯선 분위기의 어두운 인상
+호문쿨루,oval,mysterious,4,5,6,실험체처럼 독특하고 신비로우며 차가운 인상
+마스터크로노스,square,mysterious,4,6,6,기계적이고 시간의 신비함이 느껴지는 인상
+로보,square,calm,3,3,5,무표정하고 기계적이며 단단하고 차분한 인상
+틱톡,square,cute,6,1,3,작고 기계적이지만 귀엽고 장난스러운 인상
+키요,round,cute,8,0,4,작고 둥글며 밝고 귀여운 동물형 인상
+월묘,round,cute,10,0,4,토끼처럼 둥글고 순하며 매우 귀여운 인상
+고스트,round,dark,4,8,4,흐릿하고 유령처럼 신비롭고 어두운 인상
+듀얼파이렛,square,strong,2,4,7,거칠고 전투적이며 해적 같은 강한 인상
+블러드하프,triangle,dark,1,9,8,날카롭고 음산하며 피빛의 어두운 인상
+켄타우로스,long,strong,2,3,8,크고 길쭉하며 전사처럼 강한 인상
+샤크,long,strong,1,4,8,날렵하고 공격적이며 차가운 강한 인상
+피아누스,oval,strong,1,5,10,거대하고 무거우며 압도적인 보스형 인상
+자쿰,triangle,dark,1,10,10,무섭고 압도적이며 강력한 고대 보스 인상
+혼테일,triangle,dark,1,10,10,거대하고 위압적이며 전설적인 어두운 인상
+힐라,oval,dark,2,9,9,차갑고 우아하지만 어두운 마녀 같은 인상
+매그너스,triangle,strong,1,8,10,날카롭고 강렬하며 지배적인 카리스마 인상
+반레온,square,strong,2,7,9,왕처럼 무겁고 강하며 어두운 권위적인 인상
+아카이럼,triangle,dark,1,9,9,음모가 있고 차가우며 어두운 마법사형 인상
+벨룸,long,dark,1,9,10,길고 거대하며 지하에서 솟는 공포스러운 인상
+블러디퀸,oval,dark,2,9,9,우아하지만 섬뜩하고 감정이 강한 어두운 인상
+피에르,round,mysterious,5,4,8,광대처럼 장난스럽고 알 수 없는 신비한 인상
+반반,triangle,mysterious,3,5,8,기묘하고 독특하며 강한 보스형 인상
+벨데로스,long,dark,1,9,9,길쭉하고 어두우며 차가운 전사형 인상
+세르프,long,calm,3,2,6,길고 유려하며 차분하고 물결 같은 인상
+크림슨발록,triangle,dark,1,10,10,붉고 강렬하며 악마처럼 위압적인 인상
+라바나,triangle,dark,1,9,10,강렬하고 신비로운 악마형 보스 인상
+무루무루,triangle,strong,1,8,10,날카롭고 강한 전투형 보스 인상
+카오스핑크빈,round,cute,8,2,10,귀엽지만 혼돈스럽고 강한 존재감의 인상
+파풀라투스,square,mysterious,3,7,9,기계적이고 기묘하며 시간 보스 같은 인상
+시그너스,oval,calm,5,2,9,우아하고 차분하지만 고급스럽고 강한 카리스마 인상
+검은마법사,triangle,dark,1,10,10,차갑고 압도적이며 가장 어두운 최종 보스 인상
+세렌,oval,strong,2,7,10,신성하고 강렬하며 빛나는 카리스마의 보스형 인상
