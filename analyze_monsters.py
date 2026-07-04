@@ -7,24 +7,18 @@ from openai import OpenAI
 INPUT_CSV = "monsters_full.csv"
 OUTPUT_CSV = "monsters_ai.csv"
 
-# 50마리 테스트용. 성공하면 나중에 647로 변경
-LIMIT = 50
+START = int(os.environ.get("START", "0"))
+LIMIT = int(os.environ.get("LIMIT", "100"))
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 
 def extract_json(text):
-    text = text.strip()
-    text = text.replace("```json", "")
-    text = text.replace("```", "")
-    text = text.strip()
-
+    text = text.strip().replace("```json", "").replace("```", "").strip()
     start = text.find("{")
     end = text.rfind("}") + 1
-
     if start == -1 or end <= 0:
         raise Exception("JSON 파싱 실패")
-
     return json.loads(text[start:end])
 
 
@@ -79,57 +73,59 @@ cute_level, dark_level, power_level은 0~10 정수.
                 "role": "user",
                 "content": [
                     {"type": "text", "text": prompt},
-                    {
-                        "type": "image_url",
-                        "image_url": {
-                            "url": image_url
-                        }
-                    }
-                ]
+                    {"type": "image_url", "image_url": {"url": image_url}},
+                ],
             }
         ],
-        max_tokens=250
+        max_tokens=250,
     )
 
-    text = response.choices[0].message.content
-    return extract_json(text)
+    return extract_json(response.choices[0].message.content)
 
 
 def main():
-    df = pd.read_csv(INPUT_CSV)
-    results = []
+    base_df = pd.read_csv(INPUT_CSV)
 
-    for idx, row in df.head(LIMIT).iterrows():
+    if os.path.exists(OUTPUT_CSV):
+        out_df = pd.read_csv(OUTPUT_CSV)
+        print(f"기존 {OUTPUT_CSV} 불러옴: {len(out_df)} rows")
+    else:
+        out_df = base_df.copy()
+        print("기존 AI CSV 없음. 새로 생성")
+
+    end = min(START + LIMIT, len(base_df))
+    print(f"분석 범위: {START} ~ {end - 1}")
+
+    for idx in range(START, end):
+        row = base_df.iloc[idx]
         name = str(row["name"])
-        image_url = str(row["image_url"])
+        image_url = str(row["image_url"]).strip()
 
-        print(f"[{idx + 1}] analyzing {name}")
+        print(f"[{idx + 1}/{len(base_df)}] analyzing {name}")
 
         if not image_url or image_url == "nan":
             print("  skip: no image_url")
-            results.append(row)
             continue
 
         try:
             ai = analyze_monster(name, image_url)
 
-            row["face_shape"] = ai["face_shape"]
-            row["vibe"] = ai["vibe"]
-            row["cute_level"] = int(ai["cute_level"])
-            row["dark_level"] = int(ai["dark_level"])
-            row["power_level"] = int(ai["power_level"])
-            row["description"] = ai["description"]
+            out_df.loc[idx, "face_shape"] = ai["face_shape"]
+            out_df.loc[idx, "vibe"] = ai["vibe"]
+            out_df.loc[idx, "cute_level"] = int(ai["cute_level"])
+            out_df.loc[idx, "dark_level"] = int(ai["dark_level"])
+            out_df.loc[idx, "power_level"] = int(ai["power_level"])
+            out_df.loc[idx, "description"] = ai["description"]
+
+            print("  ok")
 
         except Exception as e:
-            print("ERROR:", e)
+            print("  ERROR:", e)
 
-        results.append(row)
         time.sleep(1)
 
-    out = pd.DataFrame(results)
-    out.to_csv(OUTPUT_CSV, index=False, encoding="utf-8-sig")
-
-    print(f"완료! {len(out)}마리 저장됨: {OUTPUT_CSV}")
+    out_df.to_csv(OUTPUT_CSV, index=False, encoding="utf-8-sig")
+    print(f"완료! 저장됨: {OUTPUT_CSV}")
 
 
 if __name__ == "__main__":
