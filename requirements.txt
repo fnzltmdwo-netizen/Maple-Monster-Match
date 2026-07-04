@@ -2,3 +2,5 @@ fastapi
 uvicorn
 pandas
 pydantic
+python-multipart
+pillow
