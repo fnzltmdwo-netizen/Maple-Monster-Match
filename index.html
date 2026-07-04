@@ -147,13 +147,26 @@
         data.top3.forEach((monster, index) => {
           const medals = ["🥇", "🥈", "🥉"];
 
-          html += `
-            <div class="card">
-              <div class="rank">${medals[index]} ${monster.name}</div>
-              <p class="percent">${monster.match_percent}% 닮음</p>
-              <p>${monster.reason}</p>
-            </div>
-          `;
+         html += `
+  <div class="card">
+    ${
+      monster.image_url
+        ? `<img src="${monster.image_url}"
+             style="
+               width:100px;
+               height:100px;
+               object-fit:contain;
+               display:block;
+               margin:0 auto 12px auto;
+             ">`
+        : ""
+    }
+
+    <div class="rank">${medals[index]} ${monster.name}</div>
+    <p class="percent">${monster.match_percent}% 닮음</p>
+    <p>${monster.reason}</p>
+  </div>
+`;
         });
 
         resultDiv.innerHTML = html;
