@@ -25,6 +25,15 @@ df = pd.read_csv("monsters_ai.csv").fillna("")
 print("Loaded monsters:", len(df))
 
 
+MONSTER_IMAGE_FALLBACK = {
+    "이글루 터틀": "https://maplestory.io/api/KMS/389/mob/5130103/icon",
+    "코-크 달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
+    "코크 달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
+    "코-크달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
+    "코크달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
+}
+
+
 class MatchRequest(BaseModel):
     image_base64: str | None = None
     image: str | None = None
@@ -38,7 +47,7 @@ def safe_str(value, default=""):
             return default
     except Exception:
         pass
-    return str(value)
+    return str(value).strip()
 
 
 def safe_int(value, default=5):
@@ -198,6 +207,7 @@ def score_to_percent(score, rank_index):
     percent -= rank_index * 3
     return max(70, min(99, percent))
 
+
 def get_rank(percent):
     if percent >= 97:
         return "S"
@@ -215,7 +225,7 @@ def get_rarity(rank):
         "B": "Rare",
         "C": "Common",
     }
-    return mapping[rank]
+    return mapping.get(rank, "Common")
 
 
 def get_monster_type(monster):
@@ -233,10 +243,20 @@ def get_monster_type(monster):
         "cute": "귀요미형",
         "dark": "다크형",
         "strong": "전사형",
-        "mysterious": "신비형"
+        "mysterious": "신비형",
     }
 
     return mapping.get(vibe, "밸런스형")
+
+
+def get_image_url(row):
+    name = safe_str(row.get("name"))
+    image_url = safe_str(row.get("image_url"))
+
+    if image_url:
+        return image_url
+
+    return MONSTER_IMAGE_FALLBACK.get(name, "")
 
 
 def make_reason(features, monster):
@@ -245,7 +265,6 @@ def make_reason(features, monster):
     cute = safe_int(monster.get("cute_level"))
     dark = safe_int(monster.get("dark_level"))
     power = safe_int(monster.get("power_level"))
-
     name = safe_str(monster.get("name"))
 
     face_text = {
@@ -266,12 +285,17 @@ def make_reason(features, monster):
 
     extra = []
 
-    if cute >= 7:
+    if cute >= 8:
         extra.append("귀여운 느낌이 강해요")
+    elif cute >= 6:
+        extra.append("은근히 귀여운 매력이 있어요")
+
     if dark >= 6:
         extra.append("살짝 어두운 매력이 있어요")
+
     if power >= 7:
         extra.append("존재감이 또렷해요")
+
     if not extra:
         extra.append("부담스럽지 않고 자연스러운 인상이 있어요")
 
@@ -286,13 +310,19 @@ def find_top3(features):
 
         monster = {
             "name": safe_str(row.get("name")),
-            "image_url": safe_str(row.get("image_url")),
+            "image_url": get_image_url(row),
             "score": score,
             "face_shape": safe_str(row.get("face_shape")),
             "vibe": safe_str(row.get("vibe")),
+            "eye_shape": safe_str(row.get("eye_shape")),
+            "jawline": safe_str(row.get("jawline")),
+            "animal_type": safe_str(row.get("animal_type")),
             "cute_level": safe_int(row.get("cute_level")),
             "dark_level": safe_int(row.get("dark_level")),
             "power_level": safe_int(row.get("power_level")),
+            "softness": safe_int(row.get("softness")),
+            "sharpness": safe_int(row.get("sharpness")),
+            "mature_level": safe_int(row.get("mature_level")),
             "description": safe_str(row.get("description")),
         }
 
@@ -302,15 +332,14 @@ def find_top3(features):
     results = sorted(results, key=lambda x: (-x["score"], x["name"]))[:3]
 
     for i, item in enumerate(results):
-        item["match_percent"] = score_to_percent(item["score"], i)
-        
-    for i, item in enumerate(results):
-    percent = score_to_percent(item["score"], i)
-    item["match_percent"] = percent
-    item["rank"] = get_rank(percent)
-    item["rarity"] = get_rarity(item["rank"])
-    item["monster_type"] = get_monster_type(item)
-    item["power_score"] = int(item["score"] * 73)
+        percent = score_to_percent(item["score"], i)
+        rank = get_rank(percent)
+
+        item["match_percent"] = percent
+        item["rank"] = rank
+        item["rarity"] = get_rarity(rank)
+        item["monster_type"] = get_monster_type(item)
+        item["power_score"] = int(item["score"] * 73)
 
     return results
 
@@ -320,7 +349,7 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "image_base64 stable python top3"
+        "mode": "image_base64 stable python top3 rpg-card",
     }
 
 
@@ -338,7 +367,7 @@ def match_monster(req: MatchRequest):
         return {
             "person_features": features,
             "features": features,
-            "top3": top3
+            "top3": top3,
         }
 
     except Exception as e:
