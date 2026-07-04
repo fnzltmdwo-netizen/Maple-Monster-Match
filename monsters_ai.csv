@@ -1,51 +1,101 @@
 ﻿name,mob_id,source_url,face_shape,vibe,cute_level,dark_level,power_level,description,image_url
-달팽이,100100,https://mapledb.kr/search.php?q=100100&t=mob,round,calm,3,1,2,"둥글고 부드러운 외형, 차분한 분위기",https://maplestory.io/api/KMS/389/mob/100100/render/stand
-파란 달팽이,100101,https://mapledb.kr/search.php?q=100101&t=mob,oval,calm,4,1,3,부드러운 타원형 외형으로 차분한 인상,https://maplestory.io/api/KMS/389/mob/100101/render/stand
-스포아,120100,https://mapledb.kr/search.php?q=120100&t=mob,round,dark,3,5,4,"둥글고 다소 음산한 인상, 표정이 위협적임",https://maplestory.io/api/KMS/389/mob/120100/render/stand
-스텀프,130100,https://mapledb.kr/search.php?q=130100&t=mob,square,calm,1,3,7,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/130100/render/stand
-빨간 달팽이,130101,https://mapledb.kr/search.php?q=130101&t=mob,round,cute,7,1,2,둥글고 부드러운 외형에 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/130101/render/stand
-슬라임,210100,https://mapledb.kr/search.php?q=210100&t=mob,round,cute,7,1,2,둥글고 말랑한 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/210100/render/stand
-초록버섯,1110100,https://mapledb.kr/search.php?q=1110100&t=mob,round,cute,8,1,2,둥글고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/1110100/render/stand
-다크 스텀프,1110101,https://mapledb.kr/search.php?q=1110101&t=mob,square,calm,0,3,5,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/1110101/render/stand
-옥토퍼스,1120100,https://mapledb.kr/search.php?q=1120100&t=mob,round,mysterious,4,3,5,"둥글고 기괴한 형상으로, 신비로운 느낌을 주는 몬스터",https://maplestory.io/api/KMS/389/mob/1120100/render/stand
-엑스텀프,1130100,https://mapledb.kr/search.php?q=1130100&t=mob,square,calm,2,3,7,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/1130100/render/stand
-고스텀프,1140100,https://mapledb.kr/search.php?q=1140100&t=mob,round,cute,5,3,5,고스텀프의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/1140100/render/stand
-돼지,1210100,https://mapledb.kr/search.php?q=1210100&t=mob,round,calm,3,1,4,둥글고 말랑한 외형에 차분한 인상,https://maplestory.io/api/KMS/389/mob/1210100/render/stand
-리본 돼지,1210101,https://mapledb.kr/search.php?q=1210101&t=mob,round,dark,3,6,5,둥글고 두툼한 외형에 무서운 표정이 있는 인상,https://maplestory.io/api/KMS/389/mob/1210101/render/stand
-주황버섯,1210102,https://mapledb.kr/search.php?q=1210102&t=mob,round,cute,8,1,2,둥글고 말랑한 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/1210102/render/stand
-버블링,1210103,https://mapledb.kr/search.php?q=1210103&t=mob,round,cute,5,3,5,버블링의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/1210103/render/stand
-흰 모래토끼,2100100,https://mapledb.kr/search.php?q=2100100&t=mob,round,cute,5,3,5,흰 모래토끼의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/2100100/render/stand
-갈색 모래토끼,2100101,https://mapledb.kr/search.php?q=2100101&t=mob,round,cute,8,1,3,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100101/render/stand
-주니어 카투스,2100102,https://mapledb.kr/search.php?q=2100102&t=mob,round,cute,8,1,3,둥글고 부드러운 외형으로 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/2100102/render/stand
-카투스,2100103,https://mapledb.kr/search.php?q=2100103&t=mob,round,cute,8,1,3,둥글고 말랑한 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100103/render/stand
-로얄 카투스,2100104,https://mapledb.kr/search.php?q=2100104&t=mob,round,cute,8,1,2,둥글고 귀여우며 부드러운 인상,https://maplestory.io/api/KMS/389/mob/2100104/render/stand
-벨라모아,2100105,https://mapledb.kr/search.php?q=2100105&t=mob,round,cute,8,1,2,"둥글고 귀여운 외형, 친근한 느낌",https://maplestory.io/api/KMS/389/mob/2100105/render/stand
-귀마개 프릴드,2100106,https://mapledb.kr/search.php?q=2100106&t=mob,round,cute,7,1,3,둥글고 귀여운 외형에 순한 인상,https://maplestory.io/api/KMS/389/mob/2100106/render/stand
-목도리 프릴드,2100107,https://mapledb.kr/search.php?q=2100107&t=mob,oval,cute,8,1,3,부드러운 세로형 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100107/render/stand
-미요캐츠,2100108,https://mapledb.kr/search.php?q=2100108&t=mob,round,cute,8,1,2,둥글고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/2100108/render/stand
-뿔버섯,2110200,https://mapledb.kr/search.php?q=2110200&t=mob,round,cute,8,1,3,둥글고 말랑한 외형으로 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/2110200/render/stand
-모래 두더지,2110300,https://mapledb.kr/search.php?q=2110300&t=mob,round,cute,7,1,3,둥글고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/2110300/render/stand
-스콜피언,2110301,https://mapledb.kr/search.php?q=2110301&t=mob,round,dark,4,6,5,둥글고 기괴한 인상으로 음산함이 느껴짐,https://maplestory.io/api/KMS/389/mob/2110301/render/stand
-다크 엑스텀프,2130100,https://mapledb.kr/search.php?q=2130100&t=mob,square,calm,1,3,5,각지고 단단하며 차분한 인상,https://maplestory.io/api/KMS/389/mob/2130100/render/stand
-주니어 네키,2130103,https://mapledb.kr/search.php?q=2130103&t=mob,oval,cute,8,1,3,부드러운 타원형 외형으로 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/2130103/render/stand
-마노,2220000,https://mapledb.kr/search.php?q=2220000&t=mob,round,calm,5,1,3,"둥글고 부드러운 외형, 차분한 인상",https://maplestory.io/api/KMS/389/mob/2220000/render/stand
-파란버섯,2220100,https://mapledb.kr/search.php?q=2220100&t=mob,round,cute,7,1,2,둥글고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/2220100/render/stand
-이블아이,2230100,https://mapledb.kr/search.php?q=2230100&t=mob,round,dark,4,6,5,"둥글고 기괴한 인상, 약간 음산한 분위기",https://maplestory.io/api/KMS/389/mob/2230100/render/stand
-좀비버섯,2230101,https://mapledb.kr/search.php?q=2230101&t=mob,round,dark,3,6,4,둥글고 말랑한 외형이지만 음산한 인상을 주는 몬스터,https://maplestory.io/api/KMS/389/mob/2230101/render/stand
-와일드보어,2230102,https://mapledb.kr/search.php?q=2230102&t=mob,round,strong,3,2,7,"뚱뚱하고 둥근 외형, 거칠고 강한 인상",https://maplestory.io/api/KMS/389/mob/2230102/render/stand
-트릭스터,2230103,https://mapledb.kr/search.php?q=2230103&t=mob,round,cute,7,1,2,"둥글고 귀여운 외형, 온순한 인상",https://maplestory.io/api/KMS/389/mob/2230103/render/stand
-그린 트릭스터,2230104,https://mapledb.kr/search.php?q=2230104&t=mob,round,mysterious,6,2,3,동글동글한 형태에 기묘한 분위기를 가진 몬스터,https://maplestory.io/api/KMS/389/mob/2230104/render/stand
-씨클,2230105,https://mapledb.kr/search.php?q=2230105&t=mob,oval,cute,8,1,3,부드러운 타원형 외형을 가진 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/2230105/render/stand
-씨코,2230106,https://mapledb.kr/search.php?q=2230106&t=mob,oval,cute,8,1,2,부드러운 세로형 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2230106/render/stand
-크라피,2230107,https://mapledb.kr/search.php?q=2230107&t=mob,round,cute,8,1,2,둥글고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/2230107/render/stand
-핀붐,2230108,https://mapledb.kr/search.php?q=2230108&t=mob,round,dark,3,5,4,"둥글고 말랑한 외형, 그러나 어두운 인상이 강하게 느껴짐",https://maplestory.io/api/KMS/389/mob/2230108/render/stand
-버블피쉬,2230109,https://mapledb.kr/search.php?q=2230109&t=mob,round,cute,8,1,2,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2230109/render/stand
-우드 마스크,2230110,https://mapledb.kr/search.php?q=2230110&t=mob,square,calm,3,2,5,각지고 단단한 외형에 무표정한 인상,https://maplestory.io/api/KMS/389/mob/2230110/render/stand
-스톤 마스크,2230111,https://mapledb.kr/search.php?q=2230111&t=mob,square,calm,2,3,5,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/2230111/render/stand
-플라워 피쉬,2230200,https://mapledb.kr/search.php?q=2230200&t=mob,round,calm,3,2,4,둥글고 차분한 인상,https://maplestory.io/api/KMS/389/mob/2230200/render/stand
-스티지,2300100,https://mapledb.kr/search.php?q=2300100&t=mob,round,cute,5,3,5,스티지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/2300100/render/stand
-스톤볼,3000000,https://mapledb.kr/search.php?q=3000000&t=mob,round,calm,2,3,5,"둥글고 차분한 외형, 그러나 강한 존재감을 느끼게 하는 인상",https://maplestory.io/api/KMS/389/mob/3000000/render/stand
-페어리,3000001,https://mapledb.kr/search.php?q=3000001&t=mob,oval,cute,8,1,3,부드럽고 동글동글하며 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3000001/render/stand
-브라운테니,3000005,https://mapledb.kr/search.php?q=3000005&t=mob,round,cute,8,1,2,둥글고 부드러운 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3000005/render/stand
-크립,3000006,https://mapledb.kr/search.php?q=3000006&t=mob,oval,cute,7,1,3,부드러운 세로형 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3000006/render/stand
-모래난쟁이,3100101,https://mapledb.kr/search.php?q=3100101&t=mob,round,dark,3,6,5,"둥글고 부정적 표정, 음산한 분위기",https://maplestory.io/api/KMS/389/mob/3100101/render/stand
+달팽이,100100.0,https://mapledb.kr/search.php?q=100100&t=mob,round,calm,5.0,1.0,2.0,"둥글고 부드러운 외형, 차분한 인상",https://maplestory.io/api/KMS/389/mob/100100/render/stand
+파란 달팽이,100101.0,https://mapledb.kr/search.php?q=100101&t=mob,round,calm,5.0,1.0,3.0,"둥글고 부드러운 외형, 차분한 인상",https://maplestory.io/api/KMS/389/mob/100101/render/stand
+스포아,120100.0,https://mapledb.kr/search.php?q=120100&t=mob,round,dark,4.0,6.0,5.0,둥글고 말랑한 외형이지만 무표정한 인상으로 음산함을 느낌,https://maplestory.io/api/KMS/389/mob/120100/render/stand
+스텀프,130100.0,https://mapledb.kr/search.php?q=130100&t=mob,square,calm,2.0,3.0,7.0,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/130100/render/stand
+빨간 달팽이,130101.0,https://mapledb.kr/search.php?q=130101&t=mob,round,cute,8.0,1.0,3.0,"둥글고 부드러운 외형, 귀엽고 순한 인상",https://maplestory.io/api/KMS/389/mob/130101/render/stand
+슬라임,210100.0,https://mapledb.kr/search.php?q=210100&t=mob,round,cute,8.0,1.0,2.0,둥글고 부드러운 외형에 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/210100/render/stand
+초록버섯,1110100.0,https://mapledb.kr/search.php?q=1110100&t=mob,round,cute,8.0,1.0,2.0,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/1110100/render/stand
+다크 스텀프,1110101.0,https://mapledb.kr/search.php?q=1110101&t=mob,square,calm,2.0,3.0,5.0,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/1110101/render/stand
+옥토퍼스,1120100.0,https://mapledb.kr/search.php?q=1120100&t=mob,round,mysterious,3.0,5.0,4.0,둥글고 기묘한 외형에 약간의 불길함이 느껴짐,https://maplestory.io/api/KMS/389/mob/1120100/render/stand
+엑스텀프,1130100.0,https://mapledb.kr/search.php?q=1130100&t=mob,square,calm,1.0,3.0,7.0,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/1130100/render/stand
+고스텀프,1140100.0,https://mapledb.kr/search.php?q=1140100&t=mob,square,calm,2.0,3.0,5.0,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/1140100/render/stand
+돼지,1210100.0,https://mapledb.kr/search.php?q=1210100&t=mob,round,cute,7.0,1.0,3.0,"둥글고 귀여운 인상이며, 순한 느낌을 준다.",https://maplestory.io/api/KMS/389/mob/1210100/render/stand
+리본 돼지,1210101.0,https://mapledb.kr/search.php?q=1210101&t=mob,round,cute,7.0,1.0,2.0,둥글고 귀여운 외형을 가진 아기자기한 느낌,https://maplestory.io/api/KMS/389/mob/1210101/render/stand
+주황버섯,1210102.0,https://mapledb.kr/search.php?q=1210102&t=mob,round,cute,8.0,1.0,2.0,둥글고 귀여우며 순한 인상,https://maplestory.io/api/KMS/389/mob/1210102/render/stand
+버블링,1210103.0,https://mapledb.kr/search.php?q=1210103&t=mob,round,cute,8.0,1.0,2.0,둥글고 말랑하며 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/1210103/render/stand
+흰 모래토끼,2100100.0,https://mapledb.kr/search.php?q=2100100&t=mob,round,cute,8.0,1.0,3.0,"둥글고 부드러운 외형, 귀엽고 순한 인상",https://maplestory.io/api/KMS/389/mob/2100100/render/stand
+갈색 모래토끼,2100101.0,https://mapledb.kr/search.php?q=2100101&t=mob,round,cute,8.0,0.0,2.0,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100101/render/stand
+주니어 카투스,2100102.0,https://mapledb.kr/search.php?q=2100102&t=mob,round,cute,8.0,1.0,3.0,"둥글고 귀여운 외형, 친근한 인상",https://maplestory.io/api/KMS/389/mob/2100102/render/stand
+카투스,2100103.0,https://mapledb.kr/search.php?q=2100103&t=mob,round,cute,7.0,1.0,3.0,둥글고 부드러운 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100103/render/stand
+로얄 카투스,2100104.0,https://mapledb.kr/search.php?q=2100104&t=mob,round,cute,7.0,1.0,3.0,둥글고 귀여운 인상으로 밝은 분위기를 가진 몬스터,https://maplestory.io/api/KMS/389/mob/2100104/render/stand
+벨라모아,2100105.0,https://mapledb.kr/search.php?q=2100105&t=mob,round,cute,8.0,1.0,2.0,둥글고 사랑스러운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/2100105/render/stand
+귀마개 프릴드,2100106.0,https://mapledb.kr/search.php?q=2100106&t=mob,oval,cute,7.0,1.0,3.0,부드러운 세로형 외형과 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100106/render/stand
+목도리 프릴드,2100107.0,https://mapledb.kr/search.php?q=2100107&t=mob,round,cute,8.0,1.0,2.0,"둥글고 말랑한 외형, 귀엽고 순한 인상",https://maplestory.io/api/KMS/389/mob/2100107/render/stand
+미요캐츠,2100108.0,https://mapledb.kr/search.php?q=2100108&t=mob,oval,cute,7.0,1.0,3.0,부드러운 타원형 외형과 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2100108/render/stand
+뿔버섯,2110200.0,https://mapledb.kr/search.php?q=2110200&t=mob,round,cute,8.0,1.0,3.0,"둥글고 귀여운 외형, 부드러운 인상",https://maplestory.io/api/KMS/389/mob/2110200/render/stand
+모래 두더지,2110300.0,https://mapledb.kr/search.php?q=2110300&t=mob,round,cute,8.0,1.0,2.0,둥글고 말랑하며 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2110300/render/stand
+스콜피언,2110301.0,https://mapledb.kr/search.php?q=2110301&t=mob,round,dark,3.0,7.0,4.0,동글동글하지만 음산한 인상과 강한 느낌을 주는 몬스터,https://maplestory.io/api/KMS/389/mob/2110301/render/stand
+다크 엑스텀프,2130100.0,https://mapledb.kr/search.php?q=2130100&t=mob,square,calm,2.0,3.0,5.0,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/2130100/render/stand
+주니어 네키,2130103.0,https://mapledb.kr/search.php?q=2130103&t=mob,round,cute,7.0,1.0,3.0,둥글고 말랑한 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2130103/render/stand
+마노,2220000.0,https://mapledb.kr/search.php?q=2220000&t=mob,round,calm,5.0,1.0,3.0,둥글고 차분한 인상으로 약간의 힘을 느낄 수 있는 모습,https://maplestory.io/api/KMS/389/mob/2220000/render/stand
+파란버섯,2220100.0,https://mapledb.kr/search.php?q=2220100&t=mob,round,cute,8.0,1.0,2.0,둥글고 부드러운 외형에 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2220100/render/stand
+이블아이,2230100.0,https://mapledb.kr/search.php?q=2230100&t=mob,round,dark,4.0,6.0,5.0,"둥글고 말랑한 외형이지만, 표정은 무서운 느낌을 주는 몬스터",https://maplestory.io/api/KMS/389/mob/2230100/render/stand
+좀비버섯,2230101.0,https://mapledb.kr/search.php?q=2230101&t=mob,round,dark,3.0,5.0,4.0,둥글고 말랑한 외형이나 음산한 분위기를 풍김,https://maplestory.io/api/KMS/389/mob/2230101/render/stand
+와일드보어,2230102.0,https://mapledb.kr/search.php?q=2230102&t=mob,round,strong,3.0,2.0,7.0,둥글고 강력해 보이는 외형으로 전투적 인상,https://maplestory.io/api/KMS/389/mob/2230102/render/stand
+트릭스터,2230103.0,https://mapledb.kr/search.php?q=2230103&t=mob,round,dark,3.0,6.0,4.0,둥글고 기괴한 외형으로 음산한 인상,https://maplestory.io/api/KMS/389/mob/2230103/render/stand
+그린 트릭스터,2230104.0,https://mapledb.kr/search.php?q=2230104&t=mob,round,mysterious,3.0,5.0,4.0,둥글고 기묘하며 다소 신비스러운 인상,https://maplestory.io/api/KMS/389/mob/2230104/render/stand
+씨클,2230105.0,https://mapledb.kr/search.php?q=2230105&t=mob,oval,cute,8.0,1.0,3.0,부드러운 세로형 외형에 귀엽고 순한 인상,https://maplestory.io/api/KMS/389/mob/2230105/render/stand
+씨코,2230106.0,https://mapledb.kr/search.php?q=2230106&t=mob,oval,cute,8.0,1.0,3.0,부드러운 타원형 외형과 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2230106/render/stand
+크라피,2230107.0,https://mapledb.kr/search.php?q=2230107&t=mob,round,cute,8.0,1.0,2.0,둥글고 말랑한 외형으로 귀여운 인상,https://maplestory.io/api/KMS/389/mob/2230107/render/stand
+핀붐,2230108.0,https://mapledb.kr/search.php?q=2230108&t=mob,oval,cute,7.0,1.0,3.0,부드러운 타원형 외형에 순한 인상,https://maplestory.io/api/KMS/389/mob/2230108/render/stand
+버블피쉬,2230109.0,https://mapledb.kr/search.php?q=2230109&t=mob,round,calm,4.0,2.0,3.0,둥글고 차분한 인상,https://maplestory.io/api/KMS/389/mob/2230109/render/stand
+우드 마스크,2230110.0,https://mapledb.kr/search.php?q=2230110&t=mob,square,calm,2.0,3.0,5.0,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/2230110/render/stand
+스톤 마스크,2230111.0,https://mapledb.kr/search.php?q=2230111&t=mob,square,calm,2.0,3.0,5.0,각지고 단단하며 무표정한 인상,https://maplestory.io/api/KMS/389/mob/2230111/render/stand
+플라워 피쉬,2230200.0,https://mapledb.kr/search.php?q=2230200&t=mob,round,calm,4.0,1.0,3.0,"둥글고 부드러운 외형, 무표정한 인상",https://maplestory.io/api/KMS/389/mob/2230200/render/stand
+스티지,2300100.0,https://mapledb.kr/search.php?q=2300100&t=mob,round,cute,5.0,3.0,5.0,스티지의 외형과 분위기를 기반으로 한 메이플 몬스터 후보,https://maplestory.io/api/KMS/389/mob/2300100/render/stand
+스톤볼,3000000.0,https://mapledb.kr/search.php?q=3000000&t=mob,round,calm,2.0,2.0,5.0,둥글고 단단하며 차분한 인상,https://maplestory.io/api/KMS/389/mob/3000000/render/stand
+페어리,3000001.0,https://mapledb.kr/search.php?q=3000001&t=mob,round,cute,8.0,1.0,3.0,둥글고 귀여운 외형으로 순한 인상,https://maplestory.io/api/KMS/389/mob/3000001/render/stand
+브라운테니,3000005.0,https://mapledb.kr/search.php?q=3000005&t=mob,round,cute,8.0,1.0,3.0,둥글고 귀여운 외형을 가진 재봉틀 인형,https://maplestory.io/api/KMS/389/mob/3000005/render/stand
+크립,3000006.0,https://mapledb.kr/search.php?q=3000006&t=mob,oval,cute,6.0,1.0,3.0,부드러운 세로형 외형과 귀여운 인상,https://maplestory.io/api/KMS/389/mob/3000006/render/stand
+모래난쟁이,3100101.0,https://mapledb.kr/search.php?q=3100101&t=mob,round,calm,5.0,2.0,3.0,둥글고 부드러운 외형에 차분한 인상,https://maplestory.io/api/KMS/389/mob/3100101/render/stand
+,,,round,dark,1.0,7.0,5.0,둥글고 표정이 무서운 음산한 인상,
+,,,long,dark,1.0,7.0,5.0,길쭉하고 음산한 인상,
+,,,round,cute,8.0,1.0,2.0,둥글고 귀여우며 순한 인상,
+,,,oval,cute,7.0,1.0,2.0,부드러운 세로형 외형으로 귀여운 인상,
+,,,square,calm,3.0,1.0,4.0,각지고 단단한 외형이며 차분한 인상,
+,,,round,calm,4.0,1.0,5.0,"둥글고 부드러운 외형, 무표정한 인상",
+,,,round,calm,4.0,1.0,3.0,둥글고 무표정한 인상,
+,,,square,calm,2.0,2.0,5.0,각지고 단단하며 무표정한 인상,
+,,,round,strong,3.0,3.0,7.0,"둥글고 강한 인상, 불꽃이 돋보이는 외형",
+,,,round,cute,8.0,1.0,3.0,동글동글하고 귀여운 모습으로 순한 인상,
+,,,round,cute,8.0,1.0,3.0,둥글고 부드러운 외형으로 귀여운 인상,
+,,,round,cute,8.0,1.0,2.0,둥글고 부드러운 외형에 귀여운 인상,
+,,,round,cute,8.0,1.0,3.0,"둥글고 귀여운 외형, 밝고 순한 인상",
+,,,round,cute,8.0,1.0,3.0,둥글고 부드러운 외형으로 귀여운 인상,
+,,,round,dark,2.0,7.0,5.0,둥글고 음산한 인상,
+,,,round,dark,1.0,7.0,5.0,둥글고 날카로운 인상으로 음산함을 지닌 외형,
+,,,round,cute,8.0,1.0,2.0,동글동글하고 귀여운 외형으로 순한 인상,
+,,,round,cute,7.0,1.0,2.0,둥글고 부드러운 외형으로 귀엽고 순한 인상,
+,,,round,cute,8.0,1.0,3.0,동글동글하고 귀여운 외형,
+,,,round,cute,7.0,1.0,2.0,동글동글하고 귀여운 인상으로 바나나를 들고 있는 모습,
+,,,square,dark,0.0,8.0,7.0,각지고 단단하며 음산한 인상,
+,,,round,calm,5.0,1.0,3.0,둥글고 부드러운 외형을 가지며 차분한 인상,
+,,,round,dark,1.0,8.0,5.0,"둥글고 기괴한 외형, 위협적인 분위기",
+,,,round,cute,8.0,1.0,3.0,둥글고 부드러운 외형에 귀여운 인상,
+,,,round,cute,8.0,1.0,2.0,동글동글하고 귀여운 인상,
+,,,round,cute,7.0,1.0,3.0,둥글고 부드러운 외형에 귀여운 인상,
+,,,round,cute,8.0,1.0,2.0,둥글고 부드러운 외형으로 귀여운 인상,
+,,,round,cute,8.0,1.0,3.0,"둥글고 귀여운 외형, 부드러운 인상",
+,,,round,cute,8.0,1.0,3.0,둥글고 말랑한 외형에 귀여운 인상,
+,,,round,cute,7.0,1.0,3.0,둥글고 부드러운 형태이며 귀여운 인상,
+,,,square,strong,1.0,2.0,7.0,각지고 단단한 외형으로 전투적인 인상,
+,,,square,calm,2.0,3.0,7.0,각지고 단단한 외형에 무표정한 인상,
+,,,round,calm,3.0,1.0,4.0,둥글고 부드러운 외형으로 무표정한 인상,
+,,,round,mysterious,3.0,6.0,5.0,둥글고 기이한 외형으로 불확실한 분위기,
+,,,round,cute,8.0,1.0,3.0,둥글고 말랑한 외형으로 귀여운 인상,
+,,,oval,cute,7.0,1.0,3.0,부드러운 세로형 외형과 귀여운 인상을 지닌 몬스터,
+,,,round,cute,8.0,1.0,2.0,"둥글고 귀여운 외형, 부드러운 인상",
+,,,round,cute,8.0,1.0,2.0,둥글고 부드러운 외형으로 귀여운 모습,
+,,,square,calm,3.0,2.0,7.0,"각지고 단단한 갑옷을 입은 형태로, 무표정하고 강한 인상",
+,,,square,mysterious,1.0,5.0,4.0,"각지고 기계적인 외형, 신비로운 분위기",
+,,,square,calm,0.0,3.0,5.0,각지고 단단한 외형으로 차분한 인상,
+,,,round,mysterious,3.0,5.0,4.0,둥글고 기괴한 느낌으로 미스터리한 분위기,
+,,,square,strong,3.0,2.0,7.0,각지고 단단하며 전투적인 인상,
+,,,round,cute,7.0,1.0,2.0,둥글고 귀여운 외형으로 부드러운 인상,
+,,,round,dark,2.0,6.0,5.0,둥글고 음산한 인상,
+,,,square,calm,0.0,4.0,7.0,각지고 단단하며 무표정한 인상,
+,,,round,cute,9.0,1.0,2.0,귀엽고 순한 인상,
+,,,round,dark,0.0,8.0,7.0,둥글고 기괴한 외형에 무서운 표정을 지님,
+,,,round,cute,8.0,1.0,2.0,"둥글고 귀여운 외형, 다정한 느낌",
+,,,oval,mysterious,3.0,5.0,4.0,타원형의 외형과 신비로운 분위기를 가진 몬스터,
