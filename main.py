@@ -8,9 +8,9 @@ import pandas as pd
 import base64
 import json
 import os
+import math
 
 app = FastAPI()
-
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 app.add_middleware(
@@ -33,11 +33,27 @@ class MatchRequest(BaseModel):
     power_level: int
 
 
+def safe_int(value, default=5):
+    try:
+        if value is None or (isinstance(value, float) and math.isnan(value)):
+            return default
+        return int(float(value))
+    except Exception:
+        return default
+
+
+def safe_str(value, default=""):
+    try:
+        if value is None or (isinstance(value, float) and math.isnan(value)):
+            return default
+        return str(value)
+    except Exception:
+        return default
+
+
 def extract_json(text: str):
     text = text.strip()
-    text = text.replace("```json", "")
-    text = text.replace("```", "")
-    text = text.strip()
+    text = text.replace("```json", "").replace("```", "").strip()
 
     start = text.find("{")
     end = text.rfind("}") + 1
@@ -51,31 +67,67 @@ def extract_json(text: str):
 def score_monster(features, row):
     score = 0
 
-    user_face = str(features["face_shape"])
-    user_vibe = str(features["vibe"])
+    user_face = safe_str(features.get("face_shape"))
+    user_vibe = safe_str(features.get("vibe"))
 
-    monster_face = str(row["face_shape"])
-    monster_vibe = str(row["vibe"])
+    monster_face = safe_str(row.get("face_shape"))
+    monster_vibe = safe_str(row.get("vibe"))
 
-    user_cute = int(features["cute_level"])
-    user_dark = int(features["dark_level"])
-    user_power = int(features["power_level"])
+    user_cute = safe_int(features.get("cute_level"))
+    user_dark = safe_int(features.get("dark_level"))
+    user_power = safe_int(features.get("power_level"))
+    user_softness = safe_int(features.get("softness"), 5)
+    user_sharpness = safe_int(features.get("sharpness"), 5)
+    user_mature = safe_int(features.get("mature_level"), 5)
 
-    monster_cute = int(row["cute_level"])
-    monster_dark = int(row["dark_level"])
-    monster_power = int(row["power_level"])
+    monster_cute = safe_int(row.get("cute_level"))
+    monster_dark = safe_int(row.get("dark_level"))
+    monster_power = safe_int(row.get("power_level"))
 
     if user_face == monster_face:
-        score += 35
+        score += 30
 
     if user_vibe == monster_vibe:
         score += 25
 
     score += max(0, 20 - abs(user_cute - monster_cute) * 3)
-    score += max(0, 10 - abs(user_dark - monster_dark) * 2)
-    score += max(0, 10 - abs(user_power - monster_power) * 2)
+    score += max(0, 15 - abs(user_dark - monster_dark) * 2)
+    score += max(0, 15 - abs(user_power - monster_power) * 2)
+
+    # 추가 feature 보정
+    if user_softness >= 7 and monster_cute >= 7:
+        score += 8
+
+    if user_sharpness >= 7 and monster_power >= 7:
+        score += 8
+
+    if user_mature >= 7 and monster_vibe in ["calm", "mysterious"]:
+        score += 6
 
     return score
+
+
+def make_reason(features, monster):
+    vibe = monster["vibe"]
+    face = monster["face_shape"]
+
+    vibe_text = {
+        "cute": "귀엽고 부드러운 분위기",
+        "calm": "차분하고 안정적인 분위기",
+        "strong": "강하고 또렷한 분위기",
+        "dark": "어둡고 신비로운 분위기",
+        "mysterious": "묘하고 독특한 분위기",
+    }.get(vibe, "전체적인 분위기")
+
+    face_text = {
+        "round": "둥근 인상",
+        "oval": "부드러운 세로형 인상",
+        "long": "길쭉한 인상",
+        "square": "단단한 인상",
+        "triangle": "날카로운 인상",
+    }.get(face, "얼굴형")
+
+    return f"{face_text}과 {vibe_text}가 사진 속 인물의 인상과 잘 어울립니다."
 
 
 def find_top3(features):
@@ -84,68 +136,24 @@ def find_top3(features):
     for _, row in df.iterrows():
         score = score_monster(features, row)
         match_percent = min(98, max(70, int(score)))
-        name = str(row["name"])
 
-        results.append({
-            "name": name,
+        monster = {
+            "name": safe_str(row.get("name")),
             "score": score,
             "match_percent": match_percent,
-            "reason": str(row["description"]),
-            "image_url": str(row.get("image_url", "")),
-            "face_shape": str(row["face_shape"]),
-            "vibe": str(row["vibe"]),
-            "cute_level": int(row["cute_level"]),
-            "dark_level": int(row["dark_level"]),
-            "power_level": int(row["power_level"]),
-        })
+            "face_shape": safe_str(row.get("face_shape")),
+            "vibe": safe_str(row.get("vibe")),
+            "cute_level": safe_int(row.get("cute_level")),
+            "dark_level": safe_int(row.get("dark_level")),
+            "power_level": safe_int(row.get("power_level")),
+            "description": safe_str(row.get("description")),
+            "image_url": safe_str(row.get("image_url")),
+        }
+
+        monster["reason"] = make_reason(features, monster)
+        results.append(monster)
 
     return sorted(results, key=lambda x: x["score"], reverse=True)[:3]
-
-
-def find_candidates(features, limit=20):
-    results = []
-
-    for _, row in df.iterrows():
-        score = score_monster(features, row)
-        match_percent = min(98, max(70, int(score)))
-        name = str(row["name"])
-
-        results.append({
-            "name": name,
-            "score": score,
-            "match_percent": match_percent,
-            "face_shape": str(row["face_shape"]),
-            "vibe": str(row["vibe"]),
-            "cute_level": int(row["cute_level"]),
-            "dark_level": int(row["dark_level"]),
-            "power_level": int(row["power_level"]),
-            "description": str(row["description"]),
-            "image_url": str(row.get("image_url", "")),
-        })
-
-    return sorted(results, key=lambda x: x["score"], reverse=True)[:limit]
-
-
-def make_candidate_text(candidates):
-    lines = []
-
-    for i, monster in enumerate(candidates, start=1):
-        line = (
-            f"{i}. {monster['name']} "
-            f"(face_shape={monster['face_shape']}, "
-            f"vibe={monster['vibe']}, "
-            f"cute={monster['cute_level']}, "
-            f"dark={monster['dark_level']}, "
-            f"power={monster['power_level']}, "
-            f"score={monster['score']})"
-        )
-
-        if monster.get("description"):
-            line += f" - {monster['description']}"
-
-        lines.append(line)
-
-    return "\n".join(lines)
 
 
 @app.get("/")
@@ -153,14 +161,13 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "FULL AI monster DB + A2 GPT final judge"
+        "mode": "stable python ranking + detailed face features"
     }
 
 
 @app.post("/match")
 def match_monster(req: MatchRequest):
     features = req.dict()
-
     return {
         "features": features,
         "top3": find_top3(features)
@@ -190,18 +197,43 @@ round, oval, long, square, triangle
 가능한 vibe:
 cute, dark, strong, calm, mysterious
 
-cute_level, dark_level, power_level은 0~10 정수.
+가능한 eye_shape:
+round, sharp, sleepy, calm, intense
 
-정면 얼굴 기준으로 판단해.
-옷, 배경, 포즈보다 얼굴형/표정/눈매/전체 인상을 우선해.
+가능한 jawline:
+soft, sharp, square, narrow, round
+
+가능한 animal_type:
+puppy, cat, fox, bear, rabbit, turtle, bird, dragon, unknown
+
+cute_level, dark_level, power_level은 0~10 정수.
+softness, sharpness, mature_level도 0~10 정수.
+
+판단 기준:
+- face_shape: 얼굴 전체 형태
+- vibe: 전체 인상
+- eye_shape: 눈매 느낌
+- jawline: 턱선 느낌
+- animal_type: 닮은 동물상
+- softness: 부드럽고 순한 정도
+- sharpness: 날카롭고 또렷한 정도
+- mature_level: 성숙하고 차분한 정도
+
+옷, 배경, 포즈보다 얼굴형/눈매/표정/전체 인상을 우선해.
 
 출력 형식:
 {
-  "face_shape": "round",
-  "vibe": "cute",
-  "cute_level": 8,
-  "dark_level": 2,
-  "power_level": 4
+  "face_shape": "oval",
+  "vibe": "calm",
+  "eye_shape": "calm",
+  "jawline": "soft",
+  "animal_type": "cat",
+  "cute_level": 6,
+  "dark_level": 1,
+  "power_level": 3,
+  "softness": 7,
+  "sharpness": 4,
+  "mature_level": 5
 }
 """
 
@@ -222,7 +254,8 @@ cute_level, dark_level, power_level은 0~10 정수.
                     ]
                 }
             ],
-            max_tokens=200
+            max_tokens=250,
+            temperature=0,
         )
 
         feature_text = feature_response.choices[0].message.content.strip()
@@ -234,101 +267,9 @@ cute_level, dark_level, power_level은 0~10 정수.
             "detail": str(e)
         }
 
-    candidates = find_candidates(features, limit=20)
-    candidate_text = make_candidate_text(candidates)
-
-    judge_prompt = f"""
-너는 메이플스토리 몬스터 닮은꼴 최종 심사위원이야.
-
-사진 속 인물과 아래 후보 몬스터 20마리를 비교해서 가장 닮은 Top 3를 골라.
-
-판단 기준:
-- 얼굴형
-- 눈매
-- 표정
-- 전체 분위기
-- 귀여움/차분함/강함/어두움/신비로움
-- 사진 속 인물의 인상과 몬스터 설명의 유사성
-
-후보 몬스터:
-{candidate_text}
-
-반드시 JSON만 출력해.
-후보 목록에 있는 name만 사용해.
-match_percent는 70~98 사이 정수로 줘.
-
-출력 형식:
-{{
-  "top3": [
-    {{
-      "name": "몬스터명",
-      "match_percent": 92,
-      "reason": "닮은 이유를 자연스럽게 한 문장으로 설명"
-    }},
-    {{
-      "name": "몬스터명",
-      "match_percent": 88,
-      "reason": "닮은 이유를 자연스럽게 한 문장으로 설명"
-    }},
-    {{
-      "name": "몬스터명",
-      "match_percent": 84,
-      "reason": "닮은 이유를 자연스럽게 한 문장으로 설명"
-    }}
-  ]
-}}
-"""
-
-    try:
-        judge_response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": judge_prompt},
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": f"data:{file.content_type};base64,{image_base64}"
-                            }
-                        }
-                    ]
-                }
-            ],
-            max_tokens=500
-        )
-
-        judge_text = judge_response.choices[0].message.content.strip()
-        final_result = extract_json(judge_text)
-
-    except Exception as e:
-        return {
-            "error": "GPT 최종 심사 실패",
-            "features": features,
-            "candidates": candidates,
-            "detail": str(e)
-        }
-
-    for monster in final_result.get("top3", []):
-        matched = next(
-            (c for c in candidates if c["name"] == monster["name"]),
-            None
-        )
-
-        if matched:
-            monster["image_url"] = matched.get("image_url", "")
-            monster["score"] = matched.get("score", 0)
-            monster["face_shape"] = matched.get("face_shape", "")
-            monster["vibe"] = matched.get("vibe", "")
-            monster["cute_level"] = matched.get("cute_level", 0)
-            monster["dark_level"] = matched.get("dark_level", 0)
-            monster["power_level"] = matched.get("power_level", 0)
-        else:
-            monster["image_url"] = ""
+    top3 = find_top3(features)
 
     return {
         "features": features,
-        "candidates": candidates,
-        "top3": final_result.get("top3", [])
+        "top3": top3
     }
