@@ -591,167 +591,166 @@
     }
 
     function openCardPreview() {
-      if (!bestMonster) {
-        alert("먼저 몬스터를 찾아줘!");
-        return;
-      }
+  if (!bestMonster) {
+    alert("먼저 몬스터를 찾아줘!");
+    return;
+  }
 
-      const name = getMonsterName(bestMonster);
-      const img = getMonsterImage(bestMonster);
-      const reason = getMonsterReason(bestMonster);
-      const score = getMonsterScore(bestMonster);
+  const name = getMonsterName(bestMonster);
+  const img = getMonsterImage(bestMonster);
+  const reason = getMonsterReason(bestMonster);
+  const score = getMonsterScore(bestMonster);
 
-      const imgHtml = img
-        ? `<img src="${img}" alt="monster" onerror="this.remove(); this.parentElement.innerHTML='🍄';" />`
-        : `🍄`;
+  const imgHtml = img
+    ? `<img src="${img}" alt="monster" onerror="this.remove(); this.parentElement.innerHTML='🍄';" />`
+    : `🍄`;
 
-      const newWindow = window.open("", "_blank");
+  const newWindow = window.open("", "_blank");
 
-      if (!newWindow) {
-        alert("팝업이 차단됐어! 브라우저에서 팝업 허용해줘.");
-        return;
-      }
+  if (!newWindow) {
+    alert("팝업이 차단됐어! 브라우저에서 팝업 허용해줘.");
+    return;
+  }
 
-      newWindow.document.write(`
-        <!DOCTYPE html>
-        <html lang="ko">
-        <head>
-          <meta charset="UTF-8" />
-          <title>메이플 몬스터 카드</title>
-          <style>
-            body {
-              margin: 0;
-              min-height: 100vh;
-              background: #171923;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              padding: 24px;
-              font-family: Arial, sans-serif;
-            }
+  newWindow.document.write(`
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+      <meta charset="UTF-8" />
+      <title>메이플 몬스터 카드</title>
+      <style>
+        * { box-sizing: border-box; }
 
-            .card {
-              width: 430px;
-              min-height: 720px;
-              padding: 44px 34px;
-              background: #f1f5ff;
-            }
+        body {
+          margin: 0;
+          min-height: 100vh;
+          background: #171923;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 18px;
+          font-family: Arial, sans-serif;
+        }
 
-            .inner {
-              width: 100%;
-              min-height: 640px;
-              background: #ffffff;
-              border-radius: 24px;
-              padding: 28px 28px 32px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              text-align: center;
-            }
+        .card {
+          width: min(430px, 92vw);
+          background: #f1f5ff;
+          padding: 28px 22px;
+          border-radius: 18px;
+        }
 
-            .header {
-              font-size: 28px;
-              font-weight: 900;
-              margin-bottom: 28px;
-              color: #202124;
-            }
+        .inner {
+          width: 100%;
+          background: #ffffff;
+          border-radius: 24px;
+          padding: 24px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
 
-            .sub {
-              font-size: 17px;
-              color: #666;
-              margin-bottom: 24px;
-            }
+        .header {
+          font-size: 24px;
+          font-weight: 900;
+          margin-bottom: 22px;
+          color: #202124;
+        }
 
-            .main-box {
-              width: 100%;
-              min-height: 360px;
-              background: #eef3ff;
-              border-radius: 22px;
-              padding: 32px 20px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              word-break: keep-all;
-            }
+        .sub {
+          font-size: 16px;
+          color: #666;
+          margin-bottom: 18px;
+        }
 
-            .img-box {
-              width: 110px;
-              height: 110px;
-              margin-bottom: 18px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 64px;
-            }
+        .main-box {
+          width: 100%;
+          background: #eef3ff;
+          border-radius: 22px;
+          padding: 26px 18px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          word-break: keep-all;
+        }
 
-            .img-box img {
-              max-width: 110px;
-              max-height: 110px;
-              object-fit: contain;
-            }
+        .img-box {
+          width: 100px;
+          height: 100px;
+          margin-bottom: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 58px;
+        }
 
-            .name {
-              font-size: 34px;
-              line-height: 1.2;
-              font-weight: 900;
-              margin-bottom: 8px;
-              color: #222;
-            }
+        .img-box img {
+          max-width: 100px;
+          max-height: 100px;
+          object-fit: contain;
+        }
 
-            .percent {
-              color: #6578ff;
-              font-size: 27px;
-              font-weight: 900;
-              margin-bottom: 24px;
-            }
+        .name {
+          font-size: 28px;
+          line-height: 1.2;
+          font-weight: 900;
+          margin-bottom: 8px;
+          color: #222;
+        }
 
-            .desc {
-              font-size: 18px;
-              line-height: 1.65;
-              color: #444;
-              max-width: 300px;
-            }
+        .percent {
+          color: #6578ff;
+          font-size: 24px;
+          font-weight: 900;
+          margin-bottom: 18px;
+        }
 
-            .footer {
-              margin-top: auto;
-              padding-top: 32px;
-              color: #999;
-              font-size: 15px;
-            }
+        .desc {
+          font-size: 16px;
+          line-height: 1.6;
+          color: #444;
+          max-width: 300px;
+        }
 
-            .link {
-              margin-top: 14px;
-              color: #6578ff;
-              font-size: 18px;
-              font-weight: 900;
-            }
-          </style>
-        </head>
+        .footer {
+          margin-top: 24px;
+          color: #999;
+          font-size: 14px;
+        }
 
-        <body>
-          <div class="card">
-            <div class="inner">
-              <div class="header">🍄 메이플 몬스터 닮은꼴</div>
-              <div class="sub">당신과 가장 닮은 몬스터는...</div>
+        .link {
+          margin-top: 10px;
+          color: #6578ff;
+          font-size: 17px;
+          font-weight: 900;
+        }
+      </style>
+    </head>
 
-              <div class="main-box">
-                <div class="img-box">${imgHtml}</div>
-                <div class="name">${name}</div>
-                <div class="percent">${score}% 닮음</div>
-                <div class="desc">${reason}</div>
-              </div>
+    <body>
+      <div class="card">
+        <div class="inner">
+          <div class="header">🍄 메이플 몬스터 닮은꼴</div>
+          <div class="sub">당신과 가장 닮은 몬스터는...</div>
 
-              <div class="footer">maple-monster-match</div>
-              <div class="link">나도 테스트하러 가기 🍄</div>
-            </div>
+          <div class="main-box">
+            <div class="img-box">${imgHtml}</div>
+            <div class="name">${name}</div>
+            <div class="percent">${score}% 닮음</div>
+            <div class="desc">${reason}</div>
           </div>
-        </body>
-        </html>
-      `);
 
-      newWindow.document.close();
-    }
+          <div class="footer">maple-monster-match</div>
+          <div class="link">나도 테스트하러 가기 🍄</div>
+        </div>
+      </div>
+    </body>
+    </html>
+  `);
+
+  newWindow.document.close();
+}
 
     async function shareLink() {
       const shareText = bestMonster
