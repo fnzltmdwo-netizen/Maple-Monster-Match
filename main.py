@@ -24,6 +24,24 @@ app.add_middleware(
 
 df = pd.read_csv("monsters.csv")
 
+MONSTER_IMAGES = {
+    "슬라임": "https://maplestory.io/api/KMS/389/mob/100100/render/stand",
+    "주황버섯": "https://maplestory.io/api/KMS/389/mob/1110100/render/stand",
+    "리본돼지": "https://maplestory.io/api/KMS/389/mob/1210100/render/stand",
+    "스텀프": "https://maplestory.io/api/KMS/389/mob/130101/render/stand",
+    "예티": "https://maplestory.io/api/KMS/389/mob/6130101/render/stand",
+    "페페": "https://maplestory.io/api/KMS/389/mob/5130103/render/stand",
+    "로보": "https://maplestory.io/api/KMS/389/mob/3110100/render/stand",
+    "틱톡": "https://maplestory.io/api/KMS/389/mob/3230302/render/stand",
+    "헥터": "https://maplestory.io/api/KMS/389/mob/5130104/render/stand",
+    "와일드보어": "https://maplestory.io/api/KMS/389/mob/2230100/render/stand",
+    "커즈아이": "https://maplestory.io/api/KMS/389/mob/3230100/render/stand",
+    "좀비버섯": "https://maplestory.io/api/KMS/389/mob/2230101/render/stand",
+    "주니어발록": "https://maplestory.io/api/KMS/389/mob/8130100/render/stand",
+    "발록": "https://maplestory.io/api/KMS/389/mob/8830000/render/stand",
+    "핑크빈": "https://maplestory.io/api/KMS/389/mob/8820001/render/stand",
+}
+
 
 class MatchRequest(BaseModel):
     face_shape: str
@@ -35,7 +53,6 @@ class MatchRequest(BaseModel):
 
 def extract_json(text: str):
     text = text.strip()
-
     text = text.replace("```json", "")
     text = text.replace("```", "")
     text = text.strip()
@@ -71,12 +88,14 @@ def find_top3(features):
     for _, row in df.iterrows():
         score = score_monster(features, row)
         match_percent = max(0, 100 - score * 5)
+        name = str(row["name"])
 
         results.append({
-            "name": str(row["name"]),
+            "name": name,
             "score": score,
             "match_percent": match_percent,
-            "reason": f"{row['vibe']} 분위기, 귀여움 {row['cute_level']}, 어둠 {row['dark_level']}, 포스 {row['power_level']}"
+            "reason": f"{row['vibe']} 분위기, 귀여움 {row['cute_level']}, 어둠 {row['dark_level']}, 포스 {row['power_level']}",
+            "image_url": MONSTER_IMAGES.get(name, "")
         })
 
     return sorted(results, key=lambda x: x["score"])[:3]
@@ -87,13 +106,14 @@ def find_candidates(features, limit=10):
 
     for _, row in df.iterrows():
         score = score_monster(features, row)
+        name = str(row["name"])
 
         description = ""
         if "description" in df.columns and pd.notna(row.get("description", "")):
             description = str(row["description"])
 
         results.append({
-            "name": str(row["name"]),
+            "name": name,
             "score": score,
             "face_shape": str(row["face_shape"]),
             "vibe": str(row["vibe"]),
@@ -101,6 +121,7 @@ def find_candidates(features, limit=10):
             "dark_level": int(row["dark_level"]),
             "power_level": int(row["power_level"]),
             "description": description,
+            "image_url": MONSTER_IMAGES.get(name, ""),
         })
 
     return sorted(results, key=lambda x: x["score"])[:limit]
@@ -132,7 +153,7 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A2 GPT final judge"
+        "mode": "A2 GPT final judge with images"
     }
 
 
@@ -285,6 +306,13 @@ match_percent는 70~98 사이 정수로 줘.
             "candidates": candidates,
             "detail": str(e)
         }
+
+    for monster in final_result.get("top3", []):
+        matched = next(
+            (c for c in candidates if c["name"] == monster["name"]),
+            None
+        )
+        monster["image_url"] = matched["image_url"] if matched else ""
 
     return {
         "features": features,
