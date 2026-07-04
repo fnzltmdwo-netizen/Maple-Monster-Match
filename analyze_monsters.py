@@ -7,7 +7,7 @@ from openai import OpenAI
 INPUT_CSV = "monsters_full.csv"
 OUTPUT_CSV = "monsters_ai.csv"
 
-LIMIT = 10   # 테스트용. 성공하면 647로 변경
+LIMIT = 50   # 테스트용. 성공하면 647로 변경
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
