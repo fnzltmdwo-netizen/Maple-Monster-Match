@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>메이플 몬스터 닮은꼴 테스트</title>
 
   <style>
@@ -21,22 +21,6 @@
       border-radius: 18px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       text-align: center;
-    }
-
-    h1 {
-      font-size: 30px;
-      margin-bottom: 20px;
-    }
-
-    .sub {
-      font-size: 15px;
-      margin-bottom: 8px;
-    }
-
-    .hint {
-      font-size: 13px;
-      color: #888;
-      margin-bottom: 26px;
     }
 
     #preview {
@@ -60,11 +44,6 @@
       margin-top: 10px;
     }
 
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
     .section-title {
       text-align: left;
       margin-top: 36px;
@@ -73,7 +52,7 @@
 
     #analysis {
       text-align: left;
-      line-height: 1.6;
+      line-height: 1.8;
       margin-top: 16px;
       font-size: 15px;
     }
@@ -107,187 +86,139 @@
       font-weight: bold;
       margin-bottom: 14px;
     }
-
-    .reason {
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        margin: 0;
-        min-height: 100vh;
-        border-radius: 0;
-        padding: 28px 24px;
-      }
-
-      h1 {
-        font-size: 25px;
-      }
-
-      .monster-img {
-        width: 120px;
-        height: 120px;
-      }
-    }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>🍄 메이플 몬스터 닮은꼴 테스트</h1>
+<div class="container">
+  <h1>🍄 메이플 몬스터 닮은꼴 테스트</h1>
+  <p>정면 얼굴 사진을 올리면 GPT가 닮은 몬스터 Top 3를 찾아줘요!</p>
 
-    <p class="sub">정면 얼굴 사진을 올리면 GPT가 닮은 몬스터 Top 3를 찾아줘요!</p>
-    <p class="hint">얼굴이 크게 보일수록 더 잘 맞아요.</p>
+  <input type="file" id="imageInput" accept="image/*"/>
+  <br>
+  <img id="preview"/>
+  <br>
+  <button onclick="findMonster()">몬스터 찾기</button>
 
-    <input type="file" id="imageInput" accept="image/*" />
-    <br />
+  <div id="result"></div>
+</div>
 
-    <img id="preview" />
+<script>
+const API_URL = "https://maple-monster-match.onrender.com/match";
 
-    <br />
-    <button id="matchButton" onclick="findMonster()">몬스터 찾기</button>
+const imageInput = document.getElementById("imageInput");
+const preview = document.getElementById("preview");
+const result = document.getElementById("result");
 
-    <div id="result"></div>
-  </div>
+let imageBase64 = "";
 
-  <script>
-    const API_URL = "https://maple-monster-match.onrender.com/match";
+imageInput.addEventListener("change", function () {
+    const file = imageInput.files[0];
+    if (!file) return;
 
-    const imageInput = document.getElementById("imageInput");
-    const preview = document.getElementById("preview");
-    const result = document.getElementById("result");
-    const matchButton = document.getElementById("matchButton");
-
-    let imageBase64 = "";
-
-    imageInput.addEventListener("change", function () {
-      const file = imageInput.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
         imageBase64 = e.target.result;
         preview.src = imageBase64;
         preview.style.display = "block";
-        result.innerHTML = "";
-      };
+    };
+    reader.readAsDataURL(file);
+});
 
-      reader.readAsDataURL(file);
-    });
-
-    function toPercent(score, index) {
-      const base = [98, 94, 90];
-
-      const n = Number(score);
-      if (Number.isNaN(n)) {
-        return base[index] || 85;
-      }
-
-      let percent = Math.round(72 + Math.min(n, 100) * 0.25);
-      percent = percent - index * 2;
-
-      return Math.max(70, Math.min(99, percent));
-    }
-
-    function safeText(value, fallback = "") {
-      if (value === undefined || value === null || value === "") {
+function safeText(value, fallback = "") {
+    if (value === undefined || value === null || value === "") {
         return fallback;
-      }
-      return String(value);
+    }
+    return String(value);
+}
+
+function faceToKorean(face) {
+    const map = {
+        round: "둥근형",
+        oval: "계란형",
+        long: "긴형",
+        square: "각진형",
+        triangle: "삼각형"
+    };
+    return map[face] || face || "-";
+}
+
+function vibeToKorean(vibe) {
+    const map = {
+        cute: "귀여움",
+        calm: "차분함",
+        dark: "어두움",
+        strong: "강함",
+        mysterious: "신비로움"
+    };
+    return map[vibe] || vibe || "-";
+}
+
+async function findMonster() {
+    if (!imageBase64) {
+        alert("사진을 선택해주세요!");
+        return;
     }
 
-    async function findMonster() {
-      if (!imageBase64) {
-        alert("먼저 사진을 선택해줘!");
-        return;
-      }
+    result.innerHTML = "<p>분석 중...</p>";
 
-      matchButton.disabled = true;
-      matchButton.innerText = "찾는 중...";
-
-      result.innerHTML = `
-        <h2 class="section-title">✨ 분석 중...</h2>
-        <p>사진 특징을 분석하고 몬스터를 찾고 있어요.</p>
-      `;
-
-      try {
+    try {
         const response = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            image_base64: imageBase64
-          })
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                image_base64: imageBase64
+            })
         });
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(errorText);
-        }
 
         const data = await response.json();
 
-        const person = data.person_features || {};
+        const person = data.person_features || data.features || {};
         const top3 = data.top3 || [];
 
         let html = `
-          <h2 class="section-title">✨ 분석 결과</h2>
-          <div id="analysis">
-            얼굴형: <b>${safeText(person.face_shape, "-")}</b><br />
-            분위기: <b>${safeText(person.overall_mood, "-")}</b><br />
-            귀여움: <b>${safeText(person.cute_score, 0)}</b> /
-            어둠: <b>${safeText(person.calm_score, 0)}</b> /
-            포스: <b>${safeText(person.sharp_score, 0)}</b>
-          </div>
+            <h2 class="section-title">✨ 분석 결과</h2>
+            <div id="analysis">
+                얼굴형: <b>${faceToKorean(person.face_shape)}</b><br>
+                분위기: <b>${vibeToKorean(person.vibe)}</b><br>
+                귀여움: <b>${safeText(person.cute_level, 0)}</b> /
+                어둠: <b>${safeText(person.dark_level, 0)}</b> /
+                포스: <b>${safeText(person.power_level, 0)}</b>
+            </div>
 
-          <h2 class="section-title">🏆 닮은 몬스터 Top 3</h2>
+            <h2 class="section-title">🏆 닮은 몬스터 Top 3</h2>
         `;
 
         top3.forEach((item, index) => {
-          const rankEmoji = ["🥇", "🥈", "🥉"][index] || "🏅";
-          const percent = toPercent(item.score, index);
+            html += `
+                <div class="monster-card">
+                    <img class="monster-img"
+                         src="${item.image_url}"
+                         onerror="this.style.display='none'">
 
-          html += `
-            <div class="monster-card">
-              <img
-                class="monster-img"
-                src="${safeText(item.image_url)}"
-                alt="${safeText(item.name)}"
-                onerror="this.style.display='none';"
-              />
+                    <div class="monster-name">
+                        ${["🥇","🥈","🥉"][index]} ${item.name}
+                    </div>
 
-              <div class="monster-name">
-                ${rankEmoji} ${safeText(item.name, "이름 없음")}
-              </div>
+                    <div class="percent">
+                        ${item.match_percent || 90}% 닮음
+                    </div>
 
-              <div class="percent">
-                ${percent}% 닮음
-              </div>
-
-              <div class="reason">
-                ${safeText(item.reason, "분위기와 인상이 비슷한 몬스터예요.")}
-              </div>
-            </div>
-          `;
+                    <div>
+                        ${item.reason || ""}
+                    </div>
+                </div>
+            `;
         });
 
         result.innerHTML = html;
 
-      } catch (error) {
-        console.error(error);
-        result.innerHTML = `
-          <h2 class="section-title">😭 오류 발생</h2>
-          <p>API 호출에 실패했어요.</p>
-          <p style="font-size:13px; color:#777;">${safeText(error.message)}</p>
-        `;
-      } finally {
-        matchButton.disabled = false;
-        matchButton.innerText = "몬스터 찾기";
-      }
+    } catch (e) {
+        result.innerHTML = "<p>오류 발생</p>";
+        console.error(e);
     }
-  </script>
+}
+</script>
 </body>
 </html>
