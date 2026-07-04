@@ -11,7 +11,7 @@
       padding: 40px;
     }
     .box {
-      max-width: 520px;
+      max-width: 560px;
       margin: auto;
       background: white;
       padding: 30px;
@@ -45,9 +45,18 @@
     }
     .card {
       background: #f0f3ff;
-      padding: 16px;
-      margin-top: 12px;
+      padding: 20px;
+      margin-top: 16px;
       border-radius: 14px;
+      text-align: center;
+    }
+    .monster-img {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 12px auto;
+      image-rendering: pixelated;
     }
     .rank {
       font-size: 20px;
@@ -63,12 +72,17 @@
       color: #666;
       display: none;
     }
+    .hint {
+      font-size: 14px;
+      color: #777;
+    }
   </style>
 </head>
 <body>
   <div class="box">
     <h1>🍄 메이플 몬스터 닮은꼴 테스트</h1>
     <p>정면 얼굴 사진을 올리면 GPT가 닮은 몬스터 Top 3를 찾아줘요!</p>
+    <p class="hint">얼굴이 크게 보일수록 더 잘 맞아요.</p>
 
     <input type="file" id="fileInput" accept="image/*" />
     <br />
@@ -147,26 +161,18 @@
         data.top3.forEach((monster, index) => {
           const medals = ["🥇", "🥈", "🥉"];
 
-         html += `
-  <div class="card">
-    ${
-      monster.image_url
-        ? `<img src="${monster.image_url}"
-             style="
-               width:100px;
-               height:100px;
-               object-fit:contain;
-               display:block;
-               margin:0 auto 12px auto;
-             ">`
-        : ""
-    }
-
-    <div class="rank">${medals[index]} ${monster.name}</div>
-    <p class="percent">${monster.match_percent}% 닮음</p>
-    <p>${monster.reason}</p>
-  </div>
-`;
+          html += `
+            <div class="card">
+              ${
+                monster.image_url
+                  ? `<img class="monster-img" src="${monster.image_url}" alt="${monster.name}">`
+                  : `<p class="hint">이미지 준비 중</p>`
+              }
+              <div class="rank">${medals[index]} ${monster.name}</div>
+              <p class="percent">${monster.match_percent}% 닮음</p>
+              <p>${monster.reason}</p>
+            </div>
+          `;
         });
 
         resultDiv.innerHTML = html;
