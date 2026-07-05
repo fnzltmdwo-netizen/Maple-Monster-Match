@@ -2,7 +2,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from openai import OpenAI
-import os, base64, json, re, math, random
+import os
+import json
+import re
+import random
 import pandas as pd
 
 app = FastAPI()
@@ -19,6 +22,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 CSV_PATH = "monsters_ai.csv"
 df = pd.read_csv(CSV_PATH).fillna("")
+
 
 class MatchRequest(BaseModel):
     image_base64: str
@@ -81,11 +85,8 @@ def get_value(row, possible_cols, default=""):
 
 def score_match(user_tags, user_scores, monster_tags, row):
     tag_overlap = len(set(user_tags) & set(monster_tags))
-    tag_score = tag_overlap * 18
+    score = tag_overlap * 18
 
-    score = tag_score
-
-    # 기존 CSV에 cute/dark/power/mood 같은 점수가 있으면 같이 사용
     for key in ["cute", "dark", "power", "soft", "sharp", "round", "funny", "mysterious"]:
         user_v = float(user_scores.get(key, 5))
         monster_v = None
@@ -101,10 +102,40 @@ def score_match(user_tags, user_scores, monster_tags, row):
         if monster_v is not None:
             score += max(0, 10 - abs(user_v - monster_v)) * 2
 
-    # 너무 같은 애만 나오는 것 방지용 아주 작은 다양성
     score += random.uniform(0, 4)
-
     return score
+
+
+def generate_reason(monster_name, user_tags, vibe):
+    try:
+        prompt = f"""
+사람 얼굴 분위기 분석 결과:
+태그: {", ".join(user_tags)}
+분위기: {vibe}
+
+매칭 몬스터: {monster_name}
+
+조건:
+- 2문장
+- 귀엽고 재밌게
+- 메이플 닮은꼴 테스트 결과처럼 작성
+- 외모 비하 금지
+- 신원/성별/나이 추정 금지
+- 80자 이내
+"""
+
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            temperature=0.8,
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        return response.choices[0].message.content.strip()
+
+    except Exception:
+        return f"{monster_name}와 전체 분위기가 비슷해요!"
 
 
 @app.get("/")
@@ -112,7 +143,7 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A3 tag matching"
+        "mode": "A3 tag matching + GPT reason"
     }
 
 
@@ -125,7 +156,7 @@ def match_monster(req: MatchRequest):
 너는 실제 사람 얼굴 사진을 보고 메이플스토리 몬스터 닮은꼴을 찾기 위한 분석기야.
 
 중요:
-- 얼굴의 신원/이름/성별 추정 금지
+- 얼굴의 신원/이름/성별/나이 추정 금지
 - 외모를 비하하지 말 것
 - 닮은 몬스터 매칭용 특징만 뽑기
 
@@ -183,38 +214,36 @@ cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, p
 
             name = get_value(row, ["name", "monster_name", "몬스터명"], "이름 없음")
             image_url = get_value(row, ["image_url", "img_url", "url", "image"], "")
-            desc = get_value(row, ["description", "desc", "reason"], "")
 
             results.append({
                 "name": name,
                 "image_url": image_url,
                 "score": round(score, 2),
                 "tags": m_tags,
-                "reason": desc
+                "reason": ""
             })
 
         results = sorted(results, key=lambda x: x["score"], reverse=True)
 
-        # 이름 중복 제거
         unique = []
         seen = set()
 
         for r in results:
             if r["name"] in seen:
                 continue
+
             seen.add(r["name"])
             unique.append(r)
+
             if len(unique) >= 3:
                 break
 
-        # reason이 비어있으면 새로 생성
         for r in unique:
-            if not r["reason"]:
-                common = list(set(user_tags) & set(r["tags"]))
-                if common:
-                    r["reason"] = f"{', '.join(common)} 분위기가 비슷해서 닮은 몬스터로 매칭됐어요."
-                else:
-                    r["reason"] = f"{user_vibe} 느낌과 몬스터의 전체 분위기가 비슷해서 매칭됐어요."
+            r["reason"] = generate_reason(
+                r["name"],
+                user_tags,
+                user_vibe
+            )
 
         return {
             "analysis": {
