@@ -484,5 +484,15 @@ def match_monster(req: MatchRequest):
             "results": unique,
         }
 
+    from fastapi.responses import FileResponse
+
+@app.get("/download-v2")
+def download_v2():
+    return FileResponse(
+        "monsters_ai_v2.csv",
+        media_type="text/csv",
+        filename="monsters_ai_v2.csv"
+    )
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
