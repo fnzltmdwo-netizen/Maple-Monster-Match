@@ -484,7 +484,7 @@ def match_monster(req: MatchRequest):
             "results": unique,
         }
 
-    from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse
 
 @app.get("/download-v2")
 def download_v2():
