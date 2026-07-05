@@ -38,7 +38,22 @@ COMMON_MONSTER_PENALTY = [
     "리본돼지",
     "울트라 코-크 달팽이",
     "코-크 달팽이",
-    "여신 탑의 로얄 네펜데스",
+]
+
+
+NON_FACE_MONSTERS = [
+    "도라지",
+    "네펜데스",
+    "모래난쟁이",
+    "나무",
+    "꽃",
+    "풀",
+    "화분",
+    "버섯집",
+    "돌",
+    "바위",
+    "상자",
+    "식물",
 ]
 
 
@@ -82,11 +97,9 @@ def stable_tiebreaker(image_hash: str, monster_name: str):
 def safe_json(text: str):
     text = text.strip()
     text = re.sub(r"```json|```", "", text).strip()
-
     match = re.search(r"\{.*\}", text, re.S)
     if match:
         text = match.group(0)
-
     return json.loads(text)
 
 
@@ -143,15 +156,57 @@ def infer_monster_tags(row):
 
 
 def normalize_user_tags(tags):
-    allowed = set(TAG_KEYWORDS.keys())
+    allowed = list(TAG_KEYWORDS.keys())
     cleaned = []
 
     for tag in tags:
-        tag = str(tag).strip().lower()
-        if tag in allowed and tag not in cleaned:
-            cleaned.append(tag)
+        tag = str(tag).lower().strip().replace("_", "-").replace(" ", "-")
 
-    return cleaned
+        matched = None
+
+        if tag in allowed:
+            matched = tag
+        else:
+            for candidate in allowed:
+                if candidate in tag or tag in candidate:
+                    matched = candidate
+                    break
+
+        # 한글/비슷한 표현 보정
+        if matched is None:
+            if "round" in tag or "동글" in tag:
+                matched = "round"
+            elif "soft" in tag or "부드" in tag or "순한" in tag:
+                matched = "soft"
+            elif "calm" in tag or "차분" in tag:
+                matched = "calm"
+            elif "cute" in tag or "귀여" in tag:
+                matched = "cute"
+            elif "cool" in tag or "시크" in tag:
+                matched = "cool"
+            elif "sleep" in tag or "졸" in tag or "나른" in tag:
+                matched = "sleepy"
+            elif "bright" in tag or "밝" in tag:
+                matched = "bright"
+            elif "sharp" in tag or "날카" in tag:
+                matched = "sharp"
+
+        if matched and matched not in cleaned:
+            cleaned.append(matched)
+
+    # 너무 적게 나오면 기본 보정
+    if len(cleaned) < 4:
+        for fallback in ["soft", "calm", "round", "cute"]:
+            if fallback not in cleaned:
+                cleaned.append(fallback)
+            if len(cleaned) >= 4:
+                break
+
+    return cleaned[:6]
+
+
+def is_non_face_monster(name: str):
+    return any(word in name for word in NON_FACE_MONSTERS)
 
 
 def score_match(user_tags, user_scores, monster_tags, row, image_hash):
@@ -206,18 +261,18 @@ def score_match(user_tags, user_scores, monster_tags, row, image_hash):
 
     final_score = tag_score + score_score
 
+    # 기본몹 과출현 완화: 너무 세게 말고 적당히
     if any(common in name for common in COMMON_MONSTER_PENALTY):
-        final_score -= 25
+        final_score -= 10
+
+    # 식물/사물형 몬스터는 후보에서 거의 제외 수준으로 감점
+    if is_non_face_monster(name):
+        final_score -= 40
 
     if overlap == 0:
         final_score -= 12
     elif overlap == 1:
         final_score -= 5
-
-    # soft/calm/round만으로 먹고 들어가는 몬스터 방지
-    if set(user_tags).issubset({"soft", "calm", "round"}):
-        if {"soft", "calm", "round"} & monster_tag_set:
-            final_score -= 8
 
     final_score += stable_tiebreaker(image_hash, name) * 2
 
@@ -282,7 +337,7 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A3 stable tag matching enhanced v2",
+        "mode": "A3 stable tag matching enhanced v3",
     }
 
 
@@ -302,6 +357,7 @@ def match_monster(req: MatchRequest):
 - 같은 사진이면 최대한 같은 분석이 나오게 일관적으로 판단하기
 - 단순히 귀엽다/차분하다만 보지 말고 눈매, 인상, 실루엣, 분위기를 나눠서 판단하기
 - 반드시 tags는 4개 이상 6개 이하로 선택하기
+- 태그는 반드시 아래 후보 중에서만 영어로 선택하기
 - soft, calm, round만 반복하지 말 것
 - sharp, cool, bright, sleepy, playful, mysterious, elegant 중 해당되는 특징도 적극 포함하기
 
@@ -362,10 +418,13 @@ cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, p
         results = []
 
         for _, row in df.iterrows():
+            name = get_value(row, ["name", "monster_name", "몬스터명"], "이름 없음")
+
+            # 식물/사물형은 아예 후보에서 빼고 싶으면 아래 if 사용
+            # 지금은 완전 제외 대신 score에서 강한 감점만 적용
             monster_tags = infer_monster_tags(row)
             score = score_match(user_tags, user_scores, monster_tags, row, image_hash)
 
-            name = get_value(row, ["name", "monster_name", "몬스터명"], "이름 없음")
             image_url = get_value(row, ["image_url", "img_url", "url", "image"], "")
 
             results.append({
