@@ -69,6 +69,14 @@ BODY_TYPES = [
     "ghost",
 ]
 
+REPEAT_PENALTY_NAMES = [
+    "헬레나의 분신",
+    "귀마개 프릴드",
+    "모래난쟁이",
+    "훈련용 짚인형",
+    "트리로드",
+]
+
 
 def clean_base64(image_base64: str):
     if "," in image_base64:
@@ -336,6 +344,9 @@ def score_monster(user, row, image_hash):
     if any(word in name for word in ["달팽이", "스포아", "슬라임", "단지"]):
         score -= 7
 
+    if any(word in name for word in REPEAT_PENALTY_NAMES):
+        score -= 9
+
     if monster_body in ["object", "plant", "fish", "insect"]:
         score -= 18
 
@@ -361,6 +372,69 @@ def add_percent(results):
             r["percent"] = max(70, min(base_percent, 79))
 
     return results
+
+
+def pick_diverse_top3(results):
+    selected = []
+    used_names = set()
+    body_counts = {}
+    vibe_counts = {}
+
+    # 1차: 다양성 조건 강하게 적용
+    for r in results:
+        name = r["name"]
+        body = r.get("body_type", "")
+        vibe = r.get("vibe", "")
+
+        if name in used_names:
+            continue
+
+        if body_counts.get(body, 0) >= 1:
+            continue
+
+        if vibe_counts.get(vibe, 0) >= 2:
+            continue
+
+        selected.append(r)
+        used_names.add(name)
+        body_counts[body] = body_counts.get(body, 0) + 1
+        vibe_counts[vibe] = vibe_counts.get(vibe, 0) + 1
+
+        if len(selected) >= 3:
+            return selected
+
+    # 2차: body_type은 2개까지 허용
+    for r in results:
+        name = r["name"]
+        body = r.get("body_type", "")
+
+        if name in used_names:
+            continue
+
+        if body_counts.get(body, 0) >= 2:
+            continue
+
+        selected.append(r)
+        used_names.add(name)
+        body_counts[body] = body_counts.get(body, 0) + 1
+
+        if len(selected) >= 3:
+            return selected
+
+    # 3차: 그래도 부족하면 점수순으로 채움
+    for r in results:
+        name = r["name"]
+
+        if name in used_names:
+            continue
+
+        selected.append(r)
+        used_names.add(name)
+
+        if len(selected) >= 3:
+            return selected
+
+    return selected
 
 
 def generate_reason(monster_name, user):
@@ -405,7 +479,7 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A5 v2-csv matching",
+        "mode": "A6 diverse-top3 matching",
         "csv_path": CSV_PATH,
         "columns": list(df.columns),
     }
@@ -440,17 +514,22 @@ def match_monster(req: MatchRequest):
             name = get_value(row, ["name"], "이름 없음")
             image_url = get_value(row, ["image_url"], "")
 
+            monster_vibe = get_value(row, ["vibe"], "")
+            monster_body = get_value(row, ["body_type"], "")
+
             score = score_monster(user, row, image_hash)
 
             results.append({
                 "name": name,
                 "image_url": image_url,
                 "score": score,
+                "vibe": monster_vibe,
+                "body_type": monster_body,
                 "tags": [
                     get_value(row, ["face_shape"], ""),
-                    get_value(row, ["vibe"], ""),
+                    monster_vibe,
                     get_value(row, ["eye_style"], ""),
-                    get_value(row, ["body_type"], ""),
+                    monster_body,
                 ],
                 "reason": "",
             })
@@ -467,9 +546,7 @@ def match_monster(req: MatchRequest):
             seen.add(r["name"])
             unique.append(r)
 
-            if len(unique) >= 3:
-                break
-
+        unique = pick_diverse_top3(unique)
         unique = add_percent(unique)
 
         for r in unique:
