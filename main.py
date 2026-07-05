@@ -5,7 +5,7 @@ from openai import OpenAI
 import os
 import json
 import re
-import random
+import hashlib
 import pandas as pd
 
 app = FastAPI()
@@ -39,32 +39,56 @@ TAG_KEYWORDS = {
     "soft": ["부드", "soft", "말랑", "순한", "따뜻"],
     "cold": ["차가", "cold", "얼음", "눈", "서늘"],
     "animal": ["동물", "돼지", "고양", "강아", "곰", "토끼", "새", "원숭"],
+    "bright": ["밝", "bright", "해", "빛", "노랑"],
+    "calm": ["차분", "calm", "조용", "평온"],
+    "playful": ["장난", "playful", "개구", "활발"],
+    "sleepy": ["졸린", "sleepy", "나른", "멍"],
 }
 
 
 def clean_base64(image_base64: str):
     if "," in image_base64:
         image_base64 = image_base64.split(",", 1)[1]
-    return image_base64.strip()
+
+    return image_base64.strip().replace("\n", "").replace("\r", "").replace(" ", "")
+
+
+def make_image_hash(image_base64: str):
+    cleaned = clean_base64(image_base64)
+    return hashlib.md5(cleaned.encode("utf-8")).hexdigest()
 
 
 def safe_json(text: str):
     text = text.strip()
     text = re.sub(r"```json|```", "", text).strip()
+
     match = re.search(r"\{.*\}", text, re.S)
     if match:
         text = match.group(0)
+
     return json.loads(text)
 
 
 def monster_text(row):
-    cols = ["name", "monster_name", "description", "reason", "tags", "type"]
-    return " ".join(str(row.get(c, "")) for c in cols if c in row.index)
+    cols = ["name", "monster_name", "몬스터명", "description", "desc", "reason", "tags", "type"]
+
+    return " ".join(
+        str(row.get(c, ""))
+        for c in cols
+        if c in row.index
+    )
 
 
 def infer_monster_tags(row):
     text = monster_text(row).lower()
     tags = set()
+
+    if "tags" in row.index and str(row["tags"]).strip():
+        raw_tags = str(row["tags"]).replace("|", ",").replace("/", ",")
+        for tag in raw_tags.split(","):
+            tag = tag.strip().lower()
+            if tag:
+                tags.add(tag)
 
     for tag, words in TAG_KEYWORDS.items():
         if any(w.lower() in text for w in words):
@@ -73,37 +97,97 @@ def infer_monster_tags(row):
     if not tags:
         tags.add("normal")
 
-    return list(tags)
+    return sorted(list(tags))
 
 
 def get_value(row, possible_cols, default=""):
     for col in possible_cols:
         if col in row.index and str(row[col]).strip():
             return str(row[col])
+
+    return default
+
+
+def get_float(row, possible_cols, default=None):
+    for col in possible_cols:
+        if col in row.index:
+            try:
+                value = float(row[col])
+                return value
+            except:
+                pass
+
     return default
 
 
 def score_match(user_tags, user_scores, monster_tags, row):
-    tag_overlap = len(set(user_tags) & set(monster_tags))
-    score = tag_overlap * 18
+    user_tag_set = set(user_tags)
+    monster_tag_set = set(monster_tags)
 
-    for key in ["cute", "dark", "power", "soft", "sharp", "round", "funny", "mysterious"]:
-        user_v = float(user_scores.get(key, 5))
-        monster_v = None
+    overlap = len(user_tag_set & monster_tag_set)
+    union = len(user_tag_set | monster_tag_set) or 1
 
-        for col in [key, f"{key}_score"]:
-            if col in row.index:
-                try:
-                    monster_v = float(row[col])
-                    break
-                except:
-                    pass
+    tag_score = (overlap / union) * 60
+
+    score_score = 0
+    score_count = 0
+
+    for key in [
+        "cute",
+        "dark",
+        "power",
+        "soft",
+        "sharp",
+        "round",
+        "funny",
+        "mysterious",
+        "strong",
+        "cold",
+        "bright",
+        "calm",
+        "playful",
+        "sleepy",
+    ]:
+        try:
+            user_v = float(user_scores.get(key, 5))
+        except:
+            user_v = 5
+
+        monster_v = get_float(row, [key, f"{key}_score"], None)
 
         if monster_v is not None:
-            score += max(0, 10 - abs(user_v - monster_v)) * 2
+            score_score += max(0, 10 - abs(user_v - monster_v)) * 4
+            score_count += 1
 
-    score += random.uniform(0, 4)
-    return score
+    if score_count > 0:
+        score_score = score_score / score_count
+    else:
+        score_score = 20
+
+    final_score = tag_score + score_score
+
+    return round(final_score, 4)
+
+
+def add_percent(unique_results):
+    if not unique_results:
+        return unique_results
+
+    max_score = unique_results[0]["score"] or 1
+
+    for index, r in enumerate(unique_results):
+        base_percent = int((r["score"] / max_score) * 96)
+
+        if index == 0:
+            percent = max(90, min(base_percent, 98))
+        elif index == 1:
+            percent = max(80, min(base_percent, 89))
+        else:
+            percent = max(70, min(base_percent, 79))
+
+        r["percent"] = percent
+
+    return unique_results
 
 
 def generate_reason(monster_name, user_tags, vibe):
@@ -126,7 +210,7 @@ def generate_reason(monster_name, user_tags, vibe):
 
         response = client.chat.completions.create(
             model="gpt-4o-mini",
-            temperature=0.8,
+            temperature=0.3,
             messages=[
                 {"role": "user", "content": prompt}
             ]
@@ -143,7 +227,7 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A3 tag matching + GPT reason"
+        "mode": "A3 stable tag matching + percent"
     }
 
 
@@ -151,6 +235,7 @@ def home():
 def match_monster(req: MatchRequest):
     try:
         image_base64 = clean_base64(req.image_base64)
+        image_hash = make_image_hash(image_base64)
 
         prompt = """
 너는 실제 사람 얼굴 사진을 보고 메이플스토리 몬스터 닮은꼴을 찾기 위한 분석기야.
@@ -159,6 +244,7 @@ def match_monster(req: MatchRequest):
 - 얼굴의 신원/이름/성별/나이 추정 금지
 - 외모를 비하하지 말 것
 - 닮은 몬스터 매칭용 특징만 뽑기
+- 같은 사진이면 최대한 같은 분석이 나오게 일관적으로 판단하기
 
 아래 JSON 형식으로만 답해.
 
@@ -172,7 +258,13 @@ def match_monster(req: MatchRequest):
     "sharp": 1~10,
     "round": 1~10,
     "funny": 1~10,
-    "mysterious": 1~10
+    "mysterious": 1~10,
+    "strong": 1~10,
+    "cold": 1~10,
+    "bright": 1~10,
+    "calm": 1~10,
+    "playful": 1~10,
+    "sleepy": 1~10
   },
   "vibe": "짧은 분위기 설명"
 }
@@ -183,7 +275,7 @@ cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, p
 
         response = client.chat.completions.create(
             model="gpt-4o-mini",
-            temperature=0.2,
+            temperature=0,
             messages=[
                 {
                     "role": "user",
@@ -209,8 +301,8 @@ cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, p
         results = []
 
         for _, row in df.iterrows():
-            m_tags = infer_monster_tags(row)
-            score = score_match(user_tags, user_scores, m_tags, row)
+            monster_tags = infer_monster_tags(row)
+            score = score_match(user_tags, user_scores, monster_tags, row)
 
             name = get_value(row, ["name", "monster_name", "몬스터명"], "이름 없음")
             image_url = get_value(row, ["image_url", "img_url", "url", "image"], "")
@@ -218,12 +310,15 @@ cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, p
             results.append({
                 "name": name,
                 "image_url": image_url,
-                "score": round(score, 2),
-                "tags": m_tags,
+                "score": score,
+                "tags": monster_tags,
                 "reason": ""
             })
 
-        results = sorted(results, key=lambda x: x["score"], reverse=True)
+        results = sorted(
+            results,
+            key=lambda x: (-x["score"], x["name"])
+        )
 
         unique = []
         seen = set()
@@ -238,6 +333,8 @@ cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, p
             if len(unique) >= 3:
                 break
 
+        unique = add_percent(unique)
+
         for r in unique:
             r["reason"] = generate_reason(
                 r["name"],
@@ -246,6 +343,7 @@ cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, p
             )
 
         return {
+            "image_hash": image_hash,
             "analysis": {
                 "tags": user_tags,
                 "scores": user_scores,
