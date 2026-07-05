@@ -72,6 +72,10 @@ REPEAT_PENALTY_NAMES = [
     "트리로드",
 ]
 
+BLOCKED_NAMES = [
+    "예티와 코-크텀프",
+]
+
 
 def clean_base64(image_base64: str):
     if "," in image_base64:
@@ -598,6 +602,9 @@ def match_monster(req: MatchRequest):
 
         for _, row in df.iterrows():
             name = get_value(row, ["name"], "이름 없음")
+               
+            if name in BLOCKED_NAMES:
+                continue
             image_url = get_value(row, ["image_url"], "")
 
             monster_vibe = get_value(row, ["vibe"], "")
