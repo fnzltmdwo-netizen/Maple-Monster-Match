@@ -2,12 +2,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from openai import OpenAI
+import os, base64, json, re, math, random
 import pandas as pd
-import os
-import json
-import re
-import math
-import uuid
 
 app = FastAPI()
 
@@ -19,328 +15,96 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key=OPENAI_API_KEY)
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-df = pd.read_csv("monsters_ai.csv").fillna("")
-print("Loaded monsters:", len(df))
+CSV_PATH = "monsters_ai.csv"
+df = pd.read_csv(CSV_PATH).fillna("")
 
-RESULT_STORE = {}
+class MatchRequest(BaseModel):
+    image_base64: str
 
-MONSTER_IMAGE_FALLBACK = {
-    "이글루 터틀": "https://maplestory.io/api/KMS/389/mob/5130103/icon",
-    "코-크 달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
-    "코크 달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
-    "코-크달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
-    "코크달팽이": "https://maplestory.io/api/KMS/389/mob/9500144/icon",
+
+TAG_KEYWORDS = {
+    "cute": ["귀여", "cute", "아기", "동글", "말랑", "슬라임", "핑크"],
+    "dark": ["어둠", "dark", "악마", "유령", "좀비", "스켈", "저주", "그림자"],
+    "sharp": ["날카", "sharp", "칼", "뿔", "가시", "늑대", "표범"],
+    "round": ["동글", "round", "통통", "볼", "구름", "버섯"],
+    "funny": ["웃긴", "funny", "장난", "코믹", "바보"],
+    "mysterious": ["신비", "mysterious", "마법", "요정", "정령"],
+    "strong": ["강한", "strong", "보스", "전사", "거대", "포스"],
+    "soft": ["부드", "soft", "말랑", "순한", "따뜻"],
+    "cold": ["차가", "cold", "얼음", "눈", "서늘"],
+    "animal": ["동물", "돼지", "고양", "강아", "곰", "토끼", "새", "원숭"],
 }
 
 
-class MatchRequest(BaseModel):
-    image_base64: str | None = None
-    image: str | None = None
-
-
-def safe_str(value, default=""):
-    if value is None:
-        return default
-    try:
-        if isinstance(value, float) and math.isnan(value):
-            return default
-    except Exception:
-        pass
-    return str(value).strip()
-
-
-def safe_int(value, default=5):
-    try:
-        if value is None or value == "":
-            return default
-        if isinstance(value, float) and math.isnan(value):
-            return default
-        return int(float(value))
-    except Exception:
-        return default
-
-
-def clean_base64(image_base64: str) -> str:
+def clean_base64(image_base64: str):
     if "," in image_base64:
         image_base64 = image_base64.split(",", 1)[1]
     return image_base64.strip()
 
 
-def extract_json(text: str):
+def safe_json(text: str):
     text = text.strip()
-    text = text.replace("```json", "").replace("```", "").strip()
-
-    try:
-        return json.loads(text)
-    except Exception:
-        pass
-
-    match = re.search(r"\{.*\}", text, re.DOTALL)
-    if not match:
-        raise ValueError("JSON을 찾을 수 없습니다.")
-
-    return json.loads(match.group(0))
+    text = re.sub(r"```json|```", "", text).strip()
+    match = re.search(r"\{.*\}", text, re.S)
+    if match:
+        text = match.group(0)
+    return json.loads(text)
 
 
-def analyze_person(image_base64: str):
-    image_base64 = clean_base64(image_base64)
-
-    prompt = """
-너는 사람 사진을 보고 메이플스토리 몬스터 닮은꼴 매칭용 특징을 뽑는 분석기야.
-
-반드시 JSON만 출력해.
-설명 문장 금지.
-
-가능한 face_shape:
-round, oval, long, square, triangle
-
-가능한 vibe:
-cute, dark, strong, calm, mysterious
-
-가능한 eye_shape:
-round, sharp, sleepy, calm, intense
-
-가능한 jawline:
-soft, sharp, square, narrow, round
-
-가능한 animal_type:
-puppy, cat, fox, bear, rabbit, turtle, bird, dragon, unknown
-
-cute_level, dark_level, power_level은 0~10 정수.
-softness, sharpness, mature_level도 0~10 정수.
-
-옷, 배경, 포즈보다 얼굴형/눈매/표정/전체 인상을 우선해.
-
-출력 형식:
-{
-  "face_shape": "oval",
-  "vibe": "calm",
-  "eye_shape": "calm",
-  "jawline": "soft",
-  "animal_type": "cat",
-  "cute_level": 6,
-  "dark_level": 1,
-  "power_level": 3,
-  "softness": 7,
-  "sharpness": 4,
-  "mature_level": 5
-}
-"""
-
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        temperature=0,
-        max_tokens=300,
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {"type": "text", "text": prompt},
-                    {
-                        "type": "image_url",
-                        "image_url": {
-                            "url": f"data:image/jpeg;base64,{image_base64}"
-                        },
-                    },
-                ],
-            }
-        ],
-    )
-
-    text = response.choices[0].message.content
-    return extract_json(text)
+def monster_text(row):
+    cols = ["name", "monster_name", "description", "reason", "tags", "type"]
+    return " ".join(str(row.get(c, "")) for c in cols if c in row.index)
 
 
-def score_monster(features, row):
-    score = 0
+def infer_monster_tags(row):
+    text = monster_text(row).lower()
+    tags = set()
 
-    user_face = safe_str(features.get("face_shape"))
-    user_vibe = safe_str(features.get("vibe"))
-    user_eye = safe_str(features.get("eye_shape"))
-    user_jaw = safe_str(features.get("jawline"))
-    user_animal = safe_str(features.get("animal_type"))
+    for tag, words in TAG_KEYWORDS.items():
+        if any(w.lower() in text for w in words):
+            tags.add(tag)
 
-    monster_face = safe_str(row.get("face_shape"))
-    monster_vibe = safe_str(row.get("vibe"))
-    monster_eye = safe_str(row.get("eye_shape"))
-    monster_jaw = safe_str(row.get("jawline"))
-    monster_animal = safe_str(row.get("animal_type"))
+    if not tags:
+        tags.add("normal")
 
-    user_cute = safe_int(features.get("cute_level"))
-    user_dark = safe_int(features.get("dark_level"))
-    user_power = safe_int(features.get("power_level"))
-    user_soft = safe_int(features.get("softness"))
-    user_sharp = safe_int(features.get("sharpness"))
-    user_mature = safe_int(features.get("mature_level"))
-
-    monster_cute = safe_int(row.get("cute_level"))
-    monster_dark = safe_int(row.get("dark_level"))
-    monster_power = safe_int(row.get("power_level"))
-    monster_soft = safe_int(row.get("softness"))
-    monster_sharp = safe_int(row.get("sharpness"))
-    monster_mature = safe_int(row.get("mature_level"))
-
-    if user_face == monster_face:
-        score += 25
-    if user_vibe == monster_vibe:
-        score += 25
-    if user_eye and user_eye == monster_eye:
-        score += 12
-    if user_jaw and user_jaw == monster_jaw:
-        score += 8
-    if user_animal and user_animal == monster_animal:
-        score += 10
-
-    score += max(0, 15 - abs(user_cute - monster_cute) * 2)
-    score += max(0, 12 - abs(user_dark - monster_dark) * 2)
-    score += max(0, 12 - abs(user_power - monster_power) * 2)
-    score += max(0, 10 - abs(user_soft - monster_soft) * 2)
-    score += max(0, 10 - abs(user_sharp - monster_sharp) * 2)
-    score += max(0, 10 - abs(user_mature - monster_mature) * 2)
-
-    return round(score, 2)
+    return list(tags)
 
 
-def score_to_percent(score, rank_index):
-    percent = int(70 + min(score, 100) * 0.28)
-    percent -= rank_index * 3
-    return max(70, min(99, percent))
+def get_value(row, possible_cols, default=""):
+    for col in possible_cols:
+        if col in row.index and str(row[col]).strip():
+            return str(row[col])
+    return default
 
 
-def get_rank(percent):
-    if percent >= 97:
-        return "S"
-    elif percent >= 92:
-        return "A"
-    elif percent >= 85:
-        return "B"
-    return "C"
+def score_match(user_tags, user_scores, monster_tags, row):
+    tag_overlap = len(set(user_tags) & set(monster_tags))
+    tag_score = tag_overlap * 18
 
+    score = tag_score
 
-def get_rarity(rank):
-    return {
-        "S": "Legendary",
-        "A": "Epic",
-        "B": "Rare",
-        "C": "Common",
-    }.get(rank, "Common")
+    # 기존 CSV에 cute/dark/power/mood 같은 점수가 있으면 같이 사용
+    for key in ["cute", "dark", "power", "soft", "sharp", "round", "funny", "mysterious"]:
+        user_v = float(user_scores.get(key, 5))
+        monster_v = None
 
+        for col in [key, f"{key}_score"]:
+            if col in row.index:
+                try:
+                    monster_v = float(row[col])
+                    break
+                except:
+                    pass
 
-def get_monster_type(monster):
-    vibe = safe_str(monster.get("vibe"))
-    power = safe_int(monster.get("power_level"))
-    cute = safe_int(monster.get("cute_level"))
+        if monster_v is not None:
+            score += max(0, 10 - abs(user_v - monster_v)) * 2
 
-    if power >= 8:
-        return "보스형"
-    if cute >= 8:
-        return "귀요미형"
+    # 너무 같은 애만 나오는 것 방지용 아주 작은 다양성
+    score += random.uniform(0, 4)
 
-    return {
-        "calm": "냉미남형",
-        "cute": "귀요미형",
-        "dark": "다크형",
-        "strong": "전사형",
-        "mysterious": "신비형",
-    }.get(vibe, "밸런스형")
-
-
-def get_image_url(row):
-    name = safe_str(row.get("name"))
-    image_url = safe_str(row.get("image_url"))
-
-    if image_url:
-        return image_url
-
-    return MONSTER_IMAGE_FALLBACK.get(name, "")
-
-
-def make_reason(features, monster):
-    vibe = safe_str(monster.get("vibe"))
-    face = safe_str(monster.get("face_shape"))
-    cute = safe_int(monster.get("cute_level"))
-    dark = safe_int(monster.get("dark_level"))
-    power = safe_int(monster.get("power_level"))
-    name = safe_str(monster.get("name"))
-
-    face_text = {
-        "round": "둥글고 부드러운 인상",
-        "oval": "깔끔한 세로형 인상",
-        "long": "길쭉하고 차분한 인상",
-        "square": "단단하고 안정적인 인상",
-        "triangle": "날렵하고 개성 있는 인상",
-    }.get(face, "전체적인 얼굴형")
-
-    vibe_text = {
-        "cute": "귀여운 분위기",
-        "calm": "차분한 분위기",
-        "strong": "강한 존재감",
-        "dark": "어둡고 신비로운 느낌",
-        "mysterious": "묘하고 독특한 분위기",
-    }.get(vibe, "전체적인 분위기")
-
-    extra = []
-
-    if cute >= 8:
-        extra.append("귀여운 느낌이 강해요")
-    elif cute >= 6:
-        extra.append("은근히 귀여운 매력이 있어요")
-
-    if dark >= 6:
-        extra.append("살짝 어두운 매력이 있어요")
-
-    if power >= 7:
-        extra.append("존재감이 또렷해요")
-
-    if not extra:
-        extra.append("부담스럽지 않고 자연스러운 인상이 있어요")
-
-    return f"{name}은 {face_text}과 {vibe_text}가 잘 살아나는 몬스터예요. {extra[0]}."
-
-
-def find_top3(features):
-    results = []
-
-    for _, row in df.iterrows():
-        score = score_monster(features, row)
-
-        monster = {
-            "name": safe_str(row.get("name")),
-            "image_url": get_image_url(row),
-            "score": score,
-            "face_shape": safe_str(row.get("face_shape")),
-            "vibe": safe_str(row.get("vibe")),
-            "eye_shape": safe_str(row.get("eye_shape")),
-            "jawline": safe_str(row.get("jawline")),
-            "animal_type": safe_str(row.get("animal_type")),
-            "cute_level": safe_int(row.get("cute_level")),
-            "dark_level": safe_int(row.get("dark_level")),
-            "power_level": safe_int(row.get("power_level")),
-            "softness": safe_int(row.get("softness")),
-            "sharpness": safe_int(row.get("sharpness")),
-            "mature_level": safe_int(row.get("mature_level")),
-            "description": safe_str(row.get("description")),
-        }
-
-        monster["reason"] = make_reason(features, monster)
-        results.append(monster)
-
-    results = sorted(results, key=lambda x: (-x["score"], x["name"]))[:3]
-
-    for i, item in enumerate(results):
-        percent = score_to_percent(item["score"], i)
-        rank = get_rank(percent)
-
-        item["match_percent"] = percent
-        item["rank"] = rank
-        item["rarity"] = get_rarity(rank)
-        item["monster_type"] = get_monster_type(item)
-        item["power_score"] = int(item["score"] * 73)
-
-    return results
+    return score
 
 
 @app.get("/")
@@ -348,41 +112,118 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "saved_result_count": len(RESULT_STORE),
-        "mode": "image_base64 stable python top3 result-share",
+        "mode": "A3 tag matching"
     }
-
-
-@app.get("/result/{result_id}")
-def get_saved_result(result_id: str):
-    if result_id not in RESULT_STORE:
-        raise HTTPException(status_code=404, detail="result not found")
-    return RESULT_STORE[result_id]
 
 
 @app.post("/match")
 def match_monster(req: MatchRequest):
-    image_data = req.image_base64 or req.image
-
-    if not image_data:
-        raise HTTPException(status_code=422, detail="image_base64 is required")
-
     try:
-        features = analyze_person(image_data)
-        top3 = find_top3(features)
+        image_base64 = clean_base64(req.image_base64)
 
-        result_id = str(uuid.uuid4())[:8]
+        prompt = """
+너는 실제 사람 얼굴 사진을 보고 메이플스토리 몬스터 닮은꼴을 찾기 위한 분석기야.
 
-        result_data = {
-            "result_id": result_id,
-            "person_features": features,
-            "features": features,
-            "top3": top3,
+중요:
+- 얼굴의 신원/이름/성별 추정 금지
+- 외모를 비하하지 말 것
+- 닮은 몬스터 매칭용 특징만 뽑기
+
+아래 JSON 형식으로만 답해.
+
+{
+  "tags": ["cute", "round", "soft"],
+  "scores": {
+    "cute": 1~10,
+    "dark": 1~10,
+    "power": 1~10,
+    "soft": 1~10,
+    "sharp": 1~10,
+    "round": 1~10,
+    "funny": 1~10,
+    "mysterious": 1~10
+  },
+  "vibe": "짧은 분위기 설명"
+}
+
+태그 후보:
+cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, playful, sleepy, bright
+"""
+
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            temperature=0.2,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": prompt},
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": f"data:image/jpeg;base64,{image_base64}"
+                            }
+                        }
+                    ]
+                }
+            ]
+        )
+
+        analysis = safe_json(response.choices[0].message.content)
+
+        user_tags = analysis.get("tags", [])
+        user_scores = analysis.get("scores", {})
+        user_vibe = analysis.get("vibe", "")
+
+        results = []
+
+        for _, row in df.iterrows():
+            m_tags = infer_monster_tags(row)
+            score = score_match(user_tags, user_scores, m_tags, row)
+
+            name = get_value(row, ["name", "monster_name", "몬스터명"], "이름 없음")
+            image_url = get_value(row, ["image_url", "img_url", "url", "image"], "")
+            desc = get_value(row, ["description", "desc", "reason"], "")
+
+            results.append({
+                "name": name,
+                "image_url": image_url,
+                "score": round(score, 2),
+                "tags": m_tags,
+                "reason": desc
+            })
+
+        results = sorted(results, key=lambda x: x["score"], reverse=True)
+
+        # 이름 중복 제거
+        unique = []
+        seen = set()
+
+        for r in results:
+            if r["name"] in seen:
+                continue
+            seen.add(r["name"])
+            unique.append(r)
+            if len(unique) >= 3:
+                break
+
+        # reason이 비어있으면 새로 생성
+        for r in unique:
+            if not r["reason"]:
+                common = list(set(user_tags) & set(r["tags"]))
+                if common:
+                    r["reason"] = f"{', '.join(common)} 분위기가 비슷해서 닮은 몬스터로 매칭됐어요."
+                else:
+                    r["reason"] = f"{user_vibe} 느낌과 몬스터의 전체 분위기가 비슷해서 매칭됐어요."
+
+        return {
+            "analysis": {
+                "tags": user_tags,
+                "scores": user_scores,
+                "vibe": user_vibe
+            },
+            "results": unique
         }
-
-        RESULT_STORE[result_id] = result_data
-
-        return result_data
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
