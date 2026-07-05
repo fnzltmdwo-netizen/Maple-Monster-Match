@@ -20,7 +20,11 @@ app.add_middleware(
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-CSV_PATH = "monsters_ai.csv"
+CSV_PATH = "monsters_ai_v2.csv"
+
+if not os.path.exists(CSV_PATH):
+    CSV_PATH = "monsters_ai.csv"
+
 df = pd.read_csv(CSV_PATH).fillna("")
 
 
@@ -28,37 +32,8 @@ class MatchRequest(BaseModel):
     image_base64: str
 
 
-COMMON_MONSTER_PENALTY = [
-    "단지",
-    "달팽이",
-    "스포아",
-    "슬라임",
-    "주황버섯",
-    "파란버섯",
-    "리본 돼지",
-    "울트라 코-크 달팽이",
-    "코-크 달팽이",
-]
-
-NON_FACE_MONSTERS = [
-    "도라지",
-    "네펜데스",
-    "모래난쟁이",
-    "스텀프",
-    "고스텀프",
-    "엑스텀프",
-    "나무",
-    "꽃",
-    "풀",
-    "화분",
-    "버섯집",
-    "돌",
-    "바위",
-    "상자",
-    "식물",
-]
-
 FACE_SHAPES = ["round", "square", "sharp", "long", "small", "wide"]
+
 VIBES = [
     "cute",
     "calm",
@@ -72,10 +47,32 @@ VIBES = [
     "elegant",
 ]
 
+EYE_STYLES = [
+    "big",
+    "small",
+    "sharp",
+    "sleepy",
+    "angry",
+    "none",
+    "simple",
+]
+
+BODY_TYPES = [
+    "blob",
+    "animal",
+    "humanoid",
+    "object",
+    "plant",
+    "fish",
+    "insect",
+    "ghost",
+]
+
 
 def clean_base64(image_base64: str):
     if "," in image_base64:
         image_base64 = image_base64.split(",", 1)[1]
+
     return image_base64.strip().replace("\n", "").replace("\r", "").replace(" ", "")
 
 
@@ -93,21 +90,23 @@ def stable_tiebreaker(image_hash: str, monster_name: str):
 def safe_json(text: str):
     text = text.strip()
     text = re.sub(r"```json|```", "", text).strip()
+
     match = re.search(r"\{.*\}", text, re.S)
     if match:
         text = match.group(0)
+
     return json.loads(text)
 
 
-def get_value(row, possible_cols, default=""):
-    for col in possible_cols:
+def get_value(row, cols, default=""):
+    for col in cols:
         if col in row.index and str(row[col]).strip():
             return str(row[col]).strip()
     return default
 
 
-def get_float(row, possible_cols, default=5):
-    for col in possible_cols:
+def get_float(row, cols, default=5):
+    for col in cols:
         if col in row.index:
             try:
                 return float(row[col])
@@ -129,14 +128,6 @@ def normalize_choice(value, allowed, default):
     return default
 
 
-def is_non_face_monster(name: str):
-    return any(word in name for word in NON_FACE_MONSTERS)
-
-
-def is_common_monster(name: str):
-    return any(word in name for word in COMMON_MONSTER_PENALTY)
-
-
 def analyze_user_image(image_base64: str):
     prompt = """
 너는 실제 사람 얼굴 사진을 보고 메이플스토리 몬스터 닮은꼴 매칭용 특징만 뽑는 분석기야.
@@ -154,16 +145,24 @@ round, square, sharp, long, small, wide
 vibe 후보:
 cute, calm, dark, mysterious, playful, cool, strong, sleepy, bright, elegant
 
+eye_style 후보:
+big, small, sharp, sleepy, angry, none, simple
+
+body_type 후보:
+blob, animal, humanoid, object, plant, fish, insect, ghost
+
 JSON 형식:
 {
   "face_shape": "round",
   "vibe": "calm",
+  "eye_style": "small",
+  "body_type": "humanoid",
   "scores": {
     "cute_level": 1~10,
     "dark_level": 1~10,
     "power_level": 1~10
   },
-  "tags": ["round", "calm"],
+  "tags": ["round", "calm", "small-eyes"],
   "description": "짧은 분위기 설명"
 }
 """
@@ -189,90 +188,163 @@ JSON 형식:
 
     analysis = safe_json(response.choices[0].message.content)
 
-    face_shape = normalize_choice(
-        analysis.get("face_shape", "round"),
-        FACE_SHAPES,
-        "round"
-    )
-
-    vibe = normalize_choice(
-        analysis.get("vibe", "calm"),
-        VIBES,
-        "calm"
-    )
-
     scores = analysis.get("scores", {})
 
-    user = {
-        "face_shape": face_shape,
-        "vibe": vibe,
+    return {
+        "face_shape": normalize_choice(
+            analysis.get("face_shape", "round"),
+            FACE_SHAPES,
+            "round",
+        ),
+        "vibe": normalize_choice(
+            analysis.get("vibe", "calm"),
+            VIBES,
+            "calm",
+        ),
+        "eye_style": normalize_choice(
+            analysis.get("eye_style", "simple"),
+            EYE_STYLES,
+            "simple",
+        ),
+        "body_type": normalize_choice(
+            analysis.get("body_type", "humanoid"),
+            BODY_TYPES,
+            "humanoid",
+        ),
         "cute_level": float(scores.get("cute_level", 5)),
         "dark_level": float(scores.get("dark_level", 3)),
         "power_level": float(scores.get("power_level", 4)),
         "description": analysis.get("description", ""),
-        "tags": [face_shape, vibe],
+        "tags": analysis.get("tags", []),
     }
 
-    return user
+
+def shape_score(user_shape, monster_shape):
+    if user_shape == monster_shape:
+        return 30
+
+    similar_groups = [
+        {"round", "small", "wide"},
+        {"sharp", "long"},
+    ]
+
+    for group in similar_groups:
+        if user_shape in group and monster_shape in group:
+            return 18
+
+    return 5
+
+
+def vibe_score(user_vibe, monster_vibe):
+    if user_vibe == monster_vibe:
+        return 28
+
+    soft_group = {"cute", "calm", "sleepy", "bright", "playful"}
+    dark_group = {"dark", "mysterious", "cool", "strong", "elegant"}
+
+    if user_vibe in soft_group and monster_vibe in soft_group:
+        return 15
+
+    if user_vibe in dark_group and monster_vibe in dark_group:
+        return 15
+
+    return 4
+
+
+def eye_score(user_eye, monster_eye):
+    if user_eye == monster_eye:
+        return 20
+
+    if {user_eye, monster_eye} <= {"small", "simple", "sleepy"}:
+        return 12
+
+    if {user_eye, monster_eye} <= {"sharp", "angry"}:
+        return 12
+
+    if user_eye == "none" or monster_eye == "none":
+        return -8
+
+    return 4
+
+
+def body_score(user_body, monster_body):
+    # 사람 사진은 대체로 humanoid로 들어오므로,
+    # 사람 얼굴 닮은꼴에 너무 안 맞는 body_type은 낮게 줌
+    if monster_body == "humanoid":
+        return 20
+
+    if monster_body in ["animal", "blob", "ghost"]:
+        return 12
+
+    if monster_body in ["object", "plant", "fish", "insect"]:
+        return -15
+
+    return 0
 
 
 def score_monster(user, row, image_hash):
     name = get_value(row, ["name"], "이름 없음")
 
-    monster_face_shape = normalize_choice(
+    monster_face = normalize_choice(
         get_value(row, ["face_shape"], "round"),
         FACE_SHAPES,
-        "round"
+        "round",
     )
 
     monster_vibe = normalize_choice(
         get_value(row, ["vibe"], "calm"),
         VIBES,
-        "calm"
+        "calm",
+    )
+
+    monster_eye = normalize_choice(
+        get_value(row, ["eye_style"], "simple"),
+        EYE_STYLES,
+        "simple",
+    )
+
+    monster_body = normalize_choice(
+        get_value(row, ["body_type"], "object"),
+        BODY_TYPES,
+        "object",
     )
 
     monster_cute = get_float(row, ["cute_level"], 5)
     monster_dark = get_float(row, ["dark_level"], 3)
     monster_power = get_float(row, ["power_level"], 4)
 
+    human_match = get_float(row, ["human_match_score"], 5)
+    face_visibility = get_float(row, ["face_visibility"], 5)
+    object_like = get_float(row, ["object_like"], 1)
+    plant_like = get_float(row, ["plant_like"], 1)
+
     score = 0
 
-    # 얼굴형 매칭
-    if user["face_shape"] == monster_face_shape:
-        score += 38
-    elif user["face_shape"] == "round" and monster_face_shape in ["small", "wide"]:
-        score += 22
-    elif user["face_shape"] in ["small", "wide"] and monster_face_shape == "round":
-        score += 22
-    elif user["face_shape"] == "sharp" and monster_face_shape == "long":
-        score += 18
-    else:
-        score += 8
+    score += shape_score(user["face_shape"], monster_face)
+    score += vibe_score(user["vibe"], monster_vibe)
+    score += eye_score(user["eye_style"], monster_eye)
+    score += body_score(user["body_type"], monster_body)
 
-    # 분위기 매칭
-    if user["vibe"] == monster_vibe:
-        score += 32
-    elif {user["vibe"], monster_vibe} <= {"calm", "cute", "sleepy", "bright"}:
-        score += 18
-    elif {user["vibe"], monster_vibe} <= {"dark", "mysterious", "cool", "strong"}:
-        score += 18
-    else:
-        score += 6
+    score += max(0, 10 - abs(user["cute_level"] - monster_cute)) * 2.0
+    score += max(0, 10 - abs(user["dark_level"] - monster_dark)) * 1.4
+    score += max(0, 10 - abs(user["power_level"] - monster_power)) * 1.4
 
-    # 숫자 점수 매칭
-    score += max(0, 10 - abs(user["cute_level"] - monster_cute)) * 2.3
-    score += max(0, 10 - abs(user["dark_level"] - monster_dark)) * 1.7
-    score += max(0, 10 - abs(user["power_level"] - monster_power)) * 1.7
+    # v2 CSV 핵심 보정
+    score += human_match * 3.2
+    score += face_visibility * 2.2
 
-    # 과출현 기본몹 약한 감점
-    if is_common_monster(name):
-        score -= 8
+    # 사람 얼굴 닮은꼴에서 사물/식물형 감점
+    score -= object_like * 3.0
+    score -= plant_like * 3.5
 
-    # 사람 얼굴과 잘 안 맞는 식물/사물형 강한 감점
-    if is_non_face_monster(name):
-        score -= 35
+    # 너무 자주 나오는 기본 몹 약한 감점
+    if any(word in name for word in ["달팽이", "스포아", "슬라임", "단지"]):
+        score -= 7
 
-    # 같은 사진이면 항상 같은 미세 보정
+    # 너무 이상한 타입 강제 감점
+    if monster_body in ["object", "plant", "fish", "insect"]:
+        score -= 18
+
     score += stable_tiebreaker(image_hash, name) * 2
 
     return round(score, 4)
@@ -303,6 +375,7 @@ def generate_reason(monster_name, user):
 사용자 분위기:
 - 얼굴형 느낌: {user["face_shape"]}
 - 분위기: {user["vibe"]}
+- 눈매 느낌: {user["eye_style"]}
 - 귀여움: {user["cute_level"]}
 - 어두움: {user["dark_level"]}
 - 포스: {user["power_level"]}
@@ -338,7 +411,8 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A4 csv-native matching",
+        "mode": "A5 v2-csv matching",
+        "csv_path": CSV_PATH,
         "columns": list(df.columns),
     }
 
@@ -366,6 +440,8 @@ def match_monster(req: MatchRequest):
                 "tags": [
                     get_value(row, ["face_shape"], ""),
                     get_value(row, ["vibe"], ""),
+                    get_value(row, ["eye_style"], ""),
+                    get_value(row, ["body_type"], ""),
                 ],
                 "reason": "",
             })
@@ -402,6 +478,8 @@ def match_monster(req: MatchRequest):
                 },
                 "face_shape": user["face_shape"],
                 "main_vibe": user["vibe"],
+                "eye_style": user["eye_style"],
+                "body_type": user["body_type"],
             },
             "results": unique,
         }
