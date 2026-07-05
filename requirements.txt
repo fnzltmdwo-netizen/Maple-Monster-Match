@@ -1,9 +1,9 @@
 fastapi
 uvicorn
-pandas
 pydantic
-python-multipart
-pillow
-openai
-beautifulsoup4
+pandas
 requests
+pillow
+numpy
+torch
+open_clip_torch
