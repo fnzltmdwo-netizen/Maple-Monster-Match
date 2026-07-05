@@ -35,16 +35,18 @@ COMMON_MONSTER_PENALTY = [
     "슬라임",
     "주황버섯",
     "파란버섯",
-    "리본돼지",
+    "리본 돼지",
     "울트라 코-크 달팽이",
     "코-크 달팽이",
 ]
-
 
 NON_FACE_MONSTERS = [
     "도라지",
     "네펜데스",
     "모래난쟁이",
+    "스텀프",
+    "고스텀프",
+    "엑스텀프",
     "나무",
     "꽃",
     "풀",
@@ -56,25 +58,19 @@ NON_FACE_MONSTERS = [
     "식물",
 ]
 
-
-TAG_KEYWORDS = {
-    "cute": ["귀여", "cute", "아기", "동글", "말랑", "핑크"],
-    "dark": ["어둠", "dark", "악마", "유령", "좀비", "스켈", "저주", "그림자"],
-    "sharp": ["날카", "sharp", "칼", "뿔", "가시", "늑대", "표범"],
-    "round": ["동글", "round", "통통", "볼", "구름", "버섯", "달팽이"],
-    "funny": ["웃긴", "funny", "장난", "코믹", "바보"],
-    "mysterious": ["신비", "mysterious", "마법", "요정", "정령"],
-    "strong": ["강한", "strong", "보스", "전사", "거대", "포스"],
-    "soft": ["부드", "soft", "말랑", "순한", "따뜻"],
-    "cold": ["차가", "cold", "얼음", "눈", "서늘"],
-    "animal": ["동물", "돼지", "고양", "강아", "곰", "토끼", "새", "원숭"],
-    "bright": ["밝", "bright", "해", "빛", "노랑"],
-    "calm": ["차분", "calm", "조용", "평온"],
-    "playful": ["장난", "playful", "개구", "활발"],
-    "sleepy": ["졸린", "sleepy", "나른", "멍"],
-    "cool": ["쿨", "cool", "시크", "무심"],
-    "elegant": ["우아", "elegant", "고급", "귀족"],
-}
+FACE_SHAPES = ["round", "square", "sharp", "long", "small", "wide"]
+VIBES = [
+    "cute",
+    "calm",
+    "dark",
+    "mysterious",
+    "playful",
+    "cool",
+    "strong",
+    "sleepy",
+    "bright",
+    "elegant",
+]
 
 
 def clean_base64(image_base64: str):
@@ -110,7 +106,7 @@ def get_value(row, possible_cols, default=""):
     return default
 
 
-def get_float(row, possible_cols, default=None):
+def get_float(row, possible_cols, default=5):
     for col in possible_cols:
         if col in row.index:
             try:
@@ -120,192 +116,197 @@ def get_float(row, possible_cols, default=None):
     return default
 
 
-def monster_text(row):
-    cols = [
-        "name",
-        "monster_name",
-        "몬스터명",
-        "description",
-        "desc",
-        "reason",
-        "tags",
-        "type",
-    ]
-    return " ".join(str(row.get(c, "")) for c in cols if c in row.index)
+def normalize_choice(value, allowed, default):
+    value = str(value).strip().lower()
 
+    if value in allowed:
+        return value
 
-def infer_monster_tags(row):
-    text = monster_text(row).lower()
-    tags = set()
+    for item in allowed:
+        if item in value or value in item:
+            return item
 
-    if "tags" in row.index and str(row["tags"]).strip():
-        raw_tags = str(row["tags"]).replace("|", ",").replace("/", ",")
-        for tag in raw_tags.split(","):
-            tag = tag.strip().lower()
-            if tag:
-                tags.add(tag)
-
-    for tag, words in TAG_KEYWORDS.items():
-        if any(w.lower() in text for w in words):
-            tags.add(tag)
-
-    if not tags:
-        tags.add("normal")
-
-    return sorted(list(tags))
-
-
-def normalize_user_tags(tags):
-    allowed = list(TAG_KEYWORDS.keys())
-    cleaned = []
-
-    for tag in tags:
-        tag = str(tag).lower().strip().replace("_", "-").replace(" ", "-")
-
-        matched = None
-
-        if tag in allowed:
-            matched = tag
-        else:
-            for candidate in allowed:
-                if candidate in tag or tag in candidate:
-                    matched = candidate
-                    break
-
-        # 한글/비슷한 표현 보정
-        if matched is None:
-            if "round" in tag or "동글" in tag:
-                matched = "round"
-            elif "soft" in tag or "부드" in tag or "순한" in tag:
-                matched = "soft"
-            elif "calm" in tag or "차분" in tag:
-                matched = "calm"
-            elif "cute" in tag or "귀여" in tag:
-                matched = "cute"
-            elif "cool" in tag or "시크" in tag:
-                matched = "cool"
-            elif "sleep" in tag or "졸" in tag or "나른" in tag:
-                matched = "sleepy"
-            elif "bright" in tag or "밝" in tag:
-                matched = "bright"
-            elif "sharp" in tag or "날카" in tag:
-                matched = "sharp"
-
-        if matched and matched not in cleaned:
-            cleaned.append(matched)
-
-    # 너무 적게 나오면 기본 보정
-    if len(cleaned) < 4:
-        for fallback in ["soft", "calm", "round", "cute"]:
-            if fallback not in cleaned:
-                cleaned.append(fallback)
-            if len(cleaned) >= 4:
-                break
-
-    return cleaned[:6]
+    return default
 
 
 def is_non_face_monster(name: str):
     return any(word in name for word in NON_FACE_MONSTERS)
 
 
-def score_match(user_tags, user_scores, monster_tags, row, image_hash):
-    name = get_value(row, ["name", "monster_name", "몬스터명"], "")
+def is_common_monster(name: str):
+    return any(word in name for word in COMMON_MONSTER_PENALTY)
 
-    user_tag_set = set(user_tags)
-    monster_tag_set = set(monster_tags)
 
-    overlap = len(user_tag_set & monster_tag_set)
-    union = len(user_tag_set | monster_tag_set) or 1
+def analyze_user_image(image_base64: str):
+    prompt = """
+너는 실제 사람 얼굴 사진을 보고 메이플스토리 몬스터 닮은꼴 매칭용 특징만 뽑는 분석기야.
 
-    tag_score = (overlap / union) * 55
+중요:
+- 신원/이름/성별/나이 추정 금지
+- 외모 비하 금지
+- 아래 JSON만 답하기
+- 같은 사진이면 최대한 같은 분석이 나오게 일관적으로 판단하기
+- 실제 얼굴형 그대로가 아니라, 몬스터와 매칭하기 위한 '캐릭터식 인상'으로 판단하기
 
-    score_score = 0
-    score_count = 0
+face_shape 후보:
+round, square, sharp, long, small, wide
 
-    keys = [
-        "cute",
-        "dark",
-        "power",
-        "soft",
-        "sharp",
-        "round",
-        "funny",
-        "mysterious",
-        "strong",
-        "cold",
-        "bright",
-        "calm",
-        "playful",
-        "sleepy",
-        "cool",
-        "elegant",
-    ]
+vibe 후보:
+cute, calm, dark, mysterious, playful, cool, strong, sleepy, bright, elegant
 
-    for key in keys:
-        try:
-            user_v = float(user_scores.get(key, 5))
-        except:
-            user_v = 5
+JSON 형식:
+{
+  "face_shape": "round",
+  "vibe": "calm",
+  "scores": {
+    "cute_level": 1~10,
+    "dark_level": 1~10,
+    "power_level": 1~10
+  },
+  "tags": ["round", "calm"],
+  "description": "짧은 분위기 설명"
+}
+"""
 
-        monster_v = get_float(row, [key, f"{key}_score"], None)
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        temperature=0,
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{image_base64}"
+                        },
+                    },
+                ],
+            }
+        ],
+    )
 
-        if monster_v is not None:
-            score_score += max(0, 10 - abs(user_v - monster_v)) * 4
-            score_count += 1
+    analysis = safe_json(response.choices[0].message.content)
 
-    if score_count > 0:
-        score_score = score_score / score_count
+    face_shape = normalize_choice(
+        analysis.get("face_shape", "round"),
+        FACE_SHAPES,
+        "round"
+    )
+
+    vibe = normalize_choice(
+        analysis.get("vibe", "calm"),
+        VIBES,
+        "calm"
+    )
+
+    scores = analysis.get("scores", {})
+
+    user = {
+        "face_shape": face_shape,
+        "vibe": vibe,
+        "cute_level": float(scores.get("cute_level", 5)),
+        "dark_level": float(scores.get("dark_level", 3)),
+        "power_level": float(scores.get("power_level", 4)),
+        "description": analysis.get("description", ""),
+        "tags": [face_shape, vibe],
+    }
+
+    return user
+
+
+def score_monster(user, row, image_hash):
+    name = get_value(row, ["name"], "이름 없음")
+
+    monster_face_shape = normalize_choice(
+        get_value(row, ["face_shape"], "round"),
+        FACE_SHAPES,
+        "round"
+    )
+
+    monster_vibe = normalize_choice(
+        get_value(row, ["vibe"], "calm"),
+        VIBES,
+        "calm"
+    )
+
+    monster_cute = get_float(row, ["cute_level"], 5)
+    monster_dark = get_float(row, ["dark_level"], 3)
+    monster_power = get_float(row, ["power_level"], 4)
+
+    score = 0
+
+    # 얼굴형 매칭
+    if user["face_shape"] == monster_face_shape:
+        score += 38
+    elif user["face_shape"] == "round" and monster_face_shape in ["small", "wide"]:
+        score += 22
+    elif user["face_shape"] in ["small", "wide"] and monster_face_shape == "round":
+        score += 22
+    elif user["face_shape"] == "sharp" and monster_face_shape == "long":
+        score += 18
     else:
-        score_score = 18
+        score += 8
 
-    final_score = tag_score + score_score
+    # 분위기 매칭
+    if user["vibe"] == monster_vibe:
+        score += 32
+    elif {user["vibe"], monster_vibe} <= {"calm", "cute", "sleepy", "bright"}:
+        score += 18
+    elif {user["vibe"], monster_vibe} <= {"dark", "mysterious", "cool", "strong"}:
+        score += 18
+    else:
+        score += 6
 
-    # 기본몹 과출현 완화: 너무 세게 말고 적당히
-    if any(common in name for common in COMMON_MONSTER_PENALTY):
-        final_score -= 10
+    # 숫자 점수 매칭
+    score += max(0, 10 - abs(user["cute_level"] - monster_cute)) * 2.3
+    score += max(0, 10 - abs(user["dark_level"] - monster_dark)) * 1.7
+    score += max(0, 10 - abs(user["power_level"] - monster_power)) * 1.7
 
-    # 식물/사물형 몬스터는 후보에서 거의 제외 수준으로 감점
+    # 과출현 기본몹 약한 감점
+    if is_common_monster(name):
+        score -= 8
+
+    # 사람 얼굴과 잘 안 맞는 식물/사물형 강한 감점
     if is_non_face_monster(name):
-        final_score -= 40
+        score -= 35
 
-    if overlap == 0:
-        final_score -= 12
-    elif overlap == 1:
-        final_score -= 5
+    # 같은 사진이면 항상 같은 미세 보정
+    score += stable_tiebreaker(image_hash, name) * 2
 
-    final_score += stable_tiebreaker(image_hash, name) * 2
-
-    return round(final_score, 4)
+    return round(score, 4)
 
 
-def add_percent(unique_results):
-    if not unique_results:
-        return unique_results
+def add_percent(results):
+    if not results:
+        return results
 
-    max_score = unique_results[0]["score"] or 1
+    max_score = results[0]["score"] or 1
 
-    for index, r in enumerate(unique_results):
+    for index, r in enumerate(results):
         base_percent = int((r["score"] / max_score) * 96)
 
         if index == 0:
-            percent = max(90, min(base_percent, 98))
+            r["percent"] = max(90, min(base_percent, 98))
         elif index == 1:
-            percent = max(80, min(base_percent, 89))
+            r["percent"] = max(80, min(base_percent, 89))
         else:
-            percent = max(70, min(base_percent, 79))
+            r["percent"] = max(70, min(base_percent, 79))
 
-        r["percent"] = percent
-
-    return unique_results
+    return results
 
 
-def generate_reason(monster_name, user_tags, vibe):
+def generate_reason(monster_name, user):
     try:
         prompt = f"""
-사람 얼굴 분위기 분석 결과:
-태그: {", ".join(user_tags)}
-분위기: {vibe}
+사용자 분위기:
+- 얼굴형 느낌: {user["face_shape"]}
+- 분위기: {user["vibe"]}
+- 귀여움: {user["cute_level"]}
+- 어두움: {user["dark_level"]}
+- 포스: {user["power_level"]}
+- 설명: {user["description"]}
 
 매칭 몬스터: {monster_name}
 
@@ -337,7 +338,8 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A3 stable tag matching enhanced v3",
+        "mode": "A4 csv-native matching",
+        "columns": list(df.columns),
     }
 
 
@@ -347,91 +349,24 @@ def match_monster(req: MatchRequest):
         image_base64 = clean_base64(req.image_base64)
         image_hash = make_image_hash(image_base64)
 
-        prompt = """
-너는 실제 사람 얼굴 사진을 보고 메이플스토리 몬스터 닮은꼴을 찾기 위한 분석기야.
-
-중요:
-- 얼굴의 신원/이름/성별/나이 추정 금지
-- 외모 비하 금지
-- 닮은 몬스터 매칭용 특징만 뽑기
-- 같은 사진이면 최대한 같은 분석이 나오게 일관적으로 판단하기
-- 단순히 귀엽다/차분하다만 보지 말고 눈매, 인상, 실루엣, 분위기를 나눠서 판단하기
-- 반드시 tags는 4개 이상 6개 이하로 선택하기
-- 태그는 반드시 아래 후보 중에서만 영어로 선택하기
-- soft, calm, round만 반복하지 말 것
-- sharp, cool, bright, sleepy, playful, mysterious, elegant 중 해당되는 특징도 적극 포함하기
-
-아래 JSON 형식으로만 답해.
-
-{
-  "tags": ["cute", "round", "soft", "calm"],
-  "scores": {
-    "cute": 1~10,
-    "dark": 1~10,
-    "power": 1~10,
-    "soft": 1~10,
-    "sharp": 1~10,
-    "round": 1~10,
-    "funny": 1~10,
-    "mysterious": 1~10,
-    "strong": 1~10,
-    "cold": 1~10,
-    "bright": 1~10,
-    "calm": 1~10,
-    "playful": 1~10,
-    "sleepy": 1~10,
-    "cool": 1~10,
-    "elegant": 1~10
-  },
-  "vibe": "짧은 분위기 설명"
-}
-
-태그 후보:
-cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, playful, sleepy, bright, cool, elegant
-"""
-
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            temperature=0,
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": prompt},
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": f"data:image/jpeg;base64,{image_base64}"
-                            },
-                        },
-                    ],
-                }
-            ],
-        )
-
-        analysis = safe_json(response.choices[0].message.content)
-
-        user_tags = normalize_user_tags(analysis.get("tags", []))
-        user_scores = analysis.get("scores", {})
-        user_vibe = analysis.get("vibe", "")
+        user = analyze_user_image(image_base64)
 
         results = []
 
         for _, row in df.iterrows():
-            name = get_value(row, ["name", "monster_name", "몬스터명"], "이름 없음")
+            name = get_value(row, ["name"], "이름 없음")
+            image_url = get_value(row, ["image_url"], "")
 
-            # 식물/사물형은 아예 후보에서 빼고 싶으면 아래 if 사용
-            # 지금은 완전 제외 대신 score에서 강한 감점만 적용
-            monster_tags = infer_monster_tags(row)
-            score = score_match(user_tags, user_scores, monster_tags, row, image_hash)
-
-            image_url = get_value(row, ["image_url", "img_url", "url", "image"], "")
+            score = score_monster(user, row, image_hash)
 
             results.append({
                 "name": name,
                 "image_url": image_url,
                 "score": score,
-                "tags": monster_tags,
+                "tags": [
+                    get_value(row, ["face_shape"], ""),
+                    get_value(row, ["vibe"], ""),
+                ],
                 "reason": "",
             })
 
@@ -453,18 +388,20 @@ cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, p
         unique = add_percent(unique)
 
         for r in unique:
-            r["reason"] = generate_reason(
-                r["name"],
-                user_tags,
-                user_vibe
-            )
+            r["reason"] = generate_reason(r["name"], user)
 
         return {
             "image_hash": image_hash,
             "analysis": {
-                "tags": user_tags,
-                "scores": user_scores,
-                "vibe": user_vibe,
+                "tags": user["tags"],
+                "vibe": user["description"],
+                "scores": {
+                    "cute_level": user["cute_level"],
+                    "dark_level": user["dark_level"],
+                    "power_level": user["power_level"],
+                },
+                "face_shape": user["face_shape"],
+                "main_vibe": user["vibe"],
             },
             "results": unique,
         }
