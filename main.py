@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from openai import OpenAI
 import os
@@ -187,7 +188,6 @@ JSON 형식:
     )
 
     analysis = safe_json(response.choices[0].message.content)
-
     scores = analysis.get("scores", {})
 
     return {
@@ -268,8 +268,6 @@ def eye_score(user_eye, monster_eye):
 
 
 def body_score(user_body, monster_body):
-    # 사람 사진은 대체로 humanoid로 들어오므로,
-    # 사람 얼굴 닮은꼴에 너무 안 맞는 body_type은 낮게 줌
     if monster_body == "humanoid":
         return 20
 
@@ -329,19 +327,15 @@ def score_monster(user, row, image_hash):
     score += max(0, 10 - abs(user["dark_level"] - monster_dark)) * 1.4
     score += max(0, 10 - abs(user["power_level"] - monster_power)) * 1.4
 
-    # v2 CSV 핵심 보정
     score += human_match * 3.2
     score += face_visibility * 2.2
 
-    # 사람 얼굴 닮은꼴에서 사물/식물형 감점
     score -= object_like * 3.0
     score -= plant_like * 3.5
 
-    # 너무 자주 나오는 기본 몹 약한 감점
     if any(word in name for word in ["달팽이", "스포아", "슬라임", "단지"]):
         score -= 7
 
-    # 너무 이상한 타입 강제 감점
     if monster_body in ["object", "plant", "fish", "insect"]:
         score -= 18
 
@@ -417,6 +411,21 @@ def home():
     }
 
 
+@app.get("/download-v2")
+def download_v2():
+    if not os.path.exists("monsters_ai_v2.csv"):
+        raise HTTPException(
+            status_code=404,
+            detail="monsters_ai_v2.csv 파일이 아직 없습니다."
+        )
+
+    return FileResponse(
+        "monsters_ai_v2.csv",
+        media_type="text/csv",
+        filename="monsters_ai_v2.csv"
+    )
+
+
 @app.post("/match")
 def match_monster(req: MatchRequest):
     try:
@@ -483,16 +492,6 @@ def match_monster(req: MatchRequest):
             },
             "results": unique,
         }
-
-from fastapi.responses import FileResponse
-
-@app.get("/download-v2")
-def download_v2():
-    return FileResponse(
-        "monsters_ai_v2.csv",
-        media_type="text/csv",
-        filename="monsters_ai_v2.csv"
-    )
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
