@@ -4,6 +4,4 @@ pydantic
 pandas
 requests
 pillow
-numpy
-torch
-open_clip_torch
+openai
