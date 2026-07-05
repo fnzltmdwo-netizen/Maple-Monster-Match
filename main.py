@@ -6,7 +6,6 @@ import os
 import json
 import re
 import hashlib
-import random
 import pandas as pd
 
 app = FastAPI()
@@ -37,7 +36,11 @@ COMMON_MONSTER_PENALTY = [
     "주황버섯",
     "파란버섯",
     "리본돼지",
+    "울트라 코-크 달팽이",
+    "코-크 달팽이",
+    "여신 탑의 로얄 네펜데스",
 ]
+
 
 TAG_KEYWORDS = {
     "cute": ["귀여", "cute", "아기", "동글", "말랑", "핑크"],
@@ -79,9 +82,11 @@ def stable_tiebreaker(image_hash: str, monster_name: str):
 def safe_json(text: str):
     text = text.strip()
     text = re.sub(r"```json|```", "", text).strip()
+
     match = re.search(r"\{.*\}", text, re.S)
     if match:
         text = match.group(0)
+
     return json.loads(text)
 
 
@@ -113,7 +118,6 @@ def monster_text(row):
         "tags",
         "type",
     ]
-
     return " ".join(str(row.get(c, "")) for c in cols if c in row.index)
 
 
@@ -136,6 +140,18 @@ def infer_monster_tags(row):
         tags.add("normal")
 
     return sorted(list(tags))
+
+
+def normalize_user_tags(tags):
+    allowed = set(TAG_KEYWORDS.keys())
+    cleaned = []
+
+    for tag in tags:
+        tag = str(tag).strip().lower()
+        if tag in allowed and tag not in cleaned:
+            cleaned.append(tag)
+
+    return cleaned
 
 
 def score_match(user_tags, user_scores, monster_tags, row, image_hash):
@@ -190,17 +206,19 @@ def score_match(user_tags, user_scores, monster_tags, row, image_hash):
 
     final_score = tag_score + score_score
 
-    # 기본몹 과출현 방지
     if any(common in name for common in COMMON_MONSTER_PENALTY):
-        final_score -= 13
+        final_score -= 25
 
-    # 태그가 거의 안 맞는데 점수만으로 올라오는 것 방지
     if overlap == 0:
-        final_score -= 10
+        final_score -= 12
     elif overlap == 1:
-        final_score -= 3
+        final_score -= 5
 
-    # 같은 사진이면 항상 같은 미세 보정
+    # soft/calm/round만으로 먹고 들어가는 몬스터 방지
+    if set(user_tags).issubset({"soft", "calm", "round"}):
+        if {"soft", "calm", "round"} & monster_tag_set:
+            final_score -= 8
+
     final_score += stable_tiebreaker(image_hash, name) * 2
 
     return round(final_score, 4)
@@ -250,7 +268,7 @@ def generate_reason(monster_name, user_tags, vibe):
             temperature=0.3,
             messages=[
                 {"role": "user", "content": prompt}
-            ]
+            ],
         )
 
         return response.choices[0].message.content.strip()
@@ -264,7 +282,7 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A3 stable tag matching enhanced",
+        "mode": "A3 stable tag matching enhanced v2",
     }
 
 
@@ -283,11 +301,14 @@ def match_monster(req: MatchRequest):
 - 닮은 몬스터 매칭용 특징만 뽑기
 - 같은 사진이면 최대한 같은 분석이 나오게 일관적으로 판단하기
 - 단순히 귀엽다/차분하다만 보지 말고 눈매, 인상, 실루엣, 분위기를 나눠서 판단하기
+- 반드시 tags는 4개 이상 6개 이하로 선택하기
+- soft, calm, round만 반복하지 말 것
+- sharp, cool, bright, sleepy, playful, mysterious, elegant 중 해당되는 특징도 적극 포함하기
 
 아래 JSON 형식으로만 답해.
 
 {
-  "tags": ["cute", "round", "soft"],
+  "tags": ["cute", "round", "soft", "calm"],
   "scores": {
     "cute": 1~10,
     "dark": 1~10,
@@ -334,7 +355,7 @@ cute, dark, sharp, round, funny, mysterious, strong, soft, cold, animal, calm, p
 
         analysis = safe_json(response.choices[0].message.content)
 
-        user_tags = analysis.get("tags", [])
+        user_tags = normalize_user_tags(analysis.get("tags", []))
         user_scores = analysis.get("scores", {})
         user_vibe = analysis.get("vibe", "")
 
