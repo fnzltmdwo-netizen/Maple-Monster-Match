@@ -1,13 +1,21 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 from openai import OpenAI
+
+from PIL import Image, ImageDraw, ImageFont
+from io import BytesIO
+from pathlib import Path
+
 import os
 import json
 import re
+import uuid
 import hashlib
+import requests
 import pandas as pd
+
 
 app = FastAPI()
 
@@ -22,52 +30,39 @@ app.add_middleware(
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 CSV_PATH = "monsters_ai_v2.csv"
-
 if not os.path.exists(CSV_PATH):
     CSV_PATH = "monsters_ai.csv"
 
 df = pd.read_csv(CSV_PATH).fillna("")
+
+RESULT_DIR = Path("saved_results")
+RESULT_DIR.mkdir(exist_ok=True)
+
+BASE_URL = os.getenv(
+    "BASE_URL",
+    "https://maple-monster-match-v2.onrender.com"
+)
+
+FRONTEND_URL = os.getenv(
+    "FRONTEND_URL",
+    "https://maple-monster-frontend.onrender.com"
+)
 
 
 class MatchRequest(BaseModel):
     image_base64: str
 
 
+class SaveResultRequest(BaseModel):
+    user_name: str = "친구"
+    analysis: dict
+    results: list
+
+
 FACE_SHAPES = ["round", "square", "sharp", "long", "small", "wide"]
-
-VIBES = [
-    "cute",
-    "calm",
-    "dark",
-    "mysterious",
-    "playful",
-    "cool",
-    "strong",
-    "sleepy",
-    "bright",
-    "elegant",
-]
-
-EYE_STYLES = [
-    "big",
-    "small",
-    "sharp",
-    "sleepy",
-    "angry",
-    "none",
-    "simple",
-]
-
-BODY_TYPES = [
-    "blob",
-    "animal",
-    "humanoid",
-    "object",
-    "plant",
-    "fish",
-    "insect",
-    "ghost",
-]
+VIBES = ["cute", "calm", "dark", "mysterious", "playful", "cool", "strong", "sleepy", "bright", "elegant"]
+EYE_STYLES = ["big", "small", "sharp", "sleepy", "angry", "none", "simple"]
+BODY_TYPES = ["blob", "animal", "humanoid", "object", "plant", "fish", "insect", "ghost"]
 
 REPEAT_PENALTY_NAMES = [
     "헬레나의 분신",
@@ -81,13 +76,11 @@ REPEAT_PENALTY_NAMES = [
 def clean_base64(image_base64: str):
     if "," in image_base64:
         image_base64 = image_base64.split(",", 1)[1]
-
     return image_base64.strip().replace("\n", "").replace("\r", "").replace(" ", "")
 
 
 def make_image_hash(image_base64: str):
-    cleaned = clean_base64(image_base64)
-    return hashlib.md5(cleaned.encode("utf-8")).hexdigest()
+    return hashlib.md5(clean_base64(image_base64).encode("utf-8")).hexdigest()
 
 
 def stable_tiebreaker(image_hash: str, monster_name: str):
@@ -99,11 +92,9 @@ def stable_tiebreaker(image_hash: str, monster_name: str):
 def safe_json(text: str):
     text = text.strip()
     text = re.sub(r"```json|```", "", text).strip()
-
     match = re.search(r"\{.*\}", text, re.S)
     if match:
         text = match.group(0)
-
     return json.loads(text)
 
 
@@ -126,14 +117,11 @@ def get_float(row, cols, default=5):
 
 def normalize_choice(value, allowed, default):
     value = str(value).strip().lower()
-
     if value in allowed:
         return value
-
     for item in allowed:
         if item in value or value in item:
             return item
-
     return default
 
 
@@ -199,26 +187,10 @@ JSON 형식:
     scores = analysis.get("scores", {})
 
     return {
-        "face_shape": normalize_choice(
-            analysis.get("face_shape", "round"),
-            FACE_SHAPES,
-            "round",
-        ),
-        "vibe": normalize_choice(
-            analysis.get("vibe", "calm"),
-            VIBES,
-            "calm",
-        ),
-        "eye_style": normalize_choice(
-            analysis.get("eye_style", "simple"),
-            EYE_STYLES,
-            "simple",
-        ),
-        "body_type": normalize_choice(
-            analysis.get("body_type", "humanoid"),
-            BODY_TYPES,
-            "humanoid",
-        ),
+        "face_shape": normalize_choice(analysis.get("face_shape", "round"), FACE_SHAPES, "round"),
+        "vibe": normalize_choice(analysis.get("vibe", "calm"), VIBES, "calm"),
+        "eye_style": normalize_choice(analysis.get("eye_style", "simple"), EYE_STYLES, "simple"),
+        "body_type": normalize_choice(analysis.get("body_type", "humanoid"), BODY_TYPES, "humanoid"),
         "cute_level": float(scores.get("cute_level", 5)),
         "dark_level": float(scores.get("dark_level", 3)),
         "power_level": float(scores.get("power_level", 4)),
@@ -230,90 +202,53 @@ JSON 형식:
 def shape_score(user_shape, monster_shape):
     if user_shape == monster_shape:
         return 30
-
-    similar_groups = [
-        {"round", "small", "wide"},
-        {"sharp", "long"},
-    ]
-
-    for group in similar_groups:
+    for group in [{"round", "small", "wide"}, {"sharp", "long"}]:
         if user_shape in group and monster_shape in group:
             return 18
-
     return 5
 
 
 def vibe_score(user_vibe, monster_vibe):
     if user_vibe == monster_vibe:
         return 28
-
     soft_group = {"cute", "calm", "sleepy", "bright", "playful"}
     dark_group = {"dark", "mysterious", "cool", "strong", "elegant"}
-
     if user_vibe in soft_group and monster_vibe in soft_group:
         return 15
-
     if user_vibe in dark_group and monster_vibe in dark_group:
         return 15
-
     return 4
 
 
 def eye_score(user_eye, monster_eye):
     if user_eye == monster_eye:
         return 20
-
     if {user_eye, monster_eye} <= {"small", "simple", "sleepy"}:
         return 12
-
     if {user_eye, monster_eye} <= {"sharp", "angry"}:
         return 12
-
     if user_eye == "none" or monster_eye == "none":
         return -8
-
     return 4
 
 
 def body_score(user_body, monster_body):
     if monster_body == "humanoid":
         return 20
-
     if monster_body in ["animal", "blob", "ghost"]:
         return 12
-
     if monster_body in ["object", "plant", "fish", "insect"]:
         return -15
-
     return 0
 
 
 def score_monster(user, row, image_hash):
     name = get_value(row, ["name"], "이름 없음")
 
-    monster_face = normalize_choice(
-        get_value(row, ["face_shape"], "round"),
-        FACE_SHAPES,
-        "round",
-    )
-
-    monster_vibe = normalize_choice(
-        get_value(row, ["vibe"], "calm"),
-        VIBES,
-        "calm",
-    )
-
-    monster_eye = normalize_choice(
-        get_value(row, ["eye_style"], "simple"),
-        EYE_STYLES,
-        "simple",
-    )
-
-    monster_body = normalize_choice(
-        get_value(row, ["body_type"], "object"),
-        BODY_TYPES,
-        "object",
-    )
+    monster_face = normalize_choice(get_value(row, ["face_shape"], "round"), FACE_SHAPES, "round")
+    monster_vibe = normalize_choice(get_value(row, ["vibe"], "calm"), VIBES, "calm")
+    monster_eye = normalize_choice(get_value(row, ["eye_style"], "simple"), EYE_STYLES, "simple")
+    monster_body = normalize_choice(get_value(row, ["body_type"], "object"), BODY_TYPES, "object")
 
     monster_cute = get_float(row, ["cute_level"], 5)
     monster_dark = get_float(row, ["dark_level"], 3)
@@ -325,7 +260,6 @@ def score_monster(user, row, image_hash):
     plant_like = get_float(row, ["plant_like"], 1)
 
     score = 0
-
     score += shape_score(user["face_shape"], monster_face)
     score += vibe_score(user["vibe"], monster_vibe)
     score += eye_score(user["eye_style"], monster_eye)
@@ -380,7 +314,6 @@ def pick_diverse_top3(results):
     body_counts = {}
     vibe_counts = {}
 
-    # 1차: 다양성 조건 강하게 적용
     for r in results:
         name = r["name"]
         body = r.get("body_type", "")
@@ -388,10 +321,8 @@ def pick_diverse_top3(results):
 
         if name in used_names:
             continue
-
         if body_counts.get(body, 0) >= 1:
             continue
-
         if vibe_counts.get(vibe, 0) >= 2:
             continue
 
@@ -403,14 +334,12 @@ def pick_diverse_top3(results):
         if len(selected) >= 3:
             return selected
 
-    # 2차: body_type은 2개까지 허용
     for r in results:
         name = r["name"]
         body = r.get("body_type", "")
 
         if name in used_names:
             continue
-
         if body_counts.get(body, 0) >= 2:
             continue
 
@@ -421,16 +350,12 @@ def pick_diverse_top3(results):
         if len(selected) >= 3:
             return selected
 
-    # 3차: 그래도 부족하면 점수순으로 채움
     for r in results:
         name = r["name"]
-
         if name in used_names:
             continue
-
         selected.append(r)
         used_names.add(name)
-
         if len(selected) >= 3:
             return selected
 
@@ -463,9 +388,7 @@ def generate_reason(monster_name, user):
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             temperature=0.3,
-            messages=[
-                {"role": "user", "content": prompt}
-            ],
+            messages=[{"role": "user", "content": prompt}],
         )
 
         return response.choices[0].message.content.strip()
@@ -474,12 +397,178 @@ def generate_reason(monster_name, user):
         return f"{monster_name}와 전체 분위기가 비슷해요!"
 
 
+def escape_html(text):
+    return str(text).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+
+
+def load_result(result_id: str):
+    path = RESULT_DIR / f"{result_id}.json"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="결과를 찾을 수 없습니다.")
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def get_font(size: int, bold=False):
+    candidates = [
+        "/usr/share/fonts/truetype/noto/NotoSansCJK-Bold.ttc" if bold else "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
+        "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc" if bold else "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    ]
+
+    for path in candidates:
+        if path and os.path.exists(path):
+            return ImageFont.truetype(path, size)
+
+    return ImageFont.load_default()
+
+
+def fetch_monster_image(url):
+    try:
+        res = requests.get(url, timeout=10)
+        res.raise_for_status()
+        img = Image.open(BytesIO(res.content)).convert("RGBA")
+        img.thumbnail((210, 210))
+        return img
+    except Exception:
+        return None
+
+
+def draw_center_text(draw, box, text, font, fill):
+    x1, y1, x2, y2 = box
+    bbox = draw.textbbox((0, 0), text, font=font)
+    w = bbox[2] - bbox[0]
+    h = bbox[3] - bbox[1]
+    x = x1 + ((x2 - x1) - w) / 2
+    y = y1 + ((y2 - y1) - h) / 2
+    draw.text((x, y), text, font=font, fill=fill)
+
+
+def draw_wrapped_text(draw, text, x, y, max_width, font, fill, line_gap=8, max_lines=3):
+    words = list(str(text))
+    lines = []
+    current = ""
+
+    for ch in words:
+        test = current + ch
+        bbox = draw.textbbox((0, 0), test, font=font)
+        if bbox[2] - bbox[0] <= max_width:
+            current = test
+        else:
+            if current:
+                lines.append(current)
+            current = ch
+            if len(lines) >= max_lines:
+                break
+
+    if current and len(lines) < max_lines:
+        lines.append(current)
+
+    for line in lines[:max_lines]:
+        draw.text((x, y), line, font=font, fill=fill)
+        y += font.size + line_gap
+
+
+def make_og_image(data):
+    name = data.get("user_name", "친구")
+    results = data.get("results", [])[:3]
+
+    W, H = 1080, 1080
+    img = Image.new("RGB", (W, H), "#f7f8ff")
+    draw = ImageDraw.Draw(img)
+
+    # background circles
+    draw.ellipse((790, -120, 1220, 310), fill="#dbe6ff")
+    draw.ellipse((-150, 760, 260, 1180), fill="#fff0fb")
+
+    # main card
+    draw.rounded_rectangle((60, 60, 1020, 1020), radius=56, fill="white", outline="#e9ecff", width=6)
+
+    title_font = get_font(54, True)
+    sub_font = get_font(30, True)
+    badge_font = get_font(25, True)
+    rank_font = get_font(28, True)
+    name_font = get_font(30, True)
+    percent_font = get_font(24, True)
+    small_font = get_font(19, False)
+
+    draw.rounded_rectangle((370, 105, 710, 155), radius=25, fill="#6370ff")
+    draw_center_text(draw, (370, 105, 710, 155), "AI Maple Monster Match", badge_font, "white")
+
+    draw_center_text(draw, (80, 185, 1000, 255), f"{name}님의 결과입니다", title_font, "#25243a")
+    draw_center_text(draw, (80, 260, 1000, 310), "닮은 메이플 몬스터 TOP 3", sub_font, "#6c6a83")
+
+    card_w = 292
+    card_h = 560
+    gap = 24
+    start_x = 92
+    y = 350
+
+    for i, m in enumerate(results):
+        x = start_x + i * (card_w + gap)
+        border = "#ffd45a" if i == 0 else "#e5e9ff"
+
+        draw.rounded_rectangle((x, y, x + card_w, y + card_h), radius=38, fill="#f8f9ff", outline=border, width=6 if i == 0 else 3)
+
+        rank_color = "#ff9f3d" if i == 0 else "#6370ff"
+        draw.ellipse((x + 110, y + 24, x + 182, y + 96), fill=rank_color)
+        draw_center_text(draw, (x + 110, y + 24, x + 182, y + 96), f"{i+1}위", rank_font, "white")
+
+        monster_img = fetch_monster_image(m.get("image_url", ""))
+        if monster_img:
+            bx = x + (card_w - monster_img.width) // 2
+            by = y + 125
+            img.paste(monster_img, (bx, by), monster_img)
+        else:
+            draw.rounded_rectangle((x + 58, y + 130, x + 234, y + 306), radius=28, fill="white")
+
+        draw_wrapped_text(
+            draw,
+            m.get("name", "이름 없음"),
+            x + 28,
+            y + 330,
+            card_w - 56,
+            name_font,
+            "#25243a",
+            line_gap=5,
+            max_lines=2
+        )
+
+        draw_center_text(
+            draw,
+            (x + 20, y + 425, x + card_w - 20, y + 465),
+            f"닮은 정도 {m.get('percent', 90)}%",
+            percent_font,
+            "#6370ff"
+        )
+
+        reason = str(m.get("reason", "전체 분위기가 비슷해요!"))[:45]
+        draw_wrapped_text(
+            draw,
+            reason,
+            x + 28,
+            y + 485,
+            card_w - 56,
+            small_font,
+            "#5e5b76",
+            line_gap=5,
+            max_lines=3
+        )
+
+    draw_center_text(draw, (80, 940, 1000, 990), "메이플 몬스터 닮은꼴 테스트 ✨", sub_font, "#25243a")
+
+    out = BytesIO()
+    img.save(out, format="PNG")
+    out.seek(0)
+    return out
+
+
 @app.get("/")
 def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A6 diverse-top3 matching",
+        "mode": "A7 share-og matching",
         "csv_path": CSV_PATH,
         "columns": list(df.columns),
     }
@@ -488,10 +577,7 @@ def home():
 @app.get("/download-v2")
 def download_v2():
     if not os.path.exists("monsters_ai_v2.csv"):
-        raise HTTPException(
-            status_code=404,
-            detail="monsters_ai_v2.csv 파일이 아직 없습니다."
-        )
+        raise HTTPException(status_code=404, detail="monsters_ai_v2.csv 파일이 아직 없습니다.")
 
     return FileResponse(
         "monsters_ai_v2.csv",
@@ -538,11 +624,9 @@ def match_monster(req: MatchRequest):
 
         unique = []
         seen = set()
-
         for r in results:
             if r["name"] in seen:
                 continue
-
             seen.add(r["name"])
             unique.append(r)
 
@@ -572,3 +656,177 @@ def match_monster(req: MatchRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/save-result")
+def save_result(req: SaveResultRequest):
+    result_id = uuid.uuid4().hex[:10]
+
+    safe_name = str(req.user_name).strip()[:12] or "친구"
+
+    data = {
+        "id": result_id,
+        "user_name": safe_name,
+        "analysis": req.analysis,
+        "results": req.results,
+    }
+
+    path = RESULT_DIR / f"{result_id}.json"
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+    return {
+        "id": result_id,
+        "share_url": f"{BASE_URL}/result/{result_id}",
+        "og_image": f"{BASE_URL}/og/{result_id}.png",
+    }
+
+
+@app.get("/og/{result_id}.png")
+def og_image(result_id: str):
+    data = load_result(result_id)
+    image_io = make_og_image(data)
+
+    output_path = RESULT_DIR / f"{result_id}.png"
+    with open(output_path, "wb") as f:
+        f.write(image_io.getvalue())
+
+    return FileResponse(
+        output_path,
+        media_type="image/png",
+        filename=f"{result_id}.png"
+    )
+
+
+@app.get("/result/{result_id}", response_class=HTMLResponse)
+def result_page(result_id: str):
+    data = load_result(result_id)
+
+    user_name = escape_html(data.get("user_name", "친구"))
+    results = data.get("results", [])
+    top_name = escape_html(results[0].get("name", "메이플 몬스터")) if results else "메이플 몬스터"
+
+    title = f"{user_name}님의 메이플 몬스터 결과"
+    desc = f"1위는 {top_name}! 닮은 메이플 몬스터 TOP3를 확인해보세요."
+    image_url = f"{BASE_URL}/og/{result_id}.png"
+    page_url = f"{BASE_URL}/result/{result_id}"
+
+    cards = ""
+    for idx, m in enumerate(results[:3]):
+        cards += f"""
+        <div class="card {'top' if idx == 0 else ''}">
+          <div class="rank">{idx + 1}위</div>
+          <img src="{escape_html(m.get('image_url', ''))}" />
+          <h2>{escape_html(m.get('name', '이름 없음'))}</h2>
+          <b>닮은 정도 {m.get('percent', 90)}%</b>
+          <p>{escape_html(m.get('reason', '전체 분위기가 비슷해요!'))}</p>
+        </div>
+        """
+
+    html = f"""
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>{title}</title>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{title}" />
+  <meta property="og:description" content="{desc}" />
+  <meta property="og:image" content="{image_url}" />
+  <meta property="og:url" content="{page_url}" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{title}" />
+  <meta name="twitter:description" content="{desc}" />
+  <meta name="twitter:image" content="{image_url}" />
+
+  <style>
+    body {{
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg,#f7f8ff,#fff4fb);
+      font-family: Arial, sans-serif;
+      color: #25243a;
+      padding: 30px 16px;
+    }}
+    .wrap {{
+      max-width: 760px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 30px;
+      padding: 26px;
+      box-shadow: 0 20px 60px rgba(74,86,160,.18);
+      text-align: center;
+    }}
+    h1 {{
+      font-size: 30px;
+      margin: 12px 0 8px;
+    }}
+    .desc {{
+      color: #6c6a83;
+      margin-bottom: 24px;
+    }}
+    .card {{
+      border: 2px solid #e7eaff;
+      border-radius: 24px;
+      padding: 22px;
+      margin: 16px 0;
+      background: #fafbff;
+    }}
+    .card.top {{
+      border-color: #ffd45a;
+      box-shadow: 0 12px 32px rgba(255,191,38,.22);
+    }}
+    .rank {{
+      display: inline-block;
+      background: linear-gradient(135deg,#6370ff,#9b5cff);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 900;
+    }}
+    .top .rank {{
+      background: linear-gradient(135deg,#ffbd2f,#ff8f3d);
+    }}
+    img {{
+      width: 170px;
+      height: 170px;
+      object-fit: contain;
+      display: block;
+      margin: 16px auto;
+      background: white;
+      border-radius: 20px;
+    }}
+    h2 {{
+      margin: 8px 0;
+    }}
+    p {{
+      color: #5e5b76;
+      line-height: 1.55;
+    }}
+    a {{
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 20px;
+      border-radius: 16px;
+      background: linear-gradient(135deg,#6370ff,#9b5cff);
+      color: white;
+      text-decoration: none;
+      font-weight: 900;
+    }}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>{title} 💌</h1>
+    <p class="desc">닮은 메이플 몬스터 TOP 3</p>
+    {cards}
+    <a href="{FRONTEND_URL}">나도 테스트하기</a>
+  </div>
+</body>
+</html>
+"""
+    return HTMLResponse(content=html)
