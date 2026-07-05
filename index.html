@@ -571,51 +571,63 @@
     }
 
     async function shareResult() {
-      const nameInput = document.getElementById("userName");
-      const name = nameInput && nameInput.value.trim() ? nameInput.value.trim() : "친구";
-      const monsters = window.lastResults || [];
+  const nameInput = document.getElementById("userName");
+  const name = nameInput && nameInput.value.trim() ? nameInput.value.trim() : "친구";
+  const monsters = window.lastResults || [];
 
-      if (monsters.length === 0) {
-        alert("먼저 결과를 분석해줘!");
-        return;
-      }
+  if (monsters.length === 0) {
+    alert("먼저 결과를 분석해줘!");
+    return;
+  }
 
-      try {
-        const response = await fetch(SAVE_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            user_name: name,
-            analysis: window.lastAnalysis || {},
-            results: monsters
-          }),
-        });
+  try {
+    const response = await fetch(SAVE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_name: name,
+        analysis: window.lastAnalysis || {},
+        results: monsters
+      }),
+    });
 
-        const data = await response.json();
+    const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error(data.detail || "공유 링크 생성 실패");
-        }
-
-        const shareUrl = data.share_url;
-        const shareText = `${name}님의 메이플 몬스터 닮은꼴 결과입니다!\n${shareUrl}`;
-
-        if (navigator.share) {
-          await navigator.share({
-            title: `${name}님의 메이플 몬스터 결과`,
-            text: shareText,
-            url: shareUrl
-          });
-        } else {
-          await navigator.clipboard.writeText(shareUrl);
-          alert("공유 링크가 복사됐어! 카톡에 붙여넣으면 돼.");
-        }
-
-      } catch (e) {
-        console.error(e);
-        alert("공유 링크 생성 실패 😭");
-      }
+    if (!response.ok) {
+      throw new Error(data.detail || "공유 링크 생성 실패");
     }
+
+    const shareUrl = data.share_url;
+
+    const top1 = monsters[0]?.name || "메이플 몬스터";
+    const top2 = monsters[1]?.name || "";
+    const top3 = monsters[2]?.name || "";
+
+    const shareMessage =
+`${name}님의 메이플 몬스터 닮은꼴 결과가 도착했어요! 🎉
+
+🥇 ${top1}
+🥈 ${top2}
+🥉 ${top3}
+
+결과 확인하기 👇
+${shareUrl}`;
+
+    if (navigator.share) {
+      await navigator.share({
+        title: `${name}님의 메이플 몬스터 결과`,
+        text: shareMessage
+      });
+    } else {
+      await navigator.clipboard.writeText(shareMessage);
+      alert("공유 문구가 복사됐어! 카톡에 붙여넣으면 돼.");
+    }
+
+  } catch (e) {
+    console.error(e);
+    alert("공유 링크 생성 실패 😭");
+  }
+}
 
     function escapeHtml(value) {
       return String(value)
