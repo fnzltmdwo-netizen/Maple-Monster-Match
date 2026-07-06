@@ -58,16 +58,8 @@ TAG_CATEGORIES = {
 }
 
 DNA_KEYS = [
-    "human_like",
-    "animal_like",
-    "blob_like",
-    "ghost_like",
-    "object_like",
-    "plant_like",
-    "cute_level",
-    "dark_level",
-    "power_level",
-    "energy",
+    "human_like", "animal_like", "blob_like", "ghost_like", "object_like", "plant_like",
+    "cute_level", "dark_level", "power_level", "energy"
 ]
 
 BLOCKED_NAME_KEYWORDS = ["코-크", "코크", "Coke", "coke"]
@@ -127,16 +119,7 @@ def normalize_category_tag(value, category, default):
 
 def tags_from_row(row):
     tags = []
-    for col in [
-        "shape_tag",
-        "eye_tag",
-        "expression_tag",
-        "species_tag",
-        "mood_tag",
-        "color_tag",
-        "size_tag",
-        "feature_tag",
-    ]:
+    for col in ["shape_tag", "eye_tag", "expression_tag", "species_tag", "mood_tag", "color_tag", "size_tag", "feature_tag"]:
         value = get_value(row, [col], "")
         if value:
             tags.append(value)
@@ -166,9 +149,7 @@ def cosine_similarity(v1, v2):
 
 
 def tag_score(user_tags, monster_tags):
-    user_set = set(user_tags)
-    monster_set = set(monster_tags)
-    common = list(user_set & monster_set)
+    common = list(set(user_tags) & set(monster_tags))
     return len(common), common
 
 
@@ -204,12 +185,10 @@ def analyze_user_image(image_base64: str):
   "ghost_like": 0,
   "object_like": 0,
   "plant_like": 0,
-
   "cute_level": 7,
   "dark_level": 2,
   "power_level": 4,
   "energy": 5,
-
   "shape_tag": "round",
   "eye_tag": "small-eye",
   "expression_tag": "gentle",
@@ -218,7 +197,6 @@ def analyze_user_image(image_base64: str):
   "color_tag": "mixed-color",
   "size_tag": "medium",
   "feature_tag": "npc-like",
-
   "description": "차분하고 부드러운 인상의 캐릭터 느낌"
 }}
 """
@@ -231,10 +209,7 @@ def analyze_user_image(image_base64: str):
                 "role": "user",
                 "content": [
                     {"type": "text", "text": prompt},
-                    {
-                        "type": "image_url",
-                        "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"},
-                    },
+                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"}},
                 ],
             }
         ],
@@ -265,14 +240,8 @@ def analyze_user_image(image_base64: str):
     }
 
     result["match_tags"] = [
-        result["shape_tag"],
-        result["eye_tag"],
-        result["expression_tag"],
-        result["species_tag"],
-        result["mood_tag"],
-        result["color_tag"],
-        result["size_tag"],
-        result["feature_tag"],
+        result["shape_tag"], result["eye_tag"], result["expression_tag"], result["species_tag"],
+        result["mood_tag"], result["color_tag"], result["size_tag"], result["feature_tag"],
     ]
 
     return result
@@ -302,25 +271,89 @@ def score_monster(user, row, image_hash):
     if user.get("mood_tag") == get_value(row, ["mood_tag"], ""):
         score += 5
 
+    species_tag = get_value(row, ["species_tag"], "")
     object_like = get_float(row, ["object_like"], 0)
     plant_like = get_float(row, ["plant_like"], 0)
-    species_tag = get_value(row, ["species_tag"], "")
 
     if species_tag in ["object", "plant", "fish", "insect"] and user.get("species_tag") == "human":
         score -= 8
-
     if object_like >= 8:
         score -= 5
-
     if plant_like >= 8 and user.get("plant_like", 0) < 5:
         score -= 5
-
     if "render-risk" in monster_tags:
         score -= 20
 
     score += stable_tiebreaker(image_hash, name) * 1.5
 
     return round(score, 4), round(dna_sim, 4), common_tags, monster_tags
+
+
+def final_gpt_judge(image_base64, candidates):
+    try:
+        content = [
+            {
+                "type": "text",
+                "text": """
+너는 메이플 몬스터 닮은꼴 최종 심사위원이야.
+
+사람 사진 1장과 후보 몬스터 이미지를 보고 가장 닮은 몬스터 TOP 3를 골라줘.
+
+중요:
+- 신원/성별/나이 추정 금지
+- 외모 비하 금지
+- 반드시 후보 목록 안에서만 선택
+- 이름은 후보 목록의 몬스터명을 정확히 그대로 사용
+- JSON만 출력
+
+출력 형식:
+{
+  "top3": [
+    {"name": "몬스터명", "reason": "짧은 이유"},
+    {"name": "몬스터명", "reason": "짧은 이유"},
+    {"name": "몬스터명", "reason": "짧은 이유"}
+  ]
+}
+"""
+            },
+            {"type": "text", "text": "사람 사진:"},
+            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"}},
+            {"type": "text", "text": "후보 몬스터 목록:"},
+        ]
+
+        for i, c in enumerate(candidates[:20], start=1):
+            content.append({"type": "text", "text": f"{i}. {c['name']}"})
+            if c.get("image_url"):
+                content.append({"type": "image_url", "image_url": {"url": c["image_url"]}})
+
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            temperature=0.2,
+            messages=[{"role": "user", "content": content}],
+        )
+
+        judged = safe_json(response.choices[0].message.content)
+
+        final = []
+        used = set()
+
+        for item in judged.get("top3", []):
+            name = item.get("name")
+            reason = item.get("reason", "")
+
+            for c in candidates:
+                if c["name"] == name and name not in used:
+                    copied = dict(c)
+                    copied["reason"] = reason or c.get("reason", "")
+                    final.append(copied)
+                    used.add(name)
+                    break
+
+        return final[:3]
+
+    except Exception as e:
+        print("A10 judge failed:", e)
+        return []
 
 
 def add_percent(results):
@@ -331,7 +364,6 @@ def add_percent(results):
 
     for index, r in enumerate(results):
         base = int((r["score"] / max_score) * 96)
-
         if index == 0:
             r["percent"] = max(90, min(base, 98))
         elif index == 1:
@@ -353,26 +385,20 @@ def pick_diverse_top3(results):
     for r in results[1:]:
         if r["name"] in used:
             continue
-
         species = r.get("species_tag", "")
-
         if species_count.get(species, 0) >= 2:
             continue
-
         selected.append(r)
         used.add(r["name"])
         species_count[species] = species_count.get(species, 0) + 1
-
         if len(selected) >= 3:
             return selected
 
     for r in results[1:]:
         if r["name"] in used:
             continue
-
         selected.append(r)
         used.add(r["name"])
-
         if len(selected) >= 3:
             return selected
 
@@ -418,7 +444,6 @@ def load_result(result_id: str):
     path = RESULT_DIR / f"{result_id}.json"
     if not path.exists():
         raise HTTPException(status_code=404, detail="결과를 찾을 수 없습니다.")
-
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -429,11 +454,9 @@ def get_font(size: int, bold=False):
         "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc" if bold else "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
     ]
-
     for path in candidates:
         if path and os.path.exists(path):
             return ImageFont.truetype(path, size)
-
     return ImageFont.load_default()
 
 
@@ -466,14 +489,12 @@ def draw_wrapped_text(draw, text, x, y, max_width, font, fill, line_gap=8, max_l
     for ch in chars:
         test = current + ch
         bbox = draw.textbbox((0, 0), test, font=font)
-
         if bbox[2] - bbox[0] <= max_width:
             current = test
         else:
             if current:
                 lines.append(current)
             current = ch
-
             if len(lines) >= max_lines:
                 break
 
@@ -511,23 +532,13 @@ def make_og_image(data):
     draw_center_text(draw, (80, 185, 1000, 255), f"{name}님의 결과입니다", title_font, "#25243a")
     draw_center_text(draw, (80, 260, 1000, 310), "닮은 메이플 몬스터 TOP 3", sub_font, "#6c6a83")
 
-    card_w = 292
-    card_h = 560
-    gap = 24
-    start_x = 92
-    y = 350
+    card_w, card_h, gap, start_x, y = 292, 560, 24, 92, 350
 
     for i, m in enumerate(results):
         x = start_x + i * (card_w + gap)
         border = "#ffd45a" if i == 0 else "#e5e9ff"
 
-        draw.rounded_rectangle(
-            (x, y, x + card_w, y + card_h),
-            radius=38,
-            fill="#f8f9ff",
-            outline=border,
-            width=6 if i == 0 else 3,
-        )
+        draw.rounded_rectangle((x, y, x + card_w, y + card_h), radius=38, fill="#f8f9ff", outline=border, width=6 if i == 0 else 3)
 
         rank_color = "#ff9f3d" if i == 0 else "#6370ff"
         draw.ellipse((x + 110, y + 24, x + 182, y + 96), fill=rank_color)
@@ -540,14 +551,7 @@ def make_og_image(data):
             img.paste(monster_img, (bx, by), monster_img)
 
         draw_wrapped_text(draw, m.get("name", "이름 없음"), x + 28, y + 330, card_w - 56, name_font, "#25243a", 5, 2)
-
-        draw_center_text(
-            draw,
-            (x + 20, y + 425, x + card_w - 20, y + 465),
-            f"닮은 정도 {m.get('percent', 90)}%",
-            percent_font,
-            "#6370ff",
-        )
+        draw_center_text(draw, (x + 20, y + 425, x + card_w - 20, y + 465), f"닮은 정도 {m.get('percent', 90)}%", percent_font, "#6370ff")
 
         reason = str(m.get("reason", "전체 분위기가 비슷해요!"))[:45]
         draw_wrapped_text(draw, reason, x + 28, y + 485, card_w - 56, small_font, "#5e5b76", 5, 3)
@@ -565,7 +569,7 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A9 DNA vector matching",
+        "mode": "A10 DNA + GPT final judge",
         "csv_path": CSV_PATH,
         "columns": list(df.columns),
     }
@@ -575,12 +579,7 @@ def home():
 def download_v3():
     if not os.path.exists("monsters_ai_v3.csv"):
         raise HTTPException(status_code=404, detail="monsters_ai_v3.csv 파일이 아직 없습니다.")
-
-    return FileResponse(
-        "monsters_ai_v3.csv",
-        media_type="text/csv",
-        filename="monsters_ai_v3.csv",
-    )
+    return FileResponse("monsters_ai_v3.csv", media_type="text/csv", filename="monsters_ai_v3.csv")
 
 
 @app.post("/match")
@@ -615,18 +614,24 @@ def match_monster(req: MatchRequest):
 
         unique = []
         seen = set()
-
         for r in results:
             if r["name"] in seen:
                 continue
             seen.add(r["name"])
             unique.append(r)
 
-        picked = pick_diverse_top3(unique)
+        candidates = unique[:20]
+
+        picked = final_gpt_judge(image_base64, candidates)
+
+        if not picked:
+            picked = pick_diverse_top3(unique)
+
         picked = add_percent(picked)
 
         for r in picked:
-            r["reason"] = generate_reason(r["name"], user, r.get("common_tags", []))
+            if not r.get("reason"):
+                r["reason"] = generate_reason(r["name"], user, r.get("common_tags", []))
 
         return {
             "image_hash": image_hash,
@@ -663,7 +668,6 @@ def save_result(req: SaveResultRequest):
     }
 
     path = RESULT_DIR / f"{result_id}.json"
-
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -680,7 +684,6 @@ def og_image(result_id: str):
     image_io = make_og_image(data)
 
     output_path = RESULT_DIR / f"{result_id}.png"
-
     with open(output_path, "wb") as f:
         f.write(image_io.getvalue())
 
@@ -704,10 +707,8 @@ def result_page(result_id: str):
     page_url = f"{BASE_URL}/result/{result_id}"
 
     cards = ""
-
     for idx, m in enumerate(results[:3]):
         common = ", ".join(m.get("common_tags", [])[:4])
-
         cards += f"""
         <div class="card {'top' if idx == 0 else ''}">
           <div class="rank">{idx + 1}위</div>
@@ -734,11 +735,6 @@ def result_page(result_id: str):
   <meta property="og:image:width" content="1080" />
   <meta property="og:image:height" content="1080" />
   <meta property="og:url" content="{page_url}" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{title}" />
-  <meta name="twitter:description" content="{desc}" />
-  <meta name="twitter:image" content="{image_url}" />
 
   <style>
     body {{
