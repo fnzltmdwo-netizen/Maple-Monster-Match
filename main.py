@@ -455,15 +455,17 @@ def load_result(result_id: str):
 
 
 def get_font(size: int, bold=False):
-    candidates = [
-        "/usr/share/fonts/truetype/noto/NotoSansCJK-Bold.ttc" if bold else "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
-        "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc" if bold else "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-    ]
-    for path in candidates:
-        if path and os.path.exists(path):
-            return ImageFont.truetype(path, size)
-    return ImageFont.load_default()
+    font_path = (
+        "fonts/NotoSansKR-Bold.ttf"
+        if bold
+        else "fonts/NotoSansKR-Regular.ttf"
+    )
+
+    try:
+        return ImageFont.truetype(font_path, size)
+    except Exception as e:
+        print("Font load failed:", e)
+        return ImageFont.load_default()
 
 
 def fetch_monster_image(url):
