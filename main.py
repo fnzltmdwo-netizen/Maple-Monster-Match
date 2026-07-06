@@ -267,6 +267,17 @@ def download_v3():
         raise HTTPException(status_code=404, detail="monsters_ai_v3.csv 파일이 아직 없습니다.")
     return FileResponse("monsters_ai_v3.csv", media_type="text/csv", filename="monsters_ai_v3.csv")
 
+@app.get("/download-clip")
+def download_clip():
+    if not os.path.exists("monster_clip_vectors.pkl"):
+        raise HTTPException(status_code=404, detail="monster_clip_vectors.pkl 파일이 아직 없습니다.")
+
+    return FileResponse(
+        "monster_clip_vectors.pkl",
+        media_type="application/octet-stream",
+        filename="monster_clip_vectors.pkl",
+    )
+
 @app.post("/clip-match")
 def clip_match(req: MatchRequest):
     try:
