@@ -248,6 +248,17 @@ def make_og_image(data):
     out.seek(0)
     return out
 
+@app.get("/download-clip")
+def download_clip():
+    if not os.path.exists("monster_clip_vectors.pkl"):
+        raise HTTPException(status_code=404, detail="monster_clip_vectors.pkl 파일이 아직 없습니다.")
+
+    return FileResponse(
+        "monster_clip_vectors.pkl",
+        media_type="application/octet-stream",
+        filename="monster_clip_vectors.pkl",
+    )
+
 @app.get("/")
 def home():
     return {
