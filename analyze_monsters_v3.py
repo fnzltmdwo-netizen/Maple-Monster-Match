@@ -20,7 +20,7 @@ OUTPUT_CSV = "monsters_ai_v3.csv"
 
 # 샘플 테스트는 30
 # 전체 분석할 때는 None
-LIMIT = 30
+LIMIT = None
 
 SLEEP_SECONDS = 1.2
 MAX_RETRIES = 3
