@@ -321,7 +321,8 @@ def final_gpt_judge(image_base64, candidates):
             {"type": "text", "text": "후보 몬스터 목록:"},
         ]
 
-        for i, c in enumerate(candidates[:20], start=1):
+        # 429 완화용: 후보 8마리만 최종 심사에 사용
+        for i, c in enumerate(candidates[:8], start=1):
             content.append({"type": "text", "text": f"{i}. {c['name']}"})
             if c.get("image_url"):
                 content.append({"type": "image_url", "image_url": {"url": c["image_url"]}})
@@ -569,7 +570,7 @@ def home():
     return {
         "message": "Maple Monster Match API is running!",
         "monster_count": len(df),
-        "mode": "A10 DNA + GPT final judge",
+        "mode": "A10-lite DNA + GPT judge 8",
         "csv_path": CSV_PATH,
         "columns": list(df.columns),
     }
@@ -620,8 +621,8 @@ def match_monster(req: MatchRequest):
             seen.add(r["name"])
             unique.append(r)
 
-        candidates = unique[:20]
-
+        # 429 완화용: 후보 8마리만 GPT 최종심사에 사용
+        candidates = unique[:8]
         picked = final_gpt_judge(image_base64, candidates)
 
         if not picked:
