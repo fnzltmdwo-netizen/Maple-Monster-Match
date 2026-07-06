@@ -19,7 +19,7 @@ OUTPUT_CSV = "monsters_ai_v3.csv"
 
 # 처음엔 30개만 테스트 추천
 # 전체 돌릴 때는 None으로 바꾸면 됨
-LIMIT = 30
+LIMIT = None
 
 SLEEP_SECONDS = 1.2
 MAX_RETRIES = 3
