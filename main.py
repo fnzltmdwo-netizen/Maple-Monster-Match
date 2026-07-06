@@ -661,6 +661,16 @@ def download_v2():
         filename="monsters_ai_v2.csv",
     )
 
+@app.get("/download-v3")
+def download_v3():
+    if not os.path.exists("monsters_ai_v3.csv"):
+        raise HTTPException(status_code=404, detail="monsters_ai_v3.csv 파일이 아직 없습니다.")
+
+    return FileResponse(
+        "monsters_ai_v3.csv",
+        media_type="text/csv",
+        filename="monsters_ai_v3.csv"
+    )
 
 @app.post("/match")
 def match_monster(req: MatchRequest):
