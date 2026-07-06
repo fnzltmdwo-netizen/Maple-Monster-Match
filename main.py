@@ -62,7 +62,12 @@ DNA_KEYS = [
     "cute_level", "dark_level", "power_level", "energy"
 ]
 
-BLOCKED_NAME_KEYWORDS = ["코-크", "코크", "Coke", "coke"]
+BLOCKED_NAME_KEYWORDS = [
+    "코-크", "코크", "Coke", "coke",
+    "로미오",
+    "핀호브",
+    "프릴드",
+]
 
 
 def clean_base64(image_base64: str):
