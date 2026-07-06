@@ -3,6 +3,7 @@ import json
 import time
 import re
 from io import BytesIO
+import base64
 
 import pandas as pd
 import requests
@@ -17,8 +18,8 @@ INPUT_CSV_CANDIDATES = [
 
 OUTPUT_CSV = "monsters_ai_v3.csv"
 
-# 먼저 30개만 테스트
-# 전체 분석할 때는 None으로 변경
+# 샘플 테스트는 30
+# 전체 분석할 때는 None
 LIMIT = 30
 
 SLEEP_SECONDS = 1.2
@@ -27,113 +28,36 @@ MAX_RETRIES = 3
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
-TAG_VOCAB = [
-    # face
-    "round",
-    "square",
-    "sharp",
-    "long",
-    "small-face",
-    "wide-face",
-    "no-face",
+TAG_CATEGORIES = {
+    "shape_tag": [
+        "round", "square", "sharp", "long", "small-face", "wide-face", "no-face"
+    ],
+    "eye_tag": [
+        "big-eye", "small-eye", "sharp-eye", "sleepy-eye", "simple-eye", "angry-eye", "no-eye"
+    ],
+    "expression_tag": [
+        "happy", "gentle", "blank", "angry", "playful", "mysterious", "scary", "sleepy"
+    ],
+    "species_tag": [
+        "human", "animal", "blob", "ghost", "object", "plant", "fish", "insect", "mixed-body"
+    ],
+    "mood_tag": [
+        "cute", "cool", "dark", "bright", "soft", "hard", "wild", "calm", "elegant", "magic", "strong", "weak"
+    ],
+    "color_tag": [
+        "green", "blue", "red", "yellow", "purple", "brown", "white", "black", "gray", "pink", "orange", "mixed-color"
+    ],
+    "size_tag": [
+        "tiny", "small", "medium", "large", "huge", "chubby", "thin", "tall", "short"
+    ],
+    "feature_tag": [
+        "fluffy", "jelly", "wood", "stone", "metal", "fire", "ice", "water", "poison",
+        "shadow", "baby-like", "monster-like", "warrior", "mage", "forest", "robot",
+        "undead", "pet-like", "boss-like", "npc-like", "render-risk"
+    ],
+}
 
-    # eyes
-    "big-eye",
-    "small-eye",
-    "sharp-eye",
-    "sleepy-eye",
-    "simple-eye",
-    "angry-eye",
-    "no-eye",
-
-    # expression
-    "happy",
-    "gentle",
-    "blank",
-    "angry",
-    "playful",
-    "mysterious",
-    "scary",
-    "sleepy",
-
-    # body/species
-    "human",
-    "animal",
-    "blob",
-    "ghost",
-    "object",
-    "plant",
-    "fish",
-    "insect",
-    "mixed-body",
-
-    # mood
-    "cute",
-    "cool",
-    "dark",
-    "bright",
-    "soft",
-    "hard",
-    "wild",
-    "calm",
-    "elegant",
-    "magic",
-    "strong",
-    "weak",
-
-    # colors
-    "green",
-    "blue",
-    "red",
-    "yellow",
-    "purple",
-    "brown",
-    "white",
-    "black",
-    "gray",
-    "pink",
-    "orange",
-    "mixed-color",
-
-    # size / silhouette
-    "tiny",
-    "small",
-    "medium",
-    "large",
-    "huge",
-    "chubby",
-    "thin",
-    "round-body",
-    "tall",
-    "short",
-
-    # texture / visual
-    "fluffy",
-    "jelly",
-    "wood",
-    "stone",
-    "metal",
-    "fire",
-    "ice",
-    "water",
-    "poison",
-    "shadow",
-
-    # character archetype
-    "baby-like",
-    "monster-like",
-    "warrior",
-    "mage",
-    "forest",
-    "robot",
-    "undead",
-    "pet-like",
-    "boss-like",
-    "npc-like",
-
-    # render quality
-    "render-risk",
-]
+ALL_TAGS = sorted({tag for tags in TAG_CATEGORIES.values() for tag in tags})
 
 
 COLUMNS = [
@@ -159,6 +83,15 @@ COLUMNS = [
     "dark_level",
     "power_level",
     "energy",
+
+    "shape_tag",
+    "eye_tag",
+    "expression_tag",
+    "species_tag",
+    "mood_tag",
+    "color_tag",
+    "size_tag",
+    "feature_tag",
 
     "match_tags",
     "match_note",
@@ -201,24 +134,20 @@ def download_image(image_url):
 
 
 def image_bytes_to_base64(image_bytes):
-    import base64
     return base64.b64encode(image_bytes).decode("utf-8")
 
 
 def clean_json_text(text):
     text = text.strip()
     text = re.sub(r"```json|```", "", text).strip()
-
     match = re.search(r"\{.*\}", text, re.S)
     if match:
         text = match.group(0)
-
     return text
 
 
 def parse_json(text):
-    cleaned = clean_json_text(text)
-    return json.loads(cleaned)
+    return json.loads(clean_json_text(text))
 
 
 def normalize_score(value, default=5):
@@ -236,35 +165,34 @@ def normalize_choice(value, allowed, default):
     return default
 
 
-def normalize_tags(tags):
-    if not isinstance(tags, list):
-        tags = []
-
-    cleaned = []
-    vocab_set = set(TAG_VOCAB)
-
-    for tag in tags:
-        tag = str(tag).strip().lower()
-        if tag in vocab_set and tag not in cleaned:
-            cleaned.append(tag)
-
-    return cleaned[:8]
+def normalize_category_tag(value, category, default):
+    value = str(value).strip().lower()
+    allowed = TAG_CATEGORIES[category]
+    if value in allowed:
+        return value
+    return default
 
 
-def fill_missing_tags(tags, analysis):
-    tags = list(tags)
-
-    def add(tag):
-        if tag in TAG_VOCAB and tag not in tags and len(tags) < 8:
-            tags.append(tag)
-
+def auto_tag_fallback(analysis):
     face_shape = str(analysis.get("face_shape", "")).lower()
     eye_style = str(analysis.get("eye_style", "")).lower()
     expression = str(analysis.get("expression", "")).lower()
     body_type = str(analysis.get("body_type", "")).lower()
     color_tone = str(analysis.get("color_tone", "")).lower()
 
-    face_map = {
+    cute = normalize_score(analysis.get("cute_level"), 5)
+    dark = normalize_score(analysis.get("dark_level"), 3)
+    power = normalize_score(analysis.get("power_level"), 4)
+    energy = normalize_score(analysis.get("energy"), 5)
+
+    human_like = normalize_score(analysis.get("human_like"), 0)
+    animal_like = normalize_score(analysis.get("animal_like"), 0)
+    blob_like = normalize_score(analysis.get("blob_like"), 0)
+    ghost_like = normalize_score(analysis.get("ghost_like"), 0)
+    object_like = normalize_score(analysis.get("object_like"), 0)
+    plant_like = normalize_score(analysis.get("plant_like"), 0)
+
+    shape_map = {
         "round": "round",
         "square": "square",
         "sharp": "sharp",
@@ -284,23 +212,38 @@ def fill_missing_tags(tags, analysis):
         "none": "no-eye",
     }
 
-    body_map = {
-        "humanoid": "human",
-        "animal": "animal",
-        "blob": "blob",
-        "ghost": "ghost",
-        "object": "object",
-        "plant": "plant",
-        "fish": "fish",
-        "insect": "insect",
-        "mixed": "mixed-body",
+    species_scores = {
+        "human": human_like,
+        "animal": animal_like,
+        "blob": blob_like,
+        "ghost": ghost_like,
+        "object": object_like,
+        "plant": plant_like,
     }
+    species_tag = max(species_scores, key=species_scores.get)
+    if max(species_scores.values()) <= 2:
+        species_tag = "mixed-body"
+
+    if dark >= 7:
+        mood_tag = "dark"
+    elif power >= 8:
+        mood_tag = "strong"
+    elif cute >= 8:
+        mood_tag = "cute"
+    elif energy >= 8:
+        mood_tag = "wild"
+    elif energy <= 3:
+        mood_tag = "calm"
+    elif human_like >= 7:
+        mood_tag = "elegant"
+    else:
+        mood_tag = "soft"
 
     color_map = {
         "warm": "orange",
         "cool": "blue",
-        "dark": "dark",
-        "bright": "bright",
+        "dark": "black",
+        "bright": "white",
         "green": "green",
         "blue": "blue",
         "red": "red",
@@ -309,75 +252,68 @@ def fill_missing_tags(tags, analysis):
         "mixed": "mixed-color",
     }
 
-    add(face_map.get(face_shape, "round"))
-    add(eye_map.get(eye_style, "simple-eye"))
-    add(expression if expression in TAG_VOCAB else "blank")
-    add(body_map.get(body_type, "mixed-body"))
-    add(color_map.get(color_tone, "mixed-color"))
+    if blob_like >= 7:
+        feature_tag = "jelly"
+    elif plant_like >= 7:
+        feature_tag = "forest"
+    elif ghost_like >= 7:
+        feature_tag = "shadow"
+    elif animal_like >= 7:
+        feature_tag = "pet-like"
+    elif human_like >= 7:
+        feature_tag = "npc-like"
+    elif object_like >= 7:
+        feature_tag = "metal"
+    else:
+        feature_tag = "monster-like"
 
-    cute = normalize_score(analysis.get("cute_level"), 5)
-    dark = normalize_score(analysis.get("dark_level"), 3)
-    power = normalize_score(analysis.get("power_level"), 4)
-    energy = normalize_score(analysis.get("energy"), 5)
+    if power >= 8:
+        size_tag = "large"
+    elif cute >= 8:
+        size_tag = "small"
+    elif blob_like >= 7:
+        size_tag = "chubby"
+    else:
+        size_tag = "medium"
 
-    if cute >= 7:
-        add("cute")
-    if dark >= 6:
-        add("dark")
-    if power >= 7:
-        add("strong")
-    if energy >= 7:
-        add("wild")
-    if energy <= 3:
-        add("calm")
-
-    if normalize_score(analysis.get("blob_like"), 0) >= 7:
-        add("soft")
-    if normalize_score(analysis.get("animal_like"), 0) >= 7:
-        add("pet-like")
-    if normalize_score(analysis.get("plant_like"), 0) >= 7:
-        add("forest")
-    if normalize_score(analysis.get("ghost_like"), 0) >= 7:
-        add("mysterious")
-
-    while len(tags) < 8:
-        add("monster-like")
-        add("medium")
-        add("mixed-color")
-        add("blank")
-        if len(tags) >= 8:
-            break
-
-    return tags[:8]
+    return {
+        "shape_tag": shape_map.get(face_shape, "round"),
+        "eye_tag": eye_map.get(eye_style, "simple-eye"),
+        "expression_tag": expression if expression in TAG_CATEGORIES["expression_tag"] else "blank",
+        "species_tag": species_tag,
+        "mood_tag": mood_tag,
+        "color_tag": color_map.get(color_tone, "mixed-color"),
+        "size_tag": size_tag,
+        "feature_tag": feature_tag,
+    }
 
 
 def analyze_monster_with_gpt(name, image_url, image_base64):
-    tag_vocab_text = ", ".join(TAG_VOCAB)
+    vocab_text = json.dumps(TAG_CATEGORIES, ensure_ascii=False, indent=2)
 
     prompt = f"""
-너는 메이플스토리 몬스터 이미지를 보고, 실제 사람 사진과 닮은꼴 매칭을 하기 위한
-'몬스터 캐릭터 DNA'를 만드는 분석기야.
+너는 메이플스토리 몬스터 이미지를 보고, 실제 사람 사진과 닮은꼴 매칭을 위한
+'몬스터 DNA'를 만드는 분석기야.
 
 분석 대상 몬스터 이름: {name}
 
 중요 규칙:
-- 아래 JSON만 출력해.
-- 설명 문장 없이 JSON만 출력해.
+- JSON만 출력해.
 - 모든 수치 점수는 0~10 정수.
-- match_tags는 반드시 제공된 태그 사전에서만 골라.
-- match_tags는 정확히 8개.
-- match_tags 중복 금지.
-- 태그 사전에 없는 단어 절대 사용 금지.
-- 실제 게임 강함이 아니라 사진 닮은꼴 매칭용 시각적/분위기 특성 기준으로 판단해.
-- 콜라보/이벤트/검정 배경/렌더링 문제가 있어 보이면 match_tags에 render-risk 포함.
-- 사람형이면 human, npc-like, mage, warrior, elegant 같은 태그를 적극 사용.
-- 말랑하거나 동그란 몬스터면 blob, jelly, soft, round-body 같은 태그를 적극 사용.
-- 동물형이면 animal, wild, pet-like, sharp-eye 같은 태그를 적극 사용.
-- 식물/나무형이면 plant, forest, wood 태그를 적극 사용.
-- 유령/어둠 계열이면 ghost, dark, mysterious, shadow 태그를 적극 사용.
+- 태그는 반드시 아래 카테고리별 태그 사전에서만 선택해.
+- 각 태그 카테고리마다 정확히 1개씩 선택해.
+- 총 8개 카테고리 태그를 모두 채워.
+- 카테고리에 없는 태그 절대 사용 금지.
+- 실제 게임 강함이 아니라 사람 사진 닮은꼴 매칭용 시각적/분위기 기준으로 판단해.
+- 콜라보/이벤트/검정 배경/렌더링 문제가 있어 보이면 feature_tag에 render-risk를 사용해.
+- 사람형이면 species_tag는 human, feature_tag는 npc-like/mage/warrior 중 적절히 선택.
+- 말랑하고 둥근 몬스터면 species_tag는 blob, feature_tag는 jelly.
+- 식물/나무형이면 species_tag는 plant, feature_tag는 wood 또는 forest.
+- 동물형이면 species_tag는 animal, feature_tag는 pet-like.
+- 유령/어둠 계열이면 species_tag는 ghost, feature_tag는 shadow 또는 undead.
 
-사용 가능한 match_tags 태그 사전:
-{tag_vocab_text}
+태그 사전:
+{vocab_text}
 
 선택지:
 face_shape: round, square, sharp, long, small, wide, none
@@ -386,7 +322,7 @@ expression: gentle, happy, angry, blank, sleepy, playful, scary, mysterious, non
 body_type: humanoid, animal, blob, ghost, object, plant, fish, insect, mixed
 color_tone: warm, cool, dark, bright, green, blue, red, yellow, neutral, mixed
 
-JSON 형식:
+출력 JSON:
 {{
   "face_shape": "round",
   "eye_style": "simple",
@@ -406,7 +342,15 @@ JSON 형식:
   "power_level": 3,
   "energy": 5,
 
-  "match_tags": ["round", "blob", "green", "soft", "cute", "happy", "simple-eye", "jelly"],
+  "shape_tag": "round",
+  "eye_tag": "simple-eye",
+  "expression_tag": "happy",
+  "species_tag": "blob",
+  "mood_tag": "cute",
+  "color_tag": "green",
+  "size_tag": "small",
+  "feature_tag": "jelly",
+
   "match_note": "둥글고 말랑한 외형이라 귀엽고 단순한 인상의 사람과 매칭하기 좋음"
 }}
 """
@@ -440,9 +384,27 @@ def make_output_row(original_row, analysis):
     allowed_body = ["humanoid", "animal", "blob", "ghost", "object", "plant", "fish", "insect", "mixed"]
     allowed_color = ["warm", "cool", "dark", "bright", "green", "blue", "red", "yellow", "neutral", "mixed"]
 
-    tags = normalize_tags(analysis.get("match_tags", []))
-    tags = fill_missing_tags(tags, analysis)
-    match_tags = ",".join(tags)
+    fallback = auto_tag_fallback(analysis)
+
+    shape_tag = normalize_category_tag(analysis.get("shape_tag"), "shape_tag", fallback["shape_tag"])
+    eye_tag = normalize_category_tag(analysis.get("eye_tag"), "eye_tag", fallback["eye_tag"])
+    expression_tag = normalize_category_tag(analysis.get("expression_tag"), "expression_tag", fallback["expression_tag"])
+    species_tag = normalize_category_tag(analysis.get("species_tag"), "species_tag", fallback["species_tag"])
+    mood_tag = normalize_category_tag(analysis.get("mood_tag"), "mood_tag", fallback["mood_tag"])
+    color_tag = normalize_category_tag(analysis.get("color_tag"), "color_tag", fallback["color_tag"])
+    size_tag = normalize_category_tag(analysis.get("size_tag"), "size_tag", fallback["size_tag"])
+    feature_tag = normalize_category_tag(analysis.get("feature_tag"), "feature_tag", fallback["feature_tag"])
+
+    match_tags = ",".join([
+        shape_tag,
+        eye_tag,
+        expression_tag,
+        species_tag,
+        mood_tag,
+        color_tag,
+        size_tag,
+        feature_tag,
+    ])
 
     return {
         "name": get_value(original_row, ["name", "monster_name", "몬스터명"]),
@@ -467,6 +429,15 @@ def make_output_row(original_row, analysis):
         "dark_level": normalize_score(analysis.get("dark_level"), 3),
         "power_level": normalize_score(analysis.get("power_level"), 4),
         "energy": normalize_score(analysis.get("energy"), 5),
+
+        "shape_tag": shape_tag,
+        "eye_tag": eye_tag,
+        "expression_tag": expression_tag,
+        "species_tag": species_tag,
+        "mood_tag": mood_tag,
+        "color_tag": color_tag,
+        "size_tag": size_tag,
+        "feature_tag": feature_tag,
 
         "match_tags": match_tags,
         "match_note": str(analysis.get("match_note", "")).strip(),
