@@ -5,3 +5,6 @@ pandas
 requests
 pillow
 openai
+torch
+open_clip_torch
+numpy
