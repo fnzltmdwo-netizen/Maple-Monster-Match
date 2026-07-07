@@ -8,3 +8,4 @@ openai
 torch
 open_clip_torch
 numpy
+python-multipart
