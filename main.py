@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
 
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
@@ -816,6 +817,8 @@ def result_page(result_id: str):
     {cards}
     <a href="{FRONTEND_URL}">나도 테스트하기</a>
   </div>
+
+  app.mount("/static", StaticFiles(directory="static"), name="static")
 </body>
 </html>
 """
