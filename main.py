@@ -24,6 +24,8 @@ import open_clip
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -818,7 +820,6 @@ def result_page(result_id: str):
     <a href="{FRONTEND_URL}">나도 테스트하기</a>
   </div>
 
-  app.mount("/static", StaticFiles(directory="static"), name="static")
 </body>
 </html>
 """
